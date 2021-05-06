@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Instructions from './Instructions'
 import Form from './Form';
 import Selections from './Selections';
@@ -112,7 +111,7 @@ export default class Utterances extends React.Component {
     }
 
     render() {
-        const { context, intents, icons } = this.props;
+        const { context, intents, icons, word } = this.props;
         const { status, utterance, intentsSelections, pendingIntentIndex } = this.state;
         const [selectionStart, selectionEnd] = pendingIntentIndex >= 0 && pendingIntentIndex < intents.length ? intentsSelections[pendingIntentIndex] : [0, 0];
         const progress = this.getProgress();
@@ -127,7 +126,7 @@ export default class Utterances extends React.Component {
                         </div>
                         <div className="col">
                             {status === STATUS.init &&
-                                <Form utterance={utterance} context={context} intents={intents} icons={icons} onSubmit={this.handleSubmitUtterance} />
+                                <Form utterance={utterance} context={context} intents={intents} icons={icons} word={word} onSubmit={this.handleSubmitUtterance} />
                             }
                             {status === STATUS.pendingSelection &&
                                 <Selections utterance={utterance} selectionStart={selectionStart} selectionEnd={selectionEnd} intents={intents} icons={icons} index={pendingIntentIndex} onSubmit={this.handleSelection} onBack={this.handleBack} />
@@ -142,10 +141,3 @@ export default class Utterances extends React.Component {
         );
     }
 }
-
-Utterances.propTypes = {
-    id: PropTypes.string.isRequired,
-    context: PropTypes.string.isRequired,
-    intents: PropTypes.array.isRequired,
-    instructions: PropTypes.string.isRequired,
-};

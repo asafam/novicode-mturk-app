@@ -29,14 +29,19 @@ class Form extends React.Component {
   }
 
   isUtteranceValid() {
-    const { intents } = this.props;
+    const { intents, word } = this.props;
     const { utterance } = this.state;
 
     if (!utterance || utterance.length === 0) {
       return false;
-    } else if (utterance.split(" ").length <= 5) {
+    } else if (utterance.split(" ").length <= 4) {
+      this.setState({ errorMessage: <span>Please write a valid request that includes all the tasks.</span> })
       return false;
     } else if (intents.some(intent => utterance.indexOf(intent) >= 0)) {
+      this.setState({ errorMessage: <span>Please write a valid request in plain English.</span> })
+      return false;
+    } else if (word && word.length > 0 && utterance.indexOf(word) === -1) {
+      this.setState({ errorMessage: <span>Please write a valid request that includes the mandatory word <strong>{word}</strong>.</span> })
       return false;
     } else {
       return true;
@@ -44,8 +49,8 @@ class Form extends React.Component {
   }
 
   render() {
-    const { context, intents, icons } = this.props;
-    const { utterance, valid } = this.state;
+    const { context, intents, icons , word} = this.props;
+    const { utterance, valid, errorMessage } = this.state;
     const disabled = !(utterance && utterance.length > 0);
 
     return (
@@ -70,6 +75,16 @@ class Form extends React.Component {
               </div>
             </div>
           </div>
+
+          {word && word.length > 0 &&
+            <div className="row mb-3">
+              <div className="col">
+                <div className="bd-callout bd-callout-yellow2">
+                <h6>Please include the word <span className="pl-1 pr-1" style={{"fontSize": "2rem"}}>{word}</span> in your request.</h6>
+                </div>
+              </div>
+            </div>
+          }
         </div>
 
         <div className="container">
@@ -84,7 +99,7 @@ class Form extends React.Component {
               </textarea>
               <div id="help" className="form-text text-muted">Remember to use <strong>all the tasks</strong> in your request</div>
               <div className="invalid-feedback">
-                Please write a valid request that includes all the tasks.
+                {errorMessage}
               </div>
             </div>
             <div className="btn-toolbar" role="toolbar">
