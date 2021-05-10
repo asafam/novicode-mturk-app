@@ -37,10 +37,10 @@ class Form extends React.Component {
     } else if (utterance.split(" ").length <= 4) {
       this.setState({ errorMessage: <span>Please write a valid request that includes all the tasks.</span> })
       return false;
-    } else if (intents.some(intent => utterance.indexOf(intent) >= 0)) {
+    } else if (intents.some(intent => utterance.toLowerCase().indexOf(intent.toLowerCase()) >= 0)) {
       this.setState({ errorMessage: <span>Please write a valid request in plain English.</span> })
       return false;
-    } else if (word && word.length > 0 && utterance.indexOf(word) === -1) {
+    } else if (word && word.length > 0 && utterance.toLowerCase().indexOf(` ${word.toLowerCase()}`) === -1) {
       this.setState({ errorMessage: <span>Please write a valid request that includes the mandatory word <strong>{word}</strong>.</span> })
       return false;
     } else {
@@ -80,7 +80,7 @@ class Form extends React.Component {
             <div className="row mb-3">
               <div className="col">
                 <div className="bd-callout bd-callout-yellow2">
-                <h6>Please include the word <span className="pl-1 pr-1" style={{"fontSize": "2rem"}}>{word}</span> in your request.</h6>
+                <h6>Please include the word <span className="pl-1 pr-1" style={{"fontSize": "2rem"}}>{word}</span> to content the tasks in your request.</h6>
                 </div>
               </div>
             </div>

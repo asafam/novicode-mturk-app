@@ -69,13 +69,11 @@ class Selections extends React.Component {
     handleBack(event) {
         event.preventDefault();
 
-        const { index } = this.props;
-        const { selectionStart, selectionEnd } = this.state;
-        this.props.onBack(index, selectionStart, selectionEnd);
+        this.props.onBack();
     }
 
     render() {
-        const { utterance, intents, icons, index } = this.props;
+        const { utterance, intents, index } = this.props;
         const intent = intents[index];
         const { selectionStart, selectionEnd } = this.state;
         // const valid = selected && selectionStart >= 0 && selectionEnd > selectionStart && !errorMessage;
