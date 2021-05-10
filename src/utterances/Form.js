@@ -80,7 +80,7 @@ class Form extends React.Component {
             <div className="row mb-3">
               <div className="col">
                 <div className="bd-callout bd-callout-yellow2">
-                <h6>Please include the word <span className="pl-1 pr-1" style={{"fontSize": "2rem"}}>{word}</span> to content the tasks in your request.</h6>
+                <h6>Please include the word <span className="pl-1 pr-1" style={{"fontSize": "2rem"}}>{word}</span> to conect the tasks in your request.</h6>
                 </div>
               </div>
             </div>
