@@ -49,8 +49,8 @@ class Form extends React.Component {
     } else if (word && word.length > 0 && utterance.toLowerCase().indexOf(` ${word.toLowerCase()}`) === -1) {
       this.setState({ errorMessage: <span>Please write a valid request that includes the mandatory word <strong>{word}</strong>.</span> })
       return false;
-    } else if ((utterance.indexOf("?") >= 0 && utterance.indexOf("?")) < utterance.length || utterance.split("?").length > 1) {
-      this.setState({ errorMessage: <span>Please phrase as a <strong>single</strong> request.</span> })
+    } else if ((utterance.indexOf("?") >= 0 && utterance.indexOf("?") < utterance.length * 0.5) || utterance.split("?").length > 1) {
+      this.setState({ errorMessage: <span>Please phrase the utterance as a <strong>single</strong> request (and not in multiple phrases).</span> })
       return false;
     } else {
       return true;

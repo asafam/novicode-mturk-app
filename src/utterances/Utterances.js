@@ -25,6 +25,7 @@ export default class Utterances extends React.Component {
         };
 
         this.handleSubmitUtterance = this.handleSubmitUtterance.bind(this);
+        this.handlePhraseVerification = this.handlePhraseVerification.bind(this);
         this.handleSelection = this.handleSelection.bind(this);
         this.handleBack = this.handleBack.bind(this);
         this.handleMTurkSubmit = this.handleMTurkSubmit.bind(this);
@@ -75,8 +76,8 @@ export default class Utterances extends React.Component {
         document.querySelector('crowd-form').submit();
     }
 
-    handlePhraseVerification(verification) {
-        const status = verification ? STATUS.pendingSelection : STATUS.init;
+    handlePhraseVerification() {
+        const status = STATUS.pendingSelection;
         this.setState({ status });
     }
 
@@ -116,13 +117,15 @@ export default class Utterances extends React.Component {
     getProgress() {
         const { intents, word } = this.props;
         const { status, pendingIntentIndex } = this.state;
+        const otherStepsCount = 1 + (word ? 1 : 0);
+
         switch (status) {
             case STATUS.init:
                 return 0;
             case STATUS.pendingPhraseVerification:
-            case STATUS.pendingSelection:
-                const otherStepsCount = 1 + (word ? 1 : 0);
                 return 100 * ((1 + pendingIntentIndex) / (intents.length + otherStepsCount));
+            case STATUS.pendingSelection:
+                return 100 * ((2 + pendingIntentIndex) / (intents.length + otherStepsCount));
             case STATUS.end:
                 return 100;
             default:
@@ -142,7 +145,7 @@ export default class Utterances extends React.Component {
                 <div className="container">
                     <div className="row align-items-center" style={{ "height": "550px" }}>
                         <div className="col">
-                            <Instructions instructions={instructions} progress={progress} hideHeader={status === STATUS.selectionSucceed} hideHelp={status === STATUS.selectionSucceed} />
+                            <Instructions instructions={instructions} progress={progress} hideHeader={status === STATUS.end} hideHelp={status === STATUS.end} />
                         </div>
                         <div className="col">
                             {status === STATUS.init &&
@@ -154,7 +157,7 @@ export default class Utterances extends React.Component {
                             {status === STATUS.pendingSelection &&
                                 <Selections utterance={utterance} selectionStart={selectionStart} selectionEnd={selectionEnd} intents={intents} icons={icons} index={pendingIntentIndex} onSubmit={this.handleSelection} onBack={this.handleBack} />
                             }
-                            {status === STATUS.selectionSucceed &&
+                            {status === STATUS.end &&
                                 <ThankYou onSubmit={this.handleMTurkSubmit} onBack={this.handleBack} />
                             }
                         </div>
