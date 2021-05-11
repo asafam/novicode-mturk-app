@@ -1,13 +1,15 @@
 import React from 'react';
 import Instructions from './Instructions'
 import Form from './Form';
+import PhraseVerification from './PhraseVerification';
 import Selections from './Selections';
 import ThankYou from './ThankYou';
 
 const STATUS = {
     init: 0,
-    pendingSelection: 1,
-    selectionSucceed: 2,
+    pendingPhraseVerification: 1,
+    pendingSelection: 2,
+    end: 3
 };
 
 export default class Utterances extends React.Component {
@@ -33,17 +35,27 @@ export default class Utterances extends React.Component {
         const { status, pendingIntentIndex } = this.state;
 
         if (status === STATUS.init) {
-            return [
-                <p className="lead fs-5 d">Your administrative assistance is very smart. Write a request in plain English that will use the given tasks your assistance can do in the provided context.</p>,
-                <p>Try to be as creative as you can, don't be overly formal, simply write in plain English what you would say if you were in the given situation. Click 'Help' to see few examples.</p>
-            ];
+            return (
+                <div>
+                    <p className="lead fs-5 d">Your administrative assistance is very smart. Write a request in plain English that will use the given tasks your assistance can do in the provided context.</p>
+                    <p>Try to be as creative as you can, don't be overly formal, simply write in plain English what you would say if you were in the given situation. Click 'Help' to see few examples.</p>
+                    <p className="bg-warning text-dark text-center p-2 mb-4"><em>The best utterances phrase the tasks in relation to one-another in a <u>single</u> request.</em></p>
+                </div>
+            );
+        } else if (status === STATUS.pendingPhraseVerification) {
+            return (
+                <div>
+                    <p className="lead fs-5 d">Verify your request was written correctly. </p>
+                    <p className="bg-warning text-dark text-center p-2 mb-4"><em>The best utterances phrase the tasks in relation to one-another in a <u>single</u> request.</em></p>
+                </div>
+            );
         } else if (status === STATUS.pendingSelection) {
-            return [
-                <p className="lead fs-5 d">Highlight with your mouse the part in your request that references the following task:</p>,
-                <h5 className="mt-3 mb-4"><span className={`bi bi-${icons[pendingIntentIndex]}`} style={{ "paddingRight": "15px" }} />{intents[pendingIntentIndex]}</h5>
-
-
-            ];
+            return (
+                <div>
+                    <p className="lead fs-5 d">Highlight with your mouse the part in your request that references the following task:</p>
+                    <h5 className="mt-3 mb-4"><span className={`bi bi-${icons[pendingIntentIndex]}`} style={{ "paddingRight": "15px" }} />{intents[pendingIntentIndex]}</h5>
+                </div>
+            );
         } else {
             return ['', '']
                 ;
@@ -61,36 +73,30 @@ export default class Utterances extends React.Component {
             }
         };
         document.querySelector('crowd-form').submit();
-        //         
-        // if (document.querySelector('crowd-form')) {
-        //     document.querySelector('crowd-form').onsubmit = () => {
-        //         if (document.getElementById('utterance')) {
-        //             document.getElementById('utterance').value = utterance;
-        //             document.getElementById('annotations').value = intentsSelections.map(intentSelections => intentSelections.join(", ")).join(" | ");
-        //         }
-        //     };
-        // }
-
-        // if (document.getElementById('submit-button')) {
-        //     document.getElementById('submit-button').onclick = function () {
-        //         document.querySelector('crowd-form').submit();
-        //     };
-        // }
     }
 
-    handleSubmitUtterance(utterance) {
-        this.setState({ utterance, status: STATUS.pendingSelection })
+    handlePhraseVerification(verification) {
+        const status = verification ? STATUS.pendingSelection : STATUS.init;
+        this.setState({ status });
+    }
+
+    handleSubmitUtterance(utterance, hasSconj) {
+        const status = hasSconj ? STATUS.pendingPhraseVerification : STATUS.pendingSelection
+        this.setState({ utterance, status })
     }
 
     handleBack() {
-        const { intentsSelections, pendingIntentIndex } = this.state;
+        const { word } = this.props;
+        const { status, pendingIntentIndex } = this.state;
 
-        let status = STATUS.pendingSelection;
-        if (pendingIntentIndex === 0) {
-            status = STATUS.init;
-        } 
+        let newStatus = STATUS.pendingSelection;
+        if (status === STATUS.pendingSelection && pendingIntentIndex === 0) {
+            newStatus = word && word.length > 0 ? STATUS.pendingPhraseVerification : STATUS.init;
+        } else if (status === STATUS.pendingPhraseVerification) {
+            newStatus = STATUS.init;
+        }
 
-        this.setState({ status, pendingIntentIndex: Math.max(pendingIntentIndex - 1, 0), intentsSelections });
+        this.setState({ status: newStatus, pendingIntentIndex: Math.max(pendingIntentIndex - 1, 0) });
     }
 
     handleSelection(index, selectionStart, selectionEnd, Selectionsuccess) {
@@ -101,21 +107,23 @@ export default class Utterances extends React.Component {
         const { intents } = this.props;
         const allIntentsVerified = intents.every((intent, i) => intentsSelections[i][0] >= 0 && intentsSelections[i][1] > intentsSelections[i][0]);
         if (Selectionsuccess && allIntentsVerified && index === (intents.length - 1)) {
-            status = STATUS.selectionSucceed;
+            status = STATUS.end;
         }
 
         this.setState({ intentsSelections, status, pendingIntentIndex: Math.min(index + 1, intents.length) });
     }
 
     getProgress() {
-        const { intents } = this.props;
+        const { intents, word } = this.props;
         const { status, pendingIntentIndex } = this.state;
         switch (status) {
             case STATUS.init:
                 return 0;
+            case STATUS.pendingPhraseVerification:
             case STATUS.pendingSelection:
-                return 100 * ((1 + pendingIntentIndex) / (intents.length + 1));
-            case STATUS.selectionSucceed:
+                const otherStepsCount = 1 + (word ? 1 : 0);
+                return 100 * ((1 + pendingIntentIndex) / (intents.length + otherStepsCount));
+            case STATUS.end:
                 return 100;
             default:
                 return 0;
@@ -139,6 +147,9 @@ export default class Utterances extends React.Component {
                         <div className="col">
                             {status === STATUS.init &&
                                 <Form utterance={utterance} context={context} intents={intents} icons={icons} word={word} onSubmit={this.handleSubmitUtterance} />
+                            }
+                            {status === STATUS.pendingPhraseVerification &&
+                                <PhraseVerification utterance={utterance} word={word} intents={intents} icons={icons} onSubmit={this.handlePhraseVerification} onBack={this.handleBack} />
                             }
                             {status === STATUS.pendingSelection &&
                                 <Selections utterance={utterance} selectionStart={selectionStart} selectionEnd={selectionEnd} intents={intents} icons={icons} index={pendingIntentIndex} onSubmit={this.handleSelection} onBack={this.handleBack} />

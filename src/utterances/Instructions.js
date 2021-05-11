@@ -5,13 +5,12 @@ const Instructions = ({ instructions, progress, hideHelp, hideHeader }) => {
     return (
         <div className="instructions">
             <div className="container">
-                
+
                 <div className="mx-auto">
-                    {!hideHeader && 
+                    {!hideHeader &&
                         <h4>Instructions</h4>
                     }
-                    <div>{instructions[0]}</div>
-                    <div>{instructions[1]}</div>
+                    <div>{instructions}</div>
                     {!hideHelp &&
                         <Help />
                     }
@@ -23,6 +22,6 @@ const Instructions = ({ instructions, progress, hideHelp, hideHeader }) => {
             </div>
         </div>
     );
-};          
-      
+};
+
 export default Instructions;           

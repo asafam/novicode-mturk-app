@@ -5,7 +5,8 @@ class Form extends React.Component {
     super(props);
 
     this.state = {
-      utterance: props.utterance
+      utterance: props.utterance,
+      maxLength: 250,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -13,16 +14,21 @@ class Form extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({ utterance: event.target.value });
+    const { maxLength } = this.state;
+    const utterance = event.target.value;
+    if (utterance.length <= maxLength) {
+      this.setState({ utterance });
+    }
   }
 
   handleSubmit(event) {
     event.preventDefault();
-
+    const { onSubmit, word } = this.props;
     const { utterance } = this.state;
     const valid = this.isUtteranceValid();
+    const hasSconj = !!word && word.trim().length > 0;
     if (valid) {
-      this.props.onSubmit(utterance);
+      onSubmit(utterance, hasSconj);
     } else {
       this.setState({ valid });
     }
@@ -43,14 +49,17 @@ class Form extends React.Component {
     } else if (word && word.length > 0 && utterance.toLowerCase().indexOf(` ${word.toLowerCase()}`) === -1) {
       this.setState({ errorMessage: <span>Please write a valid request that includes the mandatory word <strong>{word}</strong>.</span> })
       return false;
+    } else if ((utterance.indexOf("?") >= 0 && utterance.indexOf("?")) < utterance.length || utterance.split("?").length > 1) {
+      this.setState({ errorMessage: <span>Please phrase as a <strong>single</strong> request.</span> })
+      return false;
     } else {
       return true;
     }
   }
 
   render() {
-    const { context, intents, icons , word} = this.props;
-    const { utterance, valid, errorMessage } = this.state;
+    const { context, intents, icons, word } = this.props;
+    const { utterance, valid, errorMessage, maxLength } = this.state;
     const disabled = !(utterance && utterance.length > 0);
 
     return (
@@ -80,7 +89,7 @@ class Form extends React.Component {
             <div className="row mb-3">
               <div className="col">
                 <div className="bd-callout bd-callout-yellow2">
-                <h6>Please include the word <span className="pl-1 pr-1" style={{"fontSize": "2rem"}}>{word}</span> to connect the tasks in your request.</h6>
+                  <h6>Please include the word <span className="pl-1 pr-1" style={{ "fontSize": "2rem" }}>{word}</span> to connect the tasks in your request.</h6>
                 </div>
               </div>
             </div>
@@ -97,13 +106,16 @@ class Form extends React.Component {
                 rows="5" value={utterance} type="text" id="utterance" aria-describedby="help"
                 onChange={this.handleChange} placeholder="Type your request here..." required>
               </textarea>
+              <div className={`p-1 m-1 ${(utterance || "").length > maxLength * 0.8 ? 'text-white bg-danger' : ''}`}>
+                {(utterance || "").length} / {maxLength}
+              </div>
               <div id="help" className="form-text text-muted">Remember to use <strong>all the tasks</strong> in your request</div>
               <div className="invalid-feedback">
                 {errorMessage}
               </div>
             </div>
             <div className="btn-toolbar" role="toolbar">
-              <div className="btn-group mr-2" role="group">
+              <div className="btn-group mr-2 mb-3" role="group">
                 <button type="submit" className="btn btn-primary" disabled={disabled}>Submit</button>
               </div>
             </div>
