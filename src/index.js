@@ -11,6 +11,8 @@ const intents = document.getElementById('root').getAttribute('data-intents').spl
 const icons = document.getElementById('root').getAttribute('data-icons').split("|").map(icon => icon.trim());
 const instructions = document.getElementById('root').getAttribute('data-instructions');
 const word = document.getElementById('root').getAttribute('data-word');
+const maxLength = document.getElementById('root').getAttribute('data-max-length');
+const maxLengthPerIntent = document.getElementById('root').getAttribute('data-max-length-per-intent');
 
 console.log("context", document.getElementById('root').getAttribute('data-context'))
 console.log("intents", document.getElementById('root').getAttribute('data-intents'))
@@ -18,7 +20,8 @@ console.log("icons", document.getElementById('root').getAttribute('data-icons'))
 
 ReactDOM.render(
   <React.StrictMode>
-    <App id={id} context={context} intents={intents} icons={icons} instructions={instructions} word={word} />
+    <App id={id} context={context} intents={intents} icons={icons} instructions={instructions} word={word}
+      maxLength={maxLength} maxLengthPerIntent={maxLengthPerIntent} />
   </React.StrictMode>,
   document.getElementById('root')
 );

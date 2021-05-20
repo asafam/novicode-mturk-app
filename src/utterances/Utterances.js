@@ -134,7 +134,7 @@ export default class Utterances extends React.Component {
     }
 
     render() {
-        const { context, intents, icons, word } = this.props;
+        const { context, intents, icons, word, maxLength, maxLengthPerIntent } = this.props;
         const { status, utterance, intentsSelections, pendingIntentIndex } = this.state;
         const [selectionStart, selectionEnd] = pendingIntentIndex >= 0 && pendingIntentIndex < intents.length ? intentsSelections[pendingIntentIndex] : [0, 0];
         const progress = this.getProgress();
@@ -149,7 +149,7 @@ export default class Utterances extends React.Component {
                         </div>
                         <div className="col">
                             {status === STATUS.init &&
-                                <Form utterance={utterance} context={context} intents={intents} icons={icons} word={word} onSubmit={this.handleSubmitUtterance} />
+                                <Form utterance={utterance} context={context} intents={intents} icons={icons} word={word} maxLength={maxLength} maxLengthPerIntent={maxLengthPerIntent} onSubmit={this.handleSubmitUtterance} />
                             }
                             {status === STATUS.pendingPhraseVerification &&
                                 <PhraseVerification utterance={utterance} word={word} intents={intents} icons={icons} onSubmit={this.handlePhraseVerification} onBack={this.handleBack} />
