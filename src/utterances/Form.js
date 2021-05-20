@@ -80,7 +80,7 @@ class Form extends React.Component {
               <div className="bd-callout bd-callout-yellow2">
                 <p className="text-muted">Tasks your assistance can do for you:</p>
                 {intents.map((intent, i) => (
-                  <h4 key={i}><span className={`bi bi-${icons[i]}`} style={{ "paddingRight": "15px" }} />{intent}</h4>
+                  <h5 key={i}><span className={`bi bi-${icons[i]}`} style={{ "paddingRight": "15px" }} />{intent}</h5>
                 ))}
               </div>
             </div>
@@ -90,7 +90,7 @@ class Form extends React.Component {
             <div className="row mb-3">
               <div className="col">
                 <div className="bd-callout bd-callout-yellow2">
-                  <h6>Please include the word <span className="pl-1 pr-1" style={{ "fontSize": "2rem" }}>{word}</span> to connect the tasks in your request.</h6>
+                  <h6>Please include the word <span className="pl-1 pr-1" style={{ "fontSize": "2rem" }}>{word}</span> in your request to link the tasks.</h6>
                 </div>
               </div>
             </div>
