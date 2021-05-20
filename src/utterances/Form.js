@@ -7,7 +7,7 @@ class Form extends React.Component {
     const { utterance, maxLength, maxLengthPerIntent, intents } = props;
     this.state = {
       utterance: utterance,
-      maxLength: maxLength || maxLengthPerIntent * intents.length,
+      maxLength: maxLength || maxLengthPerIntent * intents.length || 250,
     };
 
     this.handleChange = this.handleChange.bind(this);
