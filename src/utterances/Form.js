@@ -107,7 +107,7 @@ class Form extends React.Component {
                 rows="5" value={utterance} type="text" id="utterance" aria-describedby="help"
                 onChange={this.handleChange} placeholder="Type your request here..." required>
               </textarea>
-              <div className={`p-1 m-1 ${(utterance || "").length > maxLength * 0.8 ? 'text-white bg-danger' : ''}`}>
+              <div className={`p-1 m-1 ${(utterance || "").length >= maxLength ? 'text-white bg-danger' : ''}`}>
                 {(utterance || "").length} / {maxLength}
               </div>
               <div id="help" className="form-text text-muted">Remember to use <strong>all the tasks</strong> in your request</div>
