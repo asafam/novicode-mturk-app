@@ -11,8 +11,8 @@ const intents = document.getElementById('root').getAttribute('data-intents').spl
 const icons = document.getElementById('root').getAttribute('data-icons').split("|").map(icon => icon.trim());
 const instructions = document.getElementById('root').getAttribute('data-instructions');
 const word = document.getElementById('root').getAttribute('data-word');
-const maxLength = document.getElementById('root').getAttribute('data-max-length');
-const maxLengthPerIntent = document.getElementById('root').getAttribute('data-max-length-per-intent');
+const maxLength = parseInt(document.getElementById('root').getAttribute('data-max-length'));
+const maxLengthPerIntent = parseInt(document.getElementById('root').getAttribute('data-max-length-per-intent'));
 
 console.log("context", document.getElementById('root').getAttribute('data-context'))
 console.log("intents", document.getElementById('root').getAttribute('data-intents'))
