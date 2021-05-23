@@ -30,7 +30,7 @@ class PhraseVerification extends React.Component {
     render() {
         const { intents, icons, linkWord } = this.props;
         const { tasksVerification, linkWordVerification } = this.state;
-        const disabled = !tasksVerification || !linkWordVerification;
+        const disabled = !tasksVerification || (linkWord && linkWord.length > 0 && !linkWordVerification);
 
         return (
             <div className="phrase-verification">
