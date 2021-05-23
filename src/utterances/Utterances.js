@@ -148,7 +148,7 @@ export default class Utterances extends React.Component {
             case STATUS.utteranceVerification:
                 return 100 * (intents.length / stepsCount);
             case STATUS.intentsSelection:
-                return 100 * ((intents.length + 1 + intentSelectionIndex) / stepsCount);
+                return 100 * ((intents.length + (linkWord && linkWord.length > 0 ? 1 : 0) + intentSelectionIndex) / stepsCount);
             case STATUS.end:
                 return 100;
             default:
