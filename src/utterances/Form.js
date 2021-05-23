@@ -53,7 +53,7 @@ class Form extends React.Component {
     } else if (linkWord && linkWord.length > 0 && utterance.toLowerCase().indexOf(` ${linkWord.toLowerCase()}`) === -1) {
       this.setState({ errorMessage: <span>Please write a valid request that includes the mandatory word <strong>{linkWord}</strong>.</span> })
       return false;
-    } else if ((utterance.indexOf("?") >= 0 && utterance.indexOf("?") < utterance.length * 0.5) || utterance.split("?").length > 1) {
+    } else if ((utterance.indexOf("?") >= 0 && utterance.indexOf("?") < utterance.length * 0.5) || utterance.trim().split("?").filter(s => s.length > 0).length > 1) {
       this.setState({ errorMessage: <span>Please phrase the utterance as a <strong>single</strong> request (and not in multiple phrases).</span> })
       return false;
     } else if (this.props.utternace < this.state.utterance) {
