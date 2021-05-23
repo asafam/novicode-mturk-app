@@ -105,10 +105,10 @@ export default class Utterances extends React.Component {
         const { intents } = this.props;
         let { intentIndex, status, utterances } = this.state;
 
+        utterances[intentIndex] = utterances[intentIndex] || utterance;
         intentIndex = Math.min(intentIndex + 1, intents.length);
         if (status === STATUS.utterancePhrasing && intentIndex === intents.length) {
             status = STATUS.utteranceVerification;
-            utterances[intentIndex] = utterance;
         }
         this.setState({ utterance, utterances, status, intentIndex })
     }
@@ -179,7 +179,7 @@ export default class Utterances extends React.Component {
                 <div className="container">
                     <div className="row align-items-center" style={{ "height": "550px" }}>
                         <div className="col">
-                            <Instructions header={header} instructions={instructions} utterance={utterance} progress={progress} hideHeader={status === STATUS.end} hideHelp={status === STATUS.end} hideUtterance={status === STATUS.utteranceVerificatio} />
+                            <Instructions header={header} instructions={instructions} utterance={utterance} progress={progress} hideHeader={status === STATUS.end} hideHelp={status === STATUS.end} hideUtterance={status === STATUS.utteranceVerification} />
                         </div>
                         <div className="col">
                             {status === STATUS.utterancePhrasing &&
