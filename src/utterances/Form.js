@@ -119,7 +119,7 @@ class Form extends React.Component {
                 {errorMessage}
               </div>
             </div>
-            <div className="btn-toolbar" role="toolbar">
+            <div className="btn-toolbar mb-3" role="toolbar">
               {index > 0 &&
                 <div className="btn-group pl-2 pr-2" role="group">
                   <button type="Back" className="btn btn-secondary" onClick={this.handleBack}><i className="bi bi-arrow-left pr-1" />Back</button>
