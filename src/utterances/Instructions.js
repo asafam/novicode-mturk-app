@@ -1,16 +1,19 @@
 import React from 'react';
 import Help from './Help';
 
-const Instructions = ({ instructions, progress, hideHelp, hideHeader }) => {
+const Instructions = ({ header, instructions, utterance, progress, hideHelp, hideHeader, hideUtterance }) => {
     return (
         <div className="instructions">
             <div className="container">
 
                 <div className="mx-auto">
                     {!hideHeader &&
-                        <h4>Instructions</h4>
+                        <h4>{header || "Instructions"}</h4>
                     }
                     <div>{instructions}</div>
+                    {!hideUtterance && 
+                        <p className="text-center text-muted rounded border-primary p-3 mb-5">{utterance}</p>
+                    }
                     {!hideHelp &&
                         <Help />
                     }
