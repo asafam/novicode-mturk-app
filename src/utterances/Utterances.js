@@ -39,7 +39,7 @@ export default class Utterances extends React.Component {
         if (status === STATUS.utterancePhrasing && intentIndex === 0) {
             return (
                 <div>
-                    <p className="lead fs-5 d">Your administrative assistance is very smart. Write a request in plain English that will use the given tasks your assistance can do in the provided context.</p>
+                    <p className="lead fs-5 d">Write a request to your virtual assitance in plain English that will use the given tasks your assistance can do in the provided context.</p>
                     <p>Try to be as creative as you can, don't be overly formal, simply write in plain English what you would say if you were in the given situation. Click 'Help' to see few examples.</p>
                     <p className="bg-warning text-dark text-center p-2 mb-4"><em>The best utterances phrase the tasks in relation to one-another in a <u>single</u> request.</em></p>
                 </div>
