@@ -90,7 +90,7 @@ class Selections extends React.Component {
                         <div className="card-body p-0">
                             <p className="card-text">
                                 <textarea className="form-control p-3" rows="5"
-                                    value={utterance} type="text" id="utterance-selection" aria-describedby="help" 
+                                    value={utterance} type="text" id="utterance-selection" aria-describedby="help"
                                     style={{ "cursor": "text", "border": "none" }}
                                     onChange={this.handleChange} onMouseUp={this.handleMouseUp} />
                             </p>
@@ -104,10 +104,10 @@ class Selections extends React.Component {
                     </div>
                     <div className="btn-toolbar" role="toolbar">
                         <div className="btn-group mr-2" role="group">
-                            <button type="submit" className="btn btn-primary" onClick={this.handleSubmit} disabled={disabled}>Submit</button>
+                            <button type="Back" className="btn btn-secondary" onClick={this.handleBack}><i className="bi bi-arrow-left pr-1" />Back</button>
                         </div>
                         <div className="btn-group mr-2" role="group">
-                            <button type="Back" className="btn btn-secondary" onClick={this.handleBack}>Back</button>
+                            <button type="submit" className="btn btn-primary pl-4 pr-4" onClick={this.handleSubmit} disabled={disabled}>Submit</button>
                         </div>
                     </div>
                 </div>

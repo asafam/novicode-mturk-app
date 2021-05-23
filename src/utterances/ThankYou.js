@@ -26,10 +26,10 @@ class Selections extends React.Component {
                     <h2 className="text-muted text-center mb-3">Thank You.</h2>
                     <div className="col-md-12 text-center" role="toolbar">
                         <div className="btn-group mr-2" role="group">
-                            <button type="Submit" className="btn btn-primary" onClick={this.handleSubmit}>Done</button>
+                            <button type="Back" className="btn btn-secondary" onClick={this.handleBack}><i className="bi bi-arrow-left pr-1" />Back</button>
                         </div>
                         <div className="btn-group mr-2" role="group">
-                            <button type="Back" className="btn btn-secondary" onClick={this.handleBack}>Back</button>
+                            <button type="Submit" className="btn btn-primary pl-4 pr-4" onClick={this.handleSubmit}>Done</button>
                         </div>
                     </div>
 

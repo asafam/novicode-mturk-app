@@ -9,8 +9,7 @@ const id = document.getElementById('root').getAttribute('data-id');
 const context = document.getElementById('root').getAttribute('data-context');
 const intents = document.getElementById('root').getAttribute('data-intents').split("|").map(intent => intent.trim());
 const icons = document.getElementById('root').getAttribute('data-icons').split("|").map(icon => icon.trim());
-const instructions = document.getElementById('root').getAttribute('data-instructions');
-const word = document.getElementById('root').getAttribute('data-word');
+const linkWord = document.getElementById('root').getAttribute('data-link-word');
 const maxLength = parseInt(document.getElementById('root').getAttribute('data-max-length'));
 const maxLengthPerIntent = parseInt(document.getElementById('root').getAttribute('data-max-length-per-intent'));
 
@@ -20,7 +19,7 @@ console.log("icons", document.getElementById('root').getAttribute('data-icons'))
 
 ReactDOM.render(
   <React.StrictMode>
-    <App id={id} context={context} intents={intents} icons={icons} instructions={instructions} word={word}
+    <App id={id} context={context} intents={intents} icons={icons} linkWord={linkWord}
       maxLength={maxLength} maxLengthPerIntent={maxLengthPerIntent} />
   </React.StrictMode>,
   document.getElementById('root')

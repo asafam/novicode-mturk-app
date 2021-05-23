@@ -6,9 +6,9 @@ import Selections from './Selections';
 import ThankYou from './ThankYou';
 
 const STATUS = {
-    init: 0,
-    pendingPhraseVerification: 1,
-    pendingSelection: 2,
+    utterancePhrasing: 0,
+    utteranceVerification: 1,
+    intentsSelection: 2,
     end: 3
 };
 
@@ -19,13 +19,14 @@ export default class Utterances extends React.Component {
         const { intents } = props;
         const intentsSelections = intents.map(intent => ([0, 0]));
         this.state = {
-            status: STATUS.init,
+            status: STATUS.utterancePhrasing,
             intentsSelections,
-            pendingIntentIndex: 0
+            intentIndex: 0,
+            intentSelectionIndex: 0
         };
 
         this.handleSubmitUtterance = this.handleSubmitUtterance.bind(this);
-        this.handlePhraseVerification = this.handlePhraseVerification.bind(this);
+        this.handleUtteranceVerification = this.handleUtteranceVerification.bind(this);
         this.handleSelection = this.handleSelection.bind(this);
         this.handleBack = this.handleBack.bind(this);
         this.handleMTurkSubmit = this.handleMTurkSubmit.bind(this);
@@ -33,9 +34,9 @@ export default class Utterances extends React.Component {
 
     getInstructions() {
         const { intents, icons } = this.props;
-        const { status, pendingIntentIndex } = this.state;
+        const { status, intentIndex, intentSelectionIndex } = this.state;
 
-        if (status === STATUS.init) {
+        if (status === STATUS.utterancePhrasing && intentIndex === 0) {
             return (
                 <div>
                     <p className="lead fs-5 d">Your administrative assistance is very smart. Write a request in plain English that will use the given tasks your assistance can do in the provided context.</p>
@@ -43,18 +44,26 @@ export default class Utterances extends React.Component {
                     <p className="bg-warning text-dark text-center p-2 mb-4"><em>The best utterances phrase the tasks in relation to one-another in a <u>single</u> request.</em></p>
                 </div>
             );
-        } else if (status === STATUS.pendingPhraseVerification) {
+        } else if (status === STATUS.utterancePhrasing && intentIndex > 0) {
+            return (
+                <div>
+                    <p className="lead fs-5 d">Rephrase your previous request with another task in a single sentence.</p>
+                    <p>Again, try to be as creative as you can, don't be overly formal. Click 'Help' to see few examples.</p>
+                    <p className="bg-warning text-dark text-center p-2 mb-4"><em>The best utterances phrase the tasks in relation to one-another in a <u>single</u> request.</em></p>
+                </div>
+            );
+        } else if (status === STATUS.utteranceVerification) {
             return (
                 <div>
                     <p className="lead fs-5 d">Verify your request was written correctly. </p>
                     <p className="bg-warning text-dark text-center p-2 mb-4"><em>The best utterances phrase the tasks in relation to one-another in a <u>single</u> request.</em></p>
                 </div>
             );
-        } else if (status === STATUS.pendingSelection) {
+        } else if (status === STATUS.intentsSelection) {
             return (
                 <div>
                     <p className="lead fs-5 d">Highlight with your mouse the part in your request that references the following task:</p>
-                    <h5 className="mt-3 mb-4"><span className={`bi bi-${icons[pendingIntentIndex]}`} style={{ "paddingRight": "15px" }} />{intents[pendingIntentIndex]}</h5>
+                    <h5 className="mt-3 mb-4"><span className={`bi bi-${icons[intentSelectionIndex]}`} style={{ "paddingRight": "15px" }} />{intents[intentSelectionIndex]}</h5>
                 </div>
             );
         } else {
@@ -66,7 +75,7 @@ export default class Utterances extends React.Component {
     handleMTurkSubmit() {
         const { utterance, intentsSelections } = this.state;
 
-        const annotationsValue = intentsSelections.map(intentSelections => intentSelections.join(", ")).join(" | ");
+        const annotationsValue = intentsSelections.map(intentsSelections => intentsSelections.join(", ")).join(" | ");
         document.querySelector('crowd-form').onsubmit = () => {
             if (document.getElementById('utterance')) {
                 document.getElementById('utterance').value = utterance;
@@ -76,28 +85,42 @@ export default class Utterances extends React.Component {
         document.querySelector('crowd-form').submit();
     }
 
-    handlePhraseVerification() {
-        const status = STATUS.pendingSelection;
+    handleUtteranceVerification() {
+        const status = STATUS.intentsSelection;
         this.setState({ status });
     }
 
-    handleSubmitUtterance(utterance, hasSconj) {
-        const status = hasSconj ? STATUS.pendingPhraseVerification : STATUS.pendingSelection
-        this.setState({ utterance, status })
+    handleSubmitUtterance(utterance) {
+        const { intents, linkWord } = this.props;
+        let { intentIndex, status } = this.state;
+        const hasLinkWord = linkWord && linkWord.length > 0;
+
+        intentIndex = Math.min(intentIndex + 1, intents.length);
+        if (status === STATUS.utterancePhrasing && intentIndex === intents.length) {
+            status = hasLinkWord > 0 ? STATUS.utteranceVerification : STATUS.intentsSelection;
+        }
+        this.setState({ utterance, status, intentIndex })
     }
 
     handleBack() {
-        const { word } = this.props;
-        const { status, pendingIntentIndex } = this.state;
+        const { linkWord } = this.props;
+        let { status, intentIndex, intentSelectionIndex } = this.state;
 
-        let newStatus = STATUS.pendingSelection;
-        if (status === STATUS.pendingSelection && pendingIntentIndex === 0) {
-            newStatus = word && word.length > 0 ? STATUS.pendingPhraseVerification : STATUS.init;
-        } else if (status === STATUS.pendingPhraseVerification) {
-            newStatus = STATUS.init;
+        let newStatus = status;
+        if ((status === STATUS.end) ||
+            (status === STATUS.intentsSelection && intentSelectionIndex > 0)) {
+            newStatus = STATUS.intentsSelection
+            intentSelectionIndex = Math.max(intentSelectionIndex - 1, 0);
+        } else if (status === STATUS.intentsSelection && linkWord && linkWord.length > 0) {
+            newStatus = STATUS.utteranceVerification;
+        } else if ((status === STATUS.intentsSelection) ||
+            (status === STATUS.utteranceVerification) ||
+            (status === STATUS.utterancePhrasing)) {
+            newStatus = STATUS.utterancePhrasing;
+            intentIndex = Math.max(intentIndex - 1, 0);
         }
 
-        this.setState({ status: newStatus, pendingIntentIndex: Math.max(pendingIntentIndex - 1, 0) });
+        this.setState({ status: newStatus, intentIndex, intentSelectionIndex });
     }
 
     handleSelection(index, selectionStart, selectionEnd, Selectionsuccess) {
@@ -106,26 +129,26 @@ export default class Utterances extends React.Component {
 
         // check if all intents have been verified
         const { intents } = this.props;
-        const allIntentsVerified = intents.every((intent, i) => intentsSelections[i][0] >= 0 && intentsSelections[i][1] > intentsSelections[i][0]);
-        if (Selectionsuccess && allIntentsVerified && index === (intents.length - 1)) {
+        const allIntentsSelected = intents.every((intent, i) => intentsSelections[i][0] >= 0 && intentsSelections[i][1] > intentsSelections[i][0]);
+        if (Selectionsuccess && allIntentsSelected && index === (intents.length - 1)) {
             status = STATUS.end;
         }
 
-        this.setState({ intentsSelections, status, pendingIntentIndex: Math.min(index + 1, intents.length) });
+        this.setState({ intentsSelections, status, intentSelectionIndex: Math.min(index + 1, intents.length) });
     }
 
     getProgress() {
-        const { intents, word } = this.props;
-        const { status, pendingIntentIndex } = this.state;
-        const otherStepsCount = 1 + (word ? 1 : 0);
+        const { intents, linkWord } = this.props;
+        const { status, intentIndex, intentSelectionIndex } = this.state;
+        const stepsCount = intents.length * 2 + (linkWord ? 1 : 0);
 
         switch (status) {
-            case STATUS.init:
-                return 0;
-            case STATUS.pendingPhraseVerification:
-                return 100 * ((1 + pendingIntentIndex) / (intents.length + otherStepsCount));
-            case STATUS.pendingSelection:
-                return 100 * ((2 + pendingIntentIndex) / (intents.length + otherStepsCount));
+            case STATUS.utterancePhrasing:
+                return 100 * (intentIndex / stepsCount);
+            case STATUS.utteranceVerification:
+                return 100 * (intents.length / stepsCount);
+            case STATUS.intentsSelection:
+                return 100 * ((intents.length + 1 + intentSelectionIndex) / stepsCount);
             case STATUS.end:
                 return 100;
             default:
@@ -134,11 +157,12 @@ export default class Utterances extends React.Component {
     }
 
     render() {
-        const { context, intents, icons, word, maxLength, maxLengthPerIntent } = this.props;
-        const { status, utterance, intentsSelections, pendingIntentIndex } = this.state;
-        const [selectionStart, selectionEnd] = pendingIntentIndex >= 0 && pendingIntentIndex < intents.length ? intentsSelections[pendingIntentIndex] : [0, 0];
+        const { context, intents, icons, linkWord, maxLength, maxLengthPerIntent } = this.props;
+        const { status, utterance, intentIndex, intentsSelections, intentSelectionIndex } = this.state;
+        const [selectionStart, selectionEnd] = intentSelectionIndex >= 0 && intentSelectionIndex < intents.length ? intentsSelections[intentSelectionIndex] : [0, 0];
         const progress = this.getProgress();
         const instructions = this.getInstructions();
+        const utteranceLimit = maxLength || maxLengthPerIntent * intents.length || 250;
 
         return (
             <div className="utterances">
@@ -148,14 +172,14 @@ export default class Utterances extends React.Component {
                             <Instructions instructions={instructions} progress={progress} hideHeader={status === STATUS.end} hideHelp={status === STATUS.end} />
                         </div>
                         <div className="col">
-                            {status === STATUS.init &&
-                                <Form utterance={utterance} context={context} intents={intents} icons={icons} word={word} maxLength={maxLength} maxLengthPerIntent={maxLengthPerIntent} onSubmit={this.handleSubmitUtterance} />
+                            {status === STATUS.utterancePhrasing &&
+                                <Form utterance={utterance} context={context} intents={intents} icons={icons} index={intentIndex} linkWord={intentIndex === 1 ? linkWord : null} utteranceLimit={utteranceLimit} onSubmit={this.handleSubmitUtterance} onBack={this.handleBack} />
                             }
-                            {status === STATUS.pendingPhraseVerification &&
-                                <PhraseVerification utterance={utterance} word={word} intents={intents} icons={icons} onSubmit={this.handlePhraseVerification} onBack={this.handleBack} />
+                            {status === STATUS.utteranceVerification &&
+                                <PhraseVerification utterance={utterance} linkWord={linkWord} intents={intents} icons={icons} onSubmit={this.handleUtteranceVerification} onBack={this.handleBack} />
                             }
-                            {status === STATUS.pendingSelection &&
-                                <Selections utterance={utterance} selectionStart={selectionStart} selectionEnd={selectionEnd} intents={intents} icons={icons} index={pendingIntentIndex} onSubmit={this.handleSelection} onBack={this.handleBack} />
+                            {status === STATUS.intentsSelection &&
+                                <Selections utterance={utterance} selectionStart={selectionStart} selectionEnd={selectionEnd} intents={intents} icons={icons} index={intentSelectionIndex} onSubmit={this.handleSelection} onBack={this.handleBack} />
                             }
                             {status === STATUS.end &&
                                 <ThankYou onSubmit={this.handleMTurkSubmit} onBack={this.handleBack} />
