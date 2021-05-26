@@ -16,10 +16,6 @@ const quantifierIdx = parseInt(document.getElementById('root').getAttribute('dat
 const maxLength = parseInt(document.getElementById('root').getAttribute('data-max-length'));
 const maxLengthPerIntent = parseInt(document.getElementById('root').getAttribute('data-max-length-per-intent'));
 
-console.log("context", document.getElementById('root').getAttribute('data-context'))
-console.log("intents", document.getElementById('root').getAttribute('data-intents'))
-console.log("icons", document.getElementById('root').getAttribute('data-icons'))
-
 ReactDOM.render(
   <React.StrictMode>
     <App id={id} context={context} intents={intents} icons={icons} 
