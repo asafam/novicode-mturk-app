@@ -5,10 +5,12 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
 
-    const { utterance, words } = props;
+    const { utterance } = props;
+    const [words, wordsIndex] = this.getWords(props);
     this.state = {
       utterance,
       words,
+      wordsIndex
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -22,10 +24,21 @@ class Form extends React.Component {
       this.setState({ utterance });
     }
 
-    if (prevProps.words !== this.props.words) {
-      const { words } = this.props;
-      this.setState({ words });
+    if (prevProps.index !== this.props.index) {
+      const [words, wordsIndex] = this.getWords(this.props);
+      this.setState({ words, wordsIndex });
     }
+  }
+
+  getWords(props) {
+    const { index, linkWord, linkWordIdx, quantifier, quantifierIdx } = props;
+    const words = [index >= linkWordIdx && linkWord, index >= quantifierIdx && quantifier]
+      .filter(w => w && w.length > 0);
+    // .map(w => ({ score: Math.random(), value: w }))
+    // .sort((w1, w2) => w1.score - w2.score)
+    // .map(w => w.value);
+    const wordsIndex = [index >= linkWordIdx && linkWordIdx, index >= quantifierIdx && quantifierIdx].filter(n => n !== false);
+    return [words, wordsIndex];
   }
 
   handleChange(event) {
@@ -53,9 +66,9 @@ class Form extends React.Component {
   }
 
   isUtteranceValid() {
-    const { index, intents } = this.props;
+    const { intents } = this.props;
     const { utterance, words } = this.state;
-    const mandatoryWord = words && words.length > 0 && words.some(w => utterance.toLowerCase().indexOf(`${w.toLowerCase()}`) === -1)
+    const mandatoryWord = words && words.length > 0 && words.find(w => utterance.toLowerCase().indexOf(`${w.toLowerCase()}`) === -1);
 
     if (!utterance || utterance.length === 0) {
       return false;
@@ -65,7 +78,7 @@ class Form extends React.Component {
     } else if (intents.some(intent => utterance.toLowerCase().indexOf(intent.toLowerCase()) >= 0)) {
       this.setState({ errorMessage: <span>Please write a valid request in plain English.</span> })
       return false;
-    } else if (index === (intents.length - 1) && mandatoryWord) {
+    } else if (mandatoryWord) {
       this.setState({ errorMessage: <span>Please write a valid request that includes the mandatory word <strong>{mandatoryWord}</strong>.</span> })
       return false;
     } else if ((utterance.indexOf("?") >= 0 && utterance.indexOf("?") < utterance.length * 0.5) || utterance.trim().split("?").filter(s => s.length > 0).length > 1) {
@@ -78,7 +91,7 @@ class Form extends React.Component {
 
   render() {
     const { context, intents, icons, index, utteranceLimit } = this.props;
-    const { words, utterance, valid, errorMessage } = this.state;
+    const { words, wordsIndex, utterance, valid, errorMessage } = this.state;
     const disabled = !(utterance && utterance.length > 0);
     const instruction = index === 0 ? "Write your request" : "Edit your request";
     const description = index === 0 ? "Write a request to your virtual assistance" : "Edit your request to your virtual assistance";
@@ -106,11 +119,14 @@ class Form extends React.Component {
             </div>
           </div>
 
-          {(words && words.length > 0) &&
+          {(words && words.length > 0) && 
             <div className="row mb-3">
               <div className="col">
                 <div className="bd-callout bd-callout-yellow2">
-                  <h6>Please include the word{words.length > 1 ? "s" : ""} <span className="pl-1 pr-1" style={{ "fontSize": "2rem" }}>{words.join(', ')}</span> in your request.</h6>
+                  <h6>Please include the word{words.length > 1 ? "s" : ""} 
+                    <span className="pl-1 pr-1">{words && words.map((word, i) =>
+                      (<span key={i} style={{ "fontSize": wordsIndex[i] === index ? "2rem" : "1.3rem" }}>{word + (i < words.length-1 ? ", " : "")}</span>)
+                    )}</span> in your request.</h6>
                 </div>
               </div>
             </div>

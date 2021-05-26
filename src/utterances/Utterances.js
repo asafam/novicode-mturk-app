@@ -183,8 +183,8 @@ export default class Utterances extends React.Component {
     }
 
     render() {
-        const { context, intents, icons, maxLength, maxLengthPerIntent } = this.props;
-        const { status, utterance, intentIndex, intentsSelections, intentSelectionIndex, words } = this.state;
+        const { context, intents, icons, maxLength, maxLengthPerIntent, linkWord, linkWordIdx, quantifier, quantifierIdx } = this.props;
+        const { status, utterance, intentIndex, intentsSelections, intentSelectionIndex } = this.state;
         const [selectionStart, selectionEnd] = intentSelectionIndex >= 0 && intentSelectionIndex < intents.length ? intentsSelections[intentSelectionIndex] : [0, 0];
         const progress = this.getProgress();
         const instructions = this.getInstructions();
@@ -194,13 +194,13 @@ export default class Utterances extends React.Component {
         return (
             <div className="utterances">
                 <div className="container">
-                    <div className="row align-items-center" style={{ "height": "550px" }}>
+                    <div className="row align-items-center">
                         <div className="col">
                             <Instructions header={header} instructions={instructions} utterance={utterance} progress={progress} hideHeader={status === STATUS.end} hideHelp={status === STATUS.end} hideUtterance={status === STATUS.utteranceVerification} />
                         </div>
                         <div className="col">
                             {status === STATUS.utterancePhrasing &&
-                                <Form utterance={utterance} context={context} intents={intents} icons={icons} index={intentIndex} words={intentIndex > 0 ? words : null} utteranceLimit={utteranceLimit} onSubmit={this.handleSubmitUtterance} onBack={this.handleBack} />
+                                <Form utterance={utterance} context={context} intents={intents} icons={icons} index={intentIndex} linkWord={linkWord} linkWordIdx={linkWordIdx} quantifier={quantifier} quantifierIdx={quantifierIdx} utteranceLimit={utteranceLimit} onSubmit={this.handleSubmitUtterance} onBack={this.handleBack} />
                             }
                             {status === STATUS.utteranceVerification &&
                                 <PhraseVerification intents={intents} icons={icons} onSubmit={this.handleUtteranceVerification} onBack={this.handleBack} />
