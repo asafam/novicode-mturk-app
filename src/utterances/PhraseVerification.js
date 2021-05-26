@@ -53,7 +53,7 @@ class PhraseVerification extends React.Component {
                             </div>
                         </div>
                     </div>
-                    {linkWord && linkWord.length > 0 &&
+                    {false && linkWord && linkWord.length > 0 &&
                         <div className="mt-5">
                             <h5 className="mb-3">Did you link the tasks in your request using the word <span className="pl-1 pr-1" style={{ "fontSize": "2.2rem" }}>{linkWord}</span>?</h5>
                             <div className="text-center" onChange={this.handleChangeValue}>

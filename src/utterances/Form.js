@@ -1,12 +1,14 @@
 import React from 'react';
 
+
 class Form extends React.Component {
   constructor(props) {
     super(props);
 
-    const { utterance } = props;
+    const { utterance, words } = props;
     this.state = {
-      utterance: utterance,
+      utterance,
+      words,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -14,10 +16,23 @@ class Form extends React.Component {
     this.handleBack = this.handleBack.bind(this);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.utterance !== this.props.utterance) {
+      const { utterance } = this.props;
+      this.setState({ utterance });
+    }
+
+    if (prevProps.words !== this.props.words) {
+      const { words } = this.props;
+      this.setState({ words });
+    }
+  }
+
   handleChange(event) {
     const { utteranceLimit } = this.props;
     const utterance = event.target.value;
-    this.setState({ utterance: utterance.length <= utteranceLimit ? utterance : this.state.utterance });
+    const newUtterance = utterance.length <= utteranceLimit ? utterance : (this.state.utterance || "");
+    this.setState({ utterance: newUtterance });
   }
 
   handleSubmit(event) {
@@ -38,8 +53,9 @@ class Form extends React.Component {
   }
 
   isUtteranceValid() {
-    const { intents, linkWord } = this.props;
-    const { utterance } = this.state;
+    const { index, intents } = this.props;
+    const { utterance, words } = this.state;
+    const mandatoryWord = words && words.length > 0 && words.some(w => utterance.toLowerCase().indexOf(`${w.toLowerCase()}`) === -1)
 
     if (!utterance || utterance.length === 0) {
       return false;
@@ -49,8 +65,8 @@ class Form extends React.Component {
     } else if (intents.some(intent => utterance.toLowerCase().indexOf(intent.toLowerCase()) >= 0)) {
       this.setState({ errorMessage: <span>Please write a valid request in plain English.</span> })
       return false;
-    } else if (linkWord && linkWord.length > 0 && utterance.toLowerCase().indexOf(`${linkWord.toLowerCase()}`) === -1) {
-      this.setState({ errorMessage: <span>Please write a valid request that includes the mandatory word <strong>{linkWord}</strong>.</span> })
+    } else if (index === (intents.length - 1) && mandatoryWord) {
+      this.setState({ errorMessage: <span>Please write a valid request that includes the mandatory word <strong>{mandatoryWord}</strong>.</span> })
       return false;
     } else if ((utterance.indexOf("?") >= 0 && utterance.indexOf("?") < utterance.length * 0.5) || utterance.trim().split("?").filter(s => s.length > 0).length > 1) {
       this.setState({ errorMessage: <span>Please phrase the utterance as a <strong>single</strong> request (and not in multiple phrases).</span> })
@@ -61,11 +77,11 @@ class Form extends React.Component {
   }
 
   render() {
-    const { context, intents, icons, linkWord, index, utteranceLimit } = this.props;
-    const { utterance, valid, errorMessage } = this.state;
+    const { context, intents, icons, index, utteranceLimit } = this.props;
+    const { words, utterance, valid, errorMessage } = this.state;
     const disabled = !(utterance && utterance.length > 0);
-    const instruction = index === 0 ? "Write your request" : "Update your request";
-    const description = index === 0 ? "Write a request to your administrative assistance" : "Rephrase your equest to your administrative assistance";
+    const instruction = index === 0 ? "Write your request" : "Edit your request";
+    const description = index === 0 ? "Write a request to your virtual assistance" : "Edit your request to your virtual assistance";
 
     return (
       <div className="form">
@@ -75,7 +91,7 @@ class Form extends React.Component {
               <div className="bd-callout bd-callout-yellow2">
                 <p className="text-muted">Tasks your assistance can do for you:</p>
                 {intents.map((intent, i) => (
-                  <h5 style={{ "color": `${index === i ? "#007BFF" : "#E0E0E0"}` }} key={i}><span className={`bi bi-${icons[i]}`} style={{ "paddingRight": "15px" }} />{intent}</h5>
+                  <h5 className={i === index ? "text-in" : (i < index ? "text-out" : "text-light-grey")} key={i}><span className={`bi bi-${icons[i]}`} style={{ "paddingRight": "15px" }} />{intent}</h5>
                 ))}
               </div>
             </div>
@@ -90,11 +106,11 @@ class Form extends React.Component {
             </div>
           </div>
 
-          {linkWord && linkWord.length > 0 &&
+          {(words && words.length > 0) &&
             <div className="row mb-3">
               <div className="col">
                 <div className="bd-callout bd-callout-yellow2">
-                  <h6>Please include the word <span className="pl-1 pr-1" style={{ "fontSize": "2rem" }}>{linkWord}</span> in your request to link the tasks.</h6>
+                  <h6>Please include the word{words.length > 1 ? "s" : ""} <span className="pl-1 pr-1" style={{ "fontSize": "2rem" }}>{words.join(', ')}</span> in your request.</h6>
                 </div>
               </div>
             </div>
@@ -114,10 +130,8 @@ class Form extends React.Component {
               <div className={`p-1 m-1 ${(utterance || "").length >= utteranceLimit ? 'text-red' : ''}`}>
                 {(utterance || "").length} / {utteranceLimit}
               </div>
-              <div id="help" className="form-text text-muted">Remember to use <strong>all tasks</strong> in your request</div>
-              <div className="invalid-feedback">
-                {errorMessage}
-              </div>
+              <div className="invalid-feedback">{errorMessage}</div>
+              <div id="help" className="form-text text-muted">Don't forget to use <strong>all tasks</strong> in your request</div>
             </div>
             <div className="btn-toolbar mb-3" role="toolbar">
               {index > 0 &&
@@ -126,7 +140,7 @@ class Form extends React.Component {
                 </div>
               }
               <div className={`btn-group  ${index !== 0 ? "mr-2" : ""}`} role="group">
-                <button type="Submit" className="btn btn-primary pl-4 pr-4" disabled={disabled}>Next</button>
+                <button type="Submit" className="btn btn-primary pl-4 pr-4" disabled={disabled}>{index === intents.length - 1 ? "Verify" : "Next: Update request with another task"}</button>
               </div>
             </div>
 

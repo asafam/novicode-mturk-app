@@ -1,0 +1,17 @@
+.text-in {
+  color: #007bff;
+  transition: all 1s ease;
+  -webkit-transition: all 1.5s ease;
+  -moz-transition: all 1.5s ease;
+}
+
+.text-out {
+  color: #b8b8b8;
+  transition: all .1s ease;
+  -webkit-transition: all 1.5s ease;
+  -moz-transition: all 1.5s ease;
+}
+
+.text-light-grey {
+  color: #e0e0e0;
+}
