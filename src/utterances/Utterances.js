@@ -39,7 +39,7 @@ export default class Utterances extends React.Component {
 
     getWords(props) {
         const { linkWord, quantifier } = props;
-        if (!linkWord || linkWord.length === 0 || !quantifier || quantifier.length === 0) {
+        if ((!linkWord || linkWord.length === 0) && (!quantifier || quantifier.length === 0)) {
             return null;
         }
 
