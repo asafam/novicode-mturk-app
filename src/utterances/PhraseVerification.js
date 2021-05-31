@@ -4,11 +4,29 @@ class PhraseVerification extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {
+            selectedIntentIndexes: props.selectedIntentIndexes || []
+        };
 
         this.handleChangeValue = this.handleChangeValue.bind(this);
+        this.handleToggleCheckbox = this.handleToggleCheckbox.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleBack = this.handleBack.bind(this);
+    }
+
+    handleToggleCheckbox(event) {
+        event.preventDefault();
+
+        const { selectedIntentIndexes } = this.state;
+        let selectedIntentIndexesNew = selectedIntentIndexes.slice(); // copy array
+        const toggledValueIndex = parseInt(event.currentTarget.getAttribute("data-index"));
+        const valueIndex = selectedIntentIndexesNew.find(i => i === toggledValueIndex)
+        if (isNaN(valueIndex)) {
+            selectedIntentIndexesNew.push(toggledValueIndex);
+        } else {
+            selectedIntentIndexesNew = selectedIntentIndexesNew.filter(i => i !== valueIndex);
+        }
+        this.setState({ selectedIntentIndexes: selectedIntentIndexesNew });
     }
 
     handleChangeValue(event) {
@@ -19,7 +37,9 @@ class PhraseVerification extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.onSubmit();
+
+        const { selectedIntentIndexes } = this.state;
+        this.props.onSubmit(selectedIntentIndexes);
     }
 
     handleBack(event) {
@@ -27,35 +47,59 @@ class PhraseVerification extends React.Component {
         this.props.onBack();
     }
 
+    isDisabled() {
+        const { minIntents } = this.props;
+        const { selectedIntentIndexes } = this.state;
+        const disabled = selectedIntentIndexes.length < minIntents;
+        return disabled;
+    }
+
     render() {
-        const { intents, icons, linkWord } = this.props;
-        const { tasksVerification, linkWordVerification } = this.state;
-        const disabled = !tasksVerification || (linkWord && linkWord.length > 0 && !linkWordVerification);
+        const { intents, icons, linkWords, strategy } = this.props;
+        const { selectedIntentIndexes, tasksVerification, linkWordVerification } = this.state;
+        const disabled = this.isDisabled();
 
         return (
             <div className="phrase-verification">
                 <div className="container">
-                    <div>
-                        <h5 className="mb-3">Did you use all the listed tasks in your request?</h5>
-                        <div className="bd-callout bd-callout-yellow2">
-                            {intents.map((intent, i) => (
-                                <p key={i}><span className={`bi bi-${icons[i]}`} style={{ "paddingRight": "15px" }} />{intent}</p>
-                            ))}
-                        </div>
-                        <div className="text-center" onChange={this.handleChangeValue}>
-                            <div className="form-check form-check-inline">
-                                <input className="form-check-input" type="radio" name="tasksVerification" id="tvpos" value={tasksVerification} />
-                                <label className="form-check-label">Yes</label>
+                    {strategy !== 'batch' &&
+                        <div>
+                            <h5 className="mb-3">Did you use all the listed tasks in your request?</h5>
+                            <div className="bd-callout bd-callout-yellow2">
+                                {intents.map((intent, i) => (
+                                    <p key={i}><span className={`bi bi-${icons[i]}`} style={{ "paddingRight": "15px" }} />{intent}</p>
+                                ))}
                             </div>
-                            <div className="form-check form-check-inline">
-                                <input className="form-check-input" type="radio" name="tasksVerification" id="tvneg" value={!tasksVerification} />
-                                <label className="form-check-label">No</label>
+                            <div className="text-center" onChange={this.handleChangeValue}>
+                                <div className="form-check form-check-inline">
+                                    <input className="form-check-input" type="radio" name="tasksVerification" id="tvpos" value={tasksVerification} />
+                                    <label className="form-check-label">Yes</label>
+                                </div>
+                                <div className="form-check form-check-inline">
+                                    <input className="form-check-input" type="radio" name="tasksVerification" id="tvneg" value={!tasksVerification} />
+                                    <label className="form-check-label">No</label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    {false && linkWord && linkWord.length > 0 &&
+                    }
+                    {strategy === 'batch' &&
+                        <div>
+                            <h5 className="mb-3">Which tasks did you use in your request?</h5>
+                            <div className="bd-callout bd-callout-yellow2">
+                                {intents.map((intent, i) => (
+                                    <div key={i}>
+                                        <div className={`form-check pt-1 pb-1 mt-1 mb-1 ${selectedIntentIndexes.indexOf(i) !== -1 ? "bg-primary text-white" : ""}`} data-index={i} onClick={this.handleToggleCheckbox}>
+                                            <input className="form-check-input" type="checkbox" value={selectedIntentIndexes.indexOf(i) !== -1} id={`intent${i}`} data-index={i} checked={selectedIntentIndexes.indexOf(i) !== -1} />
+                                            <label className="form-check-label" htmlFor="flexCheckDefault"><h6><span className={`bi bi-${icons[i]}`} style={{ "paddingRight": "15px" }} />{intent}</h6></label>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    }
+                    {false && linkWords && linkWords.length > 0 &&
                         <div className="mt-5">
-                            <h5 className="mb-3">Did you link the tasks in your request using the word <span className="pl-1 pr-1" style={{ "fontSize": "2.2rem" }}>{linkWord}</span>?</h5>
+                            <h5 className="mb-3">Did you link the tasks in your request using the word <span className="pl-1 pr-1" style={{ "fontSize": "2.2rem" }}>{linkWords.join(", ")}</span>?</h5>
                             <div className="text-center" onChange={this.handleChangeValue}>
                                 <div className="form-check form-check-inline">
                                     <input className="form-check-input" type="radio" name="linkWordVerification" id="lwvpos" value={linkWordVerification} />

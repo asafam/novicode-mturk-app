@@ -24,20 +24,18 @@ class Form extends React.Component {
       this.setState({ utterance });
     }
 
-    if (prevProps.index !== this.props.index) {
+    if (this.props.strategy !== 'batch' && prevProps.index !== this.props.index) {
       const [words, wordsIndex] = this.getWords(this.props);
       this.setState({ words, wordsIndex });
     }
   }
 
   getWords(props) {
-    const { index, linkWord, linkWordIdx, quantifier, quantifierIdx } = props;
-    const words = [index >= linkWordIdx && linkWord, index >= quantifierIdx && quantifier]
-      .filter(w => w && w.length > 0);
-    // .map(w => ({ score: Math.random(), value: w }))
-    // .sort((w1, w2) => w1.score - w2.score)
-    // .map(w => w.value);
-    const wordsIndex = [index >= linkWordIdx && linkWordIdx, index >= quantifierIdx && quantifierIdx].filter(n => n !== false);
+    const { strategy, index, linkWords, linkWordIdx, quantifiers, quantifierIdx } = props;
+    let words = (strategy === 'batch' || index >= linkWordIdx) ? linkWords : [];
+    words = words.concat((strategy === 'batch' || index >= quantifierIdx) ? quantifiers : []);
+    words = words.filter(w => w && w.length > 0);
+    const wordsIndex = [(strategy === 'batch' || index >= linkWordIdx) && linkWordIdx, (strategy === 'batch' || index >= quantifierIdx) && quantifierIdx].filter(n => n !== false);
     return [words, wordsIndex];
   }
 
@@ -66,9 +64,11 @@ class Form extends React.Component {
   }
 
   isUtteranceValid() {
-    const { intents } = this.props;
+    const { intents, strategy } = this.props;
     const { utterance, words } = this.state;
-    const mandatoryWord = words && words.length > 0 && words.find(w => utterance.toLowerCase().indexOf(`${w.toLowerCase()}`) === -1);
+    const mandatoryWordsMissing = (strategy !== 'batch')
+      ? (words && words.length > 0 && words.filter(w => utterance.toLowerCase().indexOf(`${w.toLowerCase()}`) === -1)) || []
+      : words.filter(w => utterance.toLowerCase().indexOf(`${w.toLowerCase()}`) !== -1).length < 1 ? words : [];
 
     if (!utterance || utterance.length === 0) {
       return false;
@@ -78,8 +78,8 @@ class Form extends React.Component {
     } else if (intents.some(intent => utterance.toLowerCase().indexOf(intent.toLowerCase()) >= 0)) {
       this.setState({ errorMessage: <span>Please write a valid request in plain English.</span> })
       return false;
-    } else if (mandatoryWord) {
-      this.setState({ errorMessage: <span>Please write a valid request that includes the mandatory word <strong>{mandatoryWord}</strong>.</span> })
+    } else if (mandatoryWordsMissing.length > 0) {
+      this.setState({ errorMessage: <span>Please write a valid request that includes any of the words: <strong>{mandatoryWordsMissing.join(", ")}</strong>.</span> })
       return false;
     } else if ((utterance.indexOf("?") >= 0 && utterance.indexOf("?") < utterance.length * 0.5) || utterance.trim().split("?").filter(s => s.length > 0).length > 1) {
       this.setState({ errorMessage: <span>Please phrase the utterance as a <strong>single</strong> request (and not in multiple phrases).</span> })
@@ -90,25 +90,15 @@ class Form extends React.Component {
   }
 
   render() {
-    const { context, intents, icons, index, utteranceLimit } = this.props;
+    const { context, intents, icons, minIntents, index, utteranceLimit, strategy } = this.props;
     const { words, wordsIndex, utterance, valid, errorMessage } = this.state;
     const disabled = !(utterance && utterance.length > 0);
-    const instruction = index === 0 ? "Write your request" : "Edit your request";
-    const description = index === 0 ? "Write a request to your virtual assistance" : "Edit your request to your virtual assistance";
+    const instruction = strategy === 'batch' || index === 0 ? "Write your request" : "Edit your request";
+    const description = strategy === 'batch' || index === 0 ? "Write a request to your virtual assistance" : "Edit your request to your virtual assistance";
 
     return (
       <div className="form">
         <div className="container ml-auto mr-auto card border-warning bg-light rounded p-3" style={{ "marginTop": "50px", "marginBottom": "50px", "width": "100%", "borderColor": "#ffc107" }}>
-          <div className="row mb-3">
-            <div className="col">
-              <div className="bd-callout bd-callout-yellow2">
-                <p className="text-muted">Tasks your assistance can do for you:</p>
-                {intents.map((intent, i) => (
-                  <h5 className={i === index ? "text-in" : (i < index ? "text-out" : "text-light-grey")} key={i}><span className={`bi bi-${icons[i]}`} style={{ "paddingRight": "15px" }} />{intent}</h5>
-                ))}
-              </div>
-            </div>
-          </div>
 
           <div className="row mb-3">
             <div className="col">
@@ -119,14 +109,31 @@ class Form extends React.Component {
             </div>
           </div>
 
-          {(words && words.length > 0) && 
+          <div className="row mb-3">
+            <div className="col">
+              <div className="bd-callout bd-callout-yellow2">
+                <p>
+                  <span className="text-muted">Tasks your assistance can do for you</span>
+                  {strategy === 'batch' &&
+                    <span className="text-danger"> (pick as many as possible and <u style={{ "fontSize": "1.2rem" }}>use at least {minIntents}</u>)</span>
+                  }
+                  <span className="text-muted">:</span>
+                </p>
+                {intents.map((intent, i) => (
+                  <h5 className={strategy === 'batch' || i === index ? "text-in" : (i < index ? "text-out" : "text-light-grey")} key={i}><span className={`bi bi-${icons[i]}`} style={{ "paddingRight": "15px" }} />{intent}</h5>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {(words && words.length > 0) &&
             <div className="row mb-3">
               <div className="col">
                 <div className="bd-callout bd-callout-yellow2">
-                  <h6>Please include the word{words.length > 1 ? "s" : ""} 
-                    <span className="pl-1 pr-1">{words && words.map((word, i) =>
-                      (<span key={i} style={{ "fontSize": wordsIndex[i] === index ? "2rem" : "1.3rem" }}>{word + (i < words.length-1 ? ", " : "")}</span>)
-                    )}</span> in your request.</h6>
+                  <h6 className="text-muted">Please use as many of the following word{words.length > 1 ? "s" : ""} in your request.</h6>
+                  <div className="pl-1 pr-1">{words && words.map((word, i) =>
+                    (<span key={i} style={{ "fontSize": (strategy !== 'batch' && wordsIndex[i] === index) ? "2rem" : "1.3rem" }}>{word + (i < words.length - 1 ? ", " : "")}</span>)
+                  )}</div>
                 </div>
               </div>
             </div>
@@ -150,13 +157,13 @@ class Form extends React.Component {
               <div id="help" className="form-text text-muted">Don't forget to use <strong>all tasks</strong> in your request</div>
             </div>
             <div className="btn-toolbar mb-3" role="toolbar">
-              {index > 0 &&
+              {strategy !== 'batch' && index > 0 &&
                 <div className="btn-group pl-2 pr-2" role="group">
                   <button type="Back" className="btn btn-secondary" onClick={this.handleBack}><i className="bi bi-arrow-left pr-1" />Back</button>
                 </div>
               }
-              <div className={`btn-group  ${index !== 0 ? "mr-2" : ""}`} role="group">
-                <button type="Submit" className="btn btn-primary pl-4 pr-4" disabled={disabled}>{index === intents.length - 1 ? "Verify" : "Next: Update request with another task"}</button>
+              <div className={`btn-group  ${strategy !== 'batch' && index !== 0 ? "mr-2" : ""}`} role="group">
+                <button type="Submit" className="btn btn-primary pl-4 pr-4" disabled={disabled}>{strategy === 'batch' || index === intents.length - 1 ? "Verify" : "Next: Update request with another task"}</button>
               </div>
             </div>
 

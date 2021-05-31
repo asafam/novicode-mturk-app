@@ -33,6 +33,7 @@
 
   <crowd-form>
     <input name="utterance" id="utterance" type="hidden">
+    <input name="intents" id="intents" type="hidden">
     <input name="annotations" id="annotations" type="hidden">
     <input name="utterances" id="utterances" type="hidden">
 
@@ -42,8 +43,8 @@
 
   <div id="root" data-id="123" data-context="A doctor appointment"
     data-intents="Delete something on your calendar | Inquire on the duration to travel to somewhere" data-icons="calendar | map"
-    data-instructions="Do somthing" data-link-word="if" data-link-word-idx="sdfdsf" data-quantifier="all" data-quantifier-idx="sdfdf" 
-    data-max-length-per-intent="60"></div>
+    data-instructions="Do somthing" data-link-words="if | because | provided" data-link-word-idx="1" data-quantifiers="all | not even one" data-quantifier-idx="0" 
+    data-max-length-per-intent="60" data-strategy="batch" data-min-intents="2"></div>
   <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

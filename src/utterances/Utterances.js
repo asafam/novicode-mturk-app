@@ -23,6 +23,7 @@ export default class Utterances extends React.Component {
         this.state = {
             status: STATUS.utterancePhrasing,
             utterances: new Array(intents.length),
+            selectedIntentIndexes: [],
             intentsSelections,
             intentIndex: 0,
             intentSelectionIndex: 0,
@@ -99,13 +100,16 @@ export default class Utterances extends React.Component {
     }
 
     handleMTurkSubmit() {
-        const { utterance, utterances, intentsSelections } = this.state;
+        const { intents } = this.props;
+        const { utterance, utterances, selectedIntentIndexes, intentsSelections } = this.state;
 
+        const intentsValue = selectedIntentIndexes.map(index => intents[index]).join(" | ");
         const annotationsValue = intentsSelections.map(intentsSelections => intentsSelections.join(", ")).join(" | ");
         const utterancesValue = utterances.join(" | ");
         document.querySelector('crowd-form').onsubmit = () => {
             if (document.getElementById('utterance')) {
                 document.getElementById('utterance').value = utterance;
+                document.getElementById('intents').value = intentsValue;
                 document.getElementById('annotations').value = annotationsValue;
                 document.getElementById('utterances').value = utterancesValue;
             }
@@ -113,18 +117,20 @@ export default class Utterances extends React.Component {
         document.querySelector('crowd-form').submit();
     }
 
-    handleUtteranceVerification() {
+    handleUtteranceVerification(selectedIntentIndexes) {
         const status = STATUS.intentsSelection;
-        this.setState({ status });
+        this.setState({ status, selectedIntentIndexes });
     }
 
     handleSubmitUtterance(utterance) {
-        const { intents } = this.props;
+        const { intents, strategy } = this.props;
         let { intentIndex, status, utterances } = this.state;
 
         utterances[intentIndex] = utterances[intentIndex] || utterance;
         intentIndex = Math.min(intentIndex + 1, intents.length);
-        if (status === STATUS.utterancePhrasing && intentIndex === intents.length) {
+        if (strategy === 'batch') {
+            status = STATUS.utteranceVerification;
+        } else if (status === STATUS.utterancePhrasing && intentIndex === intents.length) {
             status = STATUS.utteranceVerification;
         }
         this.setState({ utterance, utterances, status, intentIndex })
@@ -183,8 +189,9 @@ export default class Utterances extends React.Component {
     }
 
     render() {
-        const { context, intents, icons, maxLength, maxLengthPerIntent, linkWord, linkWordIdx, quantifier, quantifierIdx } = this.props;
-        const { status, utterance, intentIndex, intentsSelections, intentSelectionIndex } = this.state;
+        const { strategy, context, intents, icons, minIntents, maxLength, maxLengthPerIntent, linkWords, linkWordIdx, quantifiers, quantifierIdx } = this.props;
+        const { status, utterance, intentIndex, selectedIntentIndexes, intentsSelections, intentSelectionIndex } = this.state;
+        const selectedIntents = intents.filter((intent, i) => selectedIntentIndexes.indexOf(i) !== -1);
         const [selectionStart, selectionEnd] = intentSelectionIndex >= 0 && intentSelectionIndex < intents.length ? intentsSelections[intentSelectionIndex] : [0, 0];
         const progress = this.getProgress();
         const instructions = this.getInstructions();
@@ -200,13 +207,13 @@ export default class Utterances extends React.Component {
                         </div>
                         <div className="col">
                             {status === STATUS.utterancePhrasing &&
-                                <Form utterance={utterance} context={context} intents={intents} icons={icons} index={intentIndex} linkWord={linkWord} linkWordIdx={linkWordIdx} quantifier={quantifier} quantifierIdx={quantifierIdx} utteranceLimit={utteranceLimit} onSubmit={this.handleSubmitUtterance} onBack={this.handleBack} />
+                                <Form utterance={utterance} context={context} intents={intents} icons={icons} strategy={strategy} minIntents={minIntents} index={intentIndex} linkWords={linkWords} linkWordIdx={linkWordIdx} quantifiers={quantifiers} quantifierIdx={quantifierIdx} utteranceLimit={utteranceLimit} onSubmit={this.handleSubmitUtterance} onBack={this.handleBack} />
                             }
                             {status === STATUS.utteranceVerification &&
-                                <PhraseVerification intents={intents} icons={icons} onSubmit={this.handleUtteranceVerification} onBack={this.handleBack} />
+                                <PhraseVerification intents={intents} icons={icons} strategy={strategy} minIntents={minIntents} selectedIntentIndexes={selectedIntentIndexes} onSubmit={this.handleUtteranceVerification} onBack={this.handleBack} />
                             }
                             {status === STATUS.intentsSelection &&
-                                <Selections utterance={utterance} selectionStart={selectionStart} selectionEnd={selectionEnd} intents={intents} icons={icons} index={intentSelectionIndex} onSubmit={this.handleSelection} onBack={this.handleBack} />
+                                <Selections utterance={utterance} selectionStart={selectionStart} selectionEnd={selectionEnd} intents={selectedIntents} icons={icons} index={intentSelectionIndex} onSubmit={this.handleSelection} onBack={this.handleBack} />
                             }
                             {status === STATUS.end &&
                                 <ThankYou onSubmit={this.handleMTurkSubmit} onBack={this.handleBack} />

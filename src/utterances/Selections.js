@@ -107,7 +107,7 @@ class Selections extends React.Component {
                             <button type="Back" className="btn btn-secondary" onClick={this.handleBack}><i className="bi bi-arrow-left pr-1" />Back</button>
                         </div>
                         <div className="btn-group mr-2" role="group">
-                            <button type="submit" className="btn btn-primary pl-4 pr-4" onClick={this.handleSubmit} disabled={disabled}>Submit</button>
+                            <button type="submit" className="btn btn-primary pl-4 pr-4" onClick={this.handleSubmit} disabled={disabled}>Next</button>
                         </div>
                     </div>
                 </div>
