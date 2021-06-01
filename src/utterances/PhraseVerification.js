@@ -55,7 +55,7 @@ class PhraseVerification extends React.Component {
     }
 
     render() {
-        const { intents, icons, linkWords, strategy } = this.props;
+        const { intents, icons, linkWords, strategy, minIntents } = this.props;
         const { selectedIntentIndexes, tasksVerification, linkWordVerification } = this.state;
         const disabled = this.isDisabled();
 
@@ -84,7 +84,7 @@ class PhraseVerification extends React.Component {
                     }
                     {strategy === 'batch' &&
                         <div>
-                            <h5 className="mb-3">Which tasks did you use in your request?</h5>
+                            <h5 className="mb-3">Which tasks did you use in your request (you were requested to pick at least {minIntents})?</h5>
                             <div className="bd-callout bd-callout-yellow2">
                                 {intents.map((intent, i) => (
                                     <div key={i}>
