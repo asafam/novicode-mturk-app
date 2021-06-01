@@ -156,17 +156,18 @@ export default class Utterances extends React.Component {
     }
 
     handleSelection(index, selectionStart, selectionEnd, Selectionsuccess) {
-        let { intentsSelections, status } = this.state;
+        let { intentsSelections, selectedIntentIndexes, status } = this.state;
         intentsSelections[index] = [selectionStart, selectionEnd];
 
         // check if all intents have been verified
         const { intents } = this.props;
-        const allIntentsSelected = intents.every((intent, i) => intentsSelections[i][0] >= 0 && intentsSelections[i][1] > intentsSelections[i][0]);
-        if (Selectionsuccess && allIntentsSelected && index === (intents.length - 1)) {
+        const selectedIntents = selectedIntentIndexes.map(i => intents[i]);
+        const allIntentsSelected = selectedIntents.every((intent, i) => intentsSelections[i][0] >= 0 && intentsSelections[i][1] > intentsSelections[i][0]);
+        if (Selectionsuccess && allIntentsSelected && index === (selectedIntents.length - 1)) {
             status = STATUS.end;
         }
 
-        this.setState({ intentsSelections, status, intentSelectionIndex: Math.min(index + 1, intents.length) });
+        this.setState({ intentsSelections, status, intentSelectionIndex: Math.min(index + 1, selectedIntents.length) });
     }
 
     getProgress() {
@@ -191,7 +192,7 @@ export default class Utterances extends React.Component {
     render() {
         const { strategy, context, intents, icons, minIntents, maxLength, maxLengthPerIntent, linkWords, linkWordIdx, quantifiers, quantifierIdx } = this.props;
         const { status, utterance, intentIndex, selectedIntentIndexes, intentsSelections, intentSelectionIndex } = this.state;
-        const selectedIntents = intents.filter((intent, i) => selectedIntentIndexes.indexOf(i) !== -1);
+        const selectedIntents = selectedIntentIndexes.map(i => intents[i]);
         const [selectionStart, selectionEnd] = intentSelectionIndex >= 0 && intentSelectionIndex < intents.length ? intentsSelections[intentSelectionIndex] : [0, 0];
         const progress = this.getProgress();
         const instructions = this.getInstructions();
