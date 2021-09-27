@@ -46,7 +46,7 @@ export default class Utterance extends React.Component {
     isUtteranceValid() {
         const { intents, words } = this.props;
         const { utterance } = this.state;
-        const wordsIncluded = (words && words.length > 0 && words.filter(w => utterance.toLowerCase().indexOf(w.split('(')[0].trim().toLowerCase()) !== -1)) || [];
+        const wordsIncluded = (utterance && words && words.length > 0 && words.filter(w => utterance.toLowerCase().indexOf(w.split('(')[0].trim().toLowerCase()) !== -1)) || [];
 
         if (!utterance || utterance.split(" ").length <= 2) {
             // the utterance is too short
