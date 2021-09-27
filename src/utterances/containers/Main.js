@@ -1,9 +1,9 @@
 import React from 'react';
-import Instructions from './Instructions'
-import Form from './Form';
-import PhraseVerification from './PhraseVerification';
-import Selections from './Selections';
-import ThankYou from './ThankYou';
+import Layout from '../components/Layout';
+import Form from '../components/Utterance';
+import PhraseVerification from '../PhraseVerification';
+import Selections from '../Selections';
+import ThankYou from '../ThankYou';
 
 const STATUS = {
     utterancePhrasing: 0,
@@ -12,7 +12,7 @@ const STATUS = {
     end: 3
 };
 
-export default class Utterances extends React.Component {
+export default class Main extends React.Component {
     constructor(props) {
         super(props);
 
@@ -87,15 +87,6 @@ export default class Utterances extends React.Component {
         } else {
             return ['', '']
                 ;
-        }
-    }
-
-    getHeader() {
-        const { status } = this.state;
-        if (status === STATUS.utteranceVerification) {
-            return "Review your request";
-        } else {
-            return null;
         }
     }
 
@@ -201,27 +192,20 @@ export default class Utterances extends React.Component {
 
         return (
             <div className="utterances">
-                <div className="container">
-                    <div className="row align-items-center">
-                        <div className="col">
-                            <Instructions header={header} instructions={instructions} utterance={utterance} progress={progress} hideHeader={status === STATUS.end} hideHelp={status === STATUS.end} hideUtterance={status === STATUS.utteranceVerification} />
-                        </div>
-                        <div className="col">
-                            {status === STATUS.utterancePhrasing &&
-                                <Form utterance={utterance} context={context} intents={intents} icons={icons} strategy={strategy} minIntents={minIntents} index={intentIndex} linkWords={linkWords} linkWordIdx={linkWordIdx} quantifiers={quantifiers} quantifierIdx={quantifierIdx} utteranceLimit={utteranceLimit} onSubmit={this.handleSubmitUtterance} onBack={this.handleBack} />
-                            }
-                            {status === STATUS.utteranceVerification &&
-                                <PhraseVerification intents={intents} icons={icons} strategy={strategy} minIntents={minIntents} selectedIntentIndexes={selectedIntentIndexes} onSubmit={this.handleUtteranceVerification} onBack={this.handleBack} />
-                            }
-                            {status === STATUS.intentsSelection &&
-                                <Selections utterance={utterance} selectionStart={selectionStart} selectionEnd={selectionEnd} intents={selectedIntents} icons={icons} index={intentSelectionIndex} onSubmit={this.handleSelection} onBack={this.handleBack} />
-                            }
-                            {status === STATUS.end &&
-                                <ThankYou onSubmit={this.handleMTurkSubmit} onBack={this.handleBack} />
-                            }
-                        </div>
-                    </div>
-                </div>
+                <Layout status={status} progress={progress}>
+                    {status === STATUS.utterancePhrasing &&
+                        <Form utterance={utterance} context={context} intents={intents} icons={icons} strategy={strategy} minIntents={minIntents} index={intentIndex} linkWords={linkWords} linkWordIdx={linkWordIdx} quantifiers={quantifiers} quantifierIdx={quantifierIdx} utteranceLimit={utteranceLimit} onSubmit={this.handleSubmitUtterance} onBack={this.handleBack} />
+                    }
+                    {status === STATUS.utteranceVerification &&
+                        <PhraseVerification intents={intents} icons={icons} strategy={strategy} minIntents={minIntents} selectedIntentIndexes={selectedIntentIndexes} onSubmit={this.handleUtteranceVerification} onBack={this.handleBack} />
+                    }
+                    {status === STATUS.intentsSelection &&
+                        <Selections utterance={utterance} selectionStart={selectionStart} selectionEnd={selectionEnd} intents={selectedIntents} icons={icons} index={intentSelectionIndex} onSubmit={this.handleSelection} onBack={this.handleBack} />
+                    }
+                    {status === STATUS.end &&
+                        <ThankYou onSubmit={this.handleMTurkSubmit} onBack={this.handleBack} />
+                    }
+                </Layout>
             </div>
         );
     }

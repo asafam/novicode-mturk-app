@@ -1,5 +1,5 @@
 import React from 'react';
-import Help from './Help';
+import Help from '../Help';
 
 const Instructions = ({ header, instructions, utterance, progress, hideHelp, hideHeader, hideUtterance }) => {
     return (

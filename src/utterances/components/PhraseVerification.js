@@ -88,7 +88,7 @@ class PhraseVerification extends React.Component {
                             <div className="bd-callout bd-callout-yellow2">
                                 {intents.map((intent, i) => (
                                     <div key={i}>
-                                        <div className={`form-check pt-1 pb-1 mt-1 mb-1 ${selectedIntentIndexes.indexOf(i) !== -1 ? "bg-primary text-white" : ""}`} style={{"paddingLeft": "2.0rem"}} data-index={i} onClick={this.handleToggleCheckbox}>
+                                        <div className={`form-check pt-1 pb-1 mt-1 mb-1 ${selectedIntentIndexes.indexOf(i) !== -1 ? "bg-light" : ""}`} style={{"paddingLeft": "2.0rem"}} data-index={i} onClick={this.handleToggleCheckbox}>
                                             <input className="form-check-input" type="checkbox" checked={selectedIntentIndexes.indexOf(i) !== -1} id={`intent${i}`} data-index={i} onChange={this.handleToggleCheckbox}/>
                                             <label className="form-check-label" htmlFor="flexCheckDefault"><h6><span className={`bi bi-${icons[i]}`} style={{ "paddingRight": "15px" }} />{intent}</h6></label>
                                         </div>

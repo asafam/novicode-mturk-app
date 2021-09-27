@@ -1,14 +1,15 @@
-import Utterances from './utterances/Utterances';
+import Main from './utterances2/App';
 import './App.css';
 
-const App = ({ id, context, intents, icons, minIntents, strategy, linkWords, linkWordIdx, quantifiers, quantifierIdx, maxLength, maxLengthPerIntent }) => {
+const App = ({ id, context, contexts, intents, icons, minIntents, constraintIntents, constraintIcons, minConstraints, linkWords, linkWordIdx, quantifiers, quantifierIdx, maxLength, maxLengthPerIntent }) => {
   return (
     <div className="App">
-      <Utterances id={id} context={context} intents={intents} icons={icons} 
-                  minIntents={minIntents} strategy={strategy}
-                  linkWords={linkWords} linkWordIdx={linkWordIdx} 
-                  quantifiers={quantifiers} quantifierIdx={quantifierIdx}
-                  maxLength={maxLength} maxLengthPerIntent={maxLengthPerIntent} />
+      <Main id={id} context={context} contexts={contexts} 
+            intents={intents} icons={icons} minIntents={minIntents}
+            constraintIntents={constraintIntents} constraintIcons={constraintIcons} minConstraints={minConstraints}
+            linkWords={linkWords} linkWordIdx={linkWordIdx} 
+            quantifiers={quantifiers} quantifierIdx={quantifierIdx}
+            maxLength={maxLength} maxLengthPerIntent={maxLengthPerIntent} />
     </div>
   );
 }

@@ -38,10 +38,7 @@ const Help = () => {
                 Help
             </Button>
 
-            <MyVerticallyCenteredModal
-                show={modalShow}
-                onHide={() => setModalShow(false)}
-            >
+            <MyVerticallyCenteredModal show={modalShow} onHide={() => setModalShow(false)} >
                 <div className="container">
                     <div className="row">
                         <div className="col">

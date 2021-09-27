@@ -115,7 +115,7 @@ class Form extends React.Component {
                 <p>
                   <span className="text-muted">Tasks your virtual assistance can do for you</span>
                   {strategy === 'batch' &&
-                    <span className="text-danger"> (pick as many as possible and <u style={{ "fontSize": "1.2rem" }}>and at least {minIntents}</u>)</span>
+                    <span className="text-danger"> (pick as many as possible and <u style={{ "fontSize": "1.2rem" }}>at least {minIntents}</u>)</span>
                   }
                   <span className="text-muted">:</span>
                 </p>
