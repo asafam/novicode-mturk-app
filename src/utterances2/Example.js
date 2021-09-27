@@ -9,6 +9,8 @@ export default class Example extends React.Component {
             badUtterance1: "If it will rain tomorrow then remind me tonight to bring an umbrella",
             badUtterance2: "Remind me tonight to bring an umbrella. Text John I will meet him at the bar",
             badUtterance3: "Hello, how are you? Remind me to bring an umbrella",
+            badUtterance4: "It will rain tomorrow and John want to go to the rally, text him the time to be there",
+            badUtterance5: "If it will rain send a message",
             intents: ["Delete something on your calendar", "Send a text message to anyone on your contact list", "Create a reminder"],
             selectedIntents: [1, 2],
             minIntents: 1,
@@ -24,7 +26,7 @@ export default class Example extends React.Component {
     }
 
     render() {
-        const { goodUtterance1, badUtterance1, badUtterance2, badUtterance3, intents, minIntents, icons, constraintIntents,
+        const { goodUtterance1, badUtterance1, badUtterance2, badUtterance3, badUtterance4, badUtterance5, intents, minIntents, icons, constraintIntents,
             minConstraints, constraintIcons, words, context, selectedConstraints, selectedIntents, selectedWords } = this.state;
 
         return (
@@ -93,8 +95,8 @@ export default class Example extends React.Component {
                             </div>
                             <div className="col help">
                                 <div>
-                                <p>3. To help you write rich utterances we ask you to use any of the given words</p>
-                                <p className="hint text-muted">We selected one for the example</p>
+                                    <p>3. To help you write rich utterances we ask you to use any of the given words</p>
+                                    <p className="hint text-muted">We selected one for the example</p>
                                 </div>
                             </div>
                         </div>
@@ -131,7 +133,7 @@ export default class Example extends React.Component {
                                 rows="5" value={badUtterance1} type="text" id="utterance" aria-describedby="help">
                             </textarea>
                         </div>
-                        <div className="col help"><p>Bad example: this example uses the selected tasks, one constraint, and the mandatory words.</p></div>
+                        <div className="col help"><p>Bad example: This example just uses a single task (a minimum of 2 is required).</p></div>
                     </div>
 
                     <div className="row mb-5">
@@ -150,6 +152,24 @@ export default class Example extends React.Component {
                             </textarea>
                         </div>
                         <div className="col help"><p>Bad example: Avoid greetings and politeness.</p></div>
+                    </div>
+
+                    <div className="row mb-5">
+                        <div className="col">
+                            <textarea className="form-control is-invalid"
+                                rows="5" value={badUtterance4} type="text" id="utterance" aria-describedby="help">
+                            </textarea>
+                        </div>
+                        <div className="col help"><p>Bad example: Avoid irrelevant information - updating the virtual assistance on the weather and your friend's intensions (going to the rally) is irrelevant. Be specific and straight to the point! </p></div>
+                    </div>
+
+                    <div className="row mb-5">
+                        <div className="col">
+                            <textarea className="form-control is-invalid"
+                                rows="5" value={badUtterance5} type="text" id="utterance" aria-describedby="help">
+                            </textarea>
+                        </div>
+                        <div className="col help"><p>Bad example: Missing required information. Don't expect your virtual assistance to guess. When will it rain? Who should it send a message and what message? </p></div>
                     </div>
                 </div>
 
