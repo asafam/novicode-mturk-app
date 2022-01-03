@@ -1,0 +1,39 @@
+.instructions {
+    margin-top: 50px;
+    font-size: 1.4rem;
+    line-height: 2.2rem;    
+
+    .instruction {
+        margin-bottom: 50px;
+
+        p,
+        ul {
+            font-size: 1.4rem;
+            line-height: 2.2rem;
+        }
+    }
+
+    .card.bad-example {
+        border-color: #a4161a;
+    }
+
+    .card.bad-example .card-header {
+        background-color: #a4161a;
+    }
+
+    .card.good-example {
+        border-color: #2b9348;
+    }
+
+    .card.good-example .card-header {
+        background-color: #2b9348;
+    }
+
+    .card.neutral-example {
+        border-color: #0466c8;
+    }
+
+    .card.neutral-example .card-header {
+        background-color: #0466c8;
+    }
+}

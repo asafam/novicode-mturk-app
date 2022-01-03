@@ -97,7 +97,7 @@ export default class Utterance extends React.Component {
                             <div className="bd-callout">
                                 <p>
                                     <span className="">Write an utterance that uses {minIntents} or more of the following tasks your virtual assitance can do for you</span>
-                                    <span className="text-muted"> (use as many as possible)</span>
+                                    <span className="text-muted"> (use as many as possible, you can also use the same one multiple times)</span>
                                     <span className="">:</span>
                                 </p>
                                 {intents.map((intent, i) => (
@@ -114,8 +114,8 @@ export default class Utterance extends React.Component {
                         <div className="col">
                             <div className="bd-callout">
                                 <p>
-                                    <span className="">In your utterance, constraint the tasks you previously choosed (any or all) with {minConstraints} or more queries your virtual assitance can do for you</span>
-                                    <span className="text-muted"> (use as many as possible)</span>
+                                    <span className="">In your utterance, constrain the tasks you previously choosed (any or all) with {minConstraints} or more queries your virtual assitance can do for you</span>
+                                    <span className="text-muted"> (use as many as possible, use can also use the same one multiple times)</span>
                                     <span className="">:</span>
                                 </p>
                                 {constraintIntents.map((intent, i) => (

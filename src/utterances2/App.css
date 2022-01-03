@@ -20,6 +20,10 @@ body {
     padding-top: 0.5rem !important;
 }
 
+.utterance textarea {
+    font-size: 1.3rem;
+}
+
 .utterance .word {
     font-size: 1.3rem; 
     padding: 3px 7px;
@@ -49,24 +53,6 @@ body {
 .intent {
     color: #8338ec;
     line-height: 2rem;
-}
-
-.intent.selection {
-    color: #8338ec;
-    background: #fff;
-    border: 1px solid #8338ec;
-    border-radius: 8px;
-}
-
-.intent.selection.selected {
-    color: #fff;
-    background: #8338ec;
-}
-
-.intent.selection input {
-    margin-top: 8px;
-    margin-left: -16px;
-    margin-right: 16px;
 }
 
 .intent-icon {
@@ -125,8 +111,36 @@ body {
     padding: 3px 8px;
 }
 
+.verification .counter-form {
+    width: 120px;
+    float: left;
+    margin: 12px;
+}
+
+.verification .counter-form input {
+    margin: 0;
+}
+
+.verification .label {
+    float: left;
+    margin-top: 18px;
+    margin-left: 12px;
+    width: calc(100% - 160px);
+}
+
+.verification .selection {
+    width: 100%;
+    min-height: 50px;
+    overflow: hidden;
+}
+
 .selections .utterance {
     font-size: 1.5rem;
+}
+
+.selections .intent .counter {
+    margin-left: 8px;
+    font-size: 1rem;
 }
 
 .selections .selection {
@@ -149,6 +163,24 @@ body {
     margin-left: 8px;
 }
 
+.selections .utterance {
+    line-height: 2rem;
+}
+
+.selections .utterance .highlight {
+    border: 1px solid;
+    padding: 4px 6px;
+    border-radius: 8px;
+}
+
+.selections .utterance .highlight.intent {
+    background: #ffd166;
+}
+
+.selections .utterance .highlight.constraint {
+    background: #06d6a0;
+}
+
 .example .help {
     background: #f6f6f6;
     font-size: 1.3rem;
@@ -168,4 +200,8 @@ body {
 
 .example .selection{
     padding: 4px 16px;
+}
+
+.btn-outline-secondary {
+    background: white;
 }

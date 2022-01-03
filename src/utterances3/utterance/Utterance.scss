@@ -1,0 +1,102 @@
+.utterance {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+}
+
+.utterance {
+    .instruction.body {
+        font-weight: 300;
+        font-size: 1.3rem;
+        line-height: 2.3rem;
+    }
+
+    .info {
+        margin-top: 18px;
+
+        .bi {
+            float: left;
+            padding-right: 10px;
+        }
+
+        div {
+            float: left;
+            font-size: 1rem;
+            font-weight: 700;
+            width: 100%;
+        }
+    }
+
+    .intents {
+        margin-left: 20px;
+    }
+
+    .intent {
+        font-family: "Times New Roman", Times, serif;
+        font-style: italic;
+        font-size: 1.8rem;
+        line-height: 2.8rem;
+    }
+
+    .intent-icon {
+        padding-right: 15px;
+    }
+
+    .words {
+        margin-left: 20px;
+
+        .word {
+            font-family: "Times New Roman", Times, serif;
+            font-style: italic;
+            font-size: 1.8rem;
+            line-height: 2.8rem;
+            padding: 3px 10px;
+            margin: 0 4px;
+            border-radius: 8px;
+            border: 1px solid #8338ec;
+            color: #8338ec;
+        }
+    }
+
+    #word-instruction-2 {
+        margin-top: 16px;
+        margin-left: 4px;
+        font-size: 1.1rem;
+        line-height: 1.5rem;
+    }
+
+    #word-instruction-2 .bi {
+        padding-right: 8px;
+        font-size: 1.5rem;
+        color: #8338ec;
+    }
+
+    .word.selected {
+        color: #fff;
+        background: #8338ec;
+    }
+
+    .note {
+        i {
+            float: left;
+            padding-right: 10px;
+        }
+    }
+
+    .utterance .card {
+        width: 680px;
+    }
+
+    .intent-textarea {
+        border: none !important;
+        font-family: "Times New Roman", Times, serif;
+        font-style: italic;
+        font-size: 1.6rem;
+        line-height: 2.4rem;
+    }
+
+    .intent-textarea:focus {
+        border: none !important;
+    }
+}

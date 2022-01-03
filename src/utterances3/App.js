@@ -1,15 +1,15 @@
 import React from 'react';
-import Instructions from './Instructions';
-import Utterance from './Utterance';
-import Verification, { VERIFICATION_STEPS } from './Verification';
-import Selections, { SELECTIONS_STEPS } from './Selections';
+import Home from './home/Home';
+import Instructions from './instructions/Instructions';
+import Utterance from './utterance/Utterance';
+import Verification, { VERIFICATION_STEPS } from './verification/Verification';
+import Selections, { SELECTIONS_STEPS } from './selections/Selections';
 import ThankYou from './ThankYou';
-import Help from './Help';
-import './App.css';
+import './App.scss';
 
 const SCREENS = {
-    instructions: 1,
-    example: 2,
+    home: 1,
+    instructions: 2,
     utterance: 3,
     selections: 4,
     verification: 5,
@@ -21,7 +21,7 @@ export default class App extends React.Component {
         super(props);
         const { intents, constraintIntents } = props;
         this.state = {
-            currentScreen: SCREENS.instructions,
+            currentScreen: SCREENS.home,
             intentsSelections: new Array(intents.length),
             constraintsSelections: new Array(constraintIntents.length),
         };
@@ -39,10 +39,10 @@ export default class App extends React.Component {
         const { intents, constraintIntents } = this.props;
         const { utterance, context, selectedIntents, selectedConstraints, intentsSelections, constraintsSelections } = this.state;
         const contextValue = context;
-        const intentsValue = selectedIntents.map(index => intents[index]).join(" | ");
-        const constraintsValue = selectedConstraints.map(index => constraintIntents[index]).join(" | ");
-        const intentsAnnotationsValue = selectedIntents.map((index, i) => utterance.substring(intentsSelections[i][0], intentsSelections[i][1])).join(" | ");
-        const constraintsAnnotationsValue = selectedConstraints.map((index, i) => utterance.substring(constraintsSelections[i][0], constraintsSelections[i][1])).join(" | ");
+        const intentsValue = selectedIntents && selectedIntents.map(index => intents[index]).join(" | ");
+        const constraintsValue = selectedConstraints && selectedConstraints.map(index => constraintIntents[index]).join(" | ");
+        const intentsAnnotationsValue = selectedIntents && selectedIntents.map((index, i) => utterance.substring(intentsSelections[i][0], intentsSelections[i][1])).join(" | ");
+        const constraintsAnnotationsValue = selectedConstraints && selectedConstraints.map((index, i) => utterance.substring(constraintsSelections[i][0], constraintsSelections[i][1])).join(" | ");
         document.querySelector('crowd-form').onsubmit = () => {
             if (document.getElementById('utterance')) {
                 document.getElementById('context').value = contextValue;
@@ -58,7 +58,9 @@ export default class App extends React.Component {
 
     handleClickNext() {
         const { currentScreen } = this.state;
-        if (currentScreen === SCREENS.instructions) {
+        if (currentScreen === SCREENS.home) {
+            this.setState({ currentScreen: SCREENS.instructions });
+        } else if (currentScreen === SCREENS.instructions) {
             this.setState({ currentScreen: SCREENS.utterance });
         } else if (currentScreen === SCREENS.utterance) {
             this.setState({ currentScreen: SCREENS.verification, verificationStep: VERIFICATION_STEPS.intents });
@@ -69,19 +71,23 @@ export default class App extends React.Component {
         } else if (currentScreen === SCREENS.end) {
             this.submitToMTurk(this.state);
         }
+        window.scrollTo(0, 0);
     }
 
     handleClickBack() {
         const { currentScreen } = this.state;
-        if (currentScreen === SCREENS.utterance) {
+        if (currentScreen === SCREENS.instructions) {
+            this.setState({ currentScreen: SCREENS.home });
+        } else if (currentScreen === SCREENS.utterance) {
             this.setState({ currentScreen: SCREENS.instructions });
         } else if (currentScreen === SCREENS.verification) {
             this.setState({ currentScreen: SCREENS.utterance });
         } else if (currentScreen === SCREENS.selections) {
-            this.setState({ currentScreen: SCREENS.verification, verificationStep: 2 });
+            this.setState({ currentScreen: SCREENS.verification, verificationStep: 1 });
         } else if (currentScreen === SCREENS.end) {
-            this.setState({ currentScreen: SCREENS.selections, selectionsStep: SELECTIONS_STEPS.constraints, currentSelectionIndex: -1 });
+            this.setState({ currentScreen: SCREENS.selections, selectionsStep: SELECTIONS_STEPS.intents, currentSelectionIndex: -1 });
         }
+        window.scrollTo(0, 0);
     }
 
     handleClickHelp() {
@@ -89,17 +95,15 @@ export default class App extends React.Component {
     }
 
     handleUtteranceChange(utterance, context) {
-        this.setState({ utterance, context });
+        this.setState({ utterance, context, intentsSelections: [], constraintsSelections: [] });
     }
 
     handleSelectIntent(itemsCounter) {
-        const { intentsSelections } = this.state;
-        this.setState({ selectedIntents: itemsCounter, intentsSelections: intentsSelections.map((selection, i) => (itemsCounter[i] > 0 ? selection : null)) });
+        this.setState({ selectedIntents: itemsCounter, intentsSelections: [] });
     }
 
     handleSelectConstraint(itemsCounter) {
-        const { constraintsSelections } = this.state;
-        this.setState({ selectedConstraints: itemsCounter, constraintsSelections: constraintsSelections.map((selection, i) => (itemsCounter[i] > 0 ? selection : null)) });
+        this.setState({ selectedConstraints: itemsCounter, constraintsSelections: [] });
     }
 
     handleSelection(intentsSelections, constraintsSelections, currentSelectionIndex) {
@@ -107,14 +111,18 @@ export default class App extends React.Component {
     }
 
     getDisplayedScreen() {
-        const { contexts, maxLength, maxLengthPerIntent, minIntents, minConstraints, intents, constraintIntents, icons, constraintIcons, linkWords } = this.props;
+        const { contexts, maxLength, maxLengthPerIntent, minIntents, minConstraints, intents, constraintIntents, icons, constraintIcons, linkWords, minWords } = this.props;
         const { currentScreen, utterance, context, selectedIntents, selectedConstraints, intentsSelections, constraintsSelections, selectionsStep, currentSelectionIndex, verificationStep } = this.state;
         const words = linkWords;
         const utteranceLimit = maxLength || maxLengthPerIntent * intents.length || 250;
 
-        if (currentScreen === SCREENS.instructions) {
+        if (currentScreen === SCREENS.home) {
             return (
-                <Instructions onClickExample={this.handleClickHelp} onClickSkip={this.handleClickNext} />
+                <Home onClickExample={this.handleClickHelp} onClickSkip={this.handleClickNext} />
+            );
+        } else if (currentScreen === SCREENS.instructions) {
+            return (
+                <Instructions onClickBack={this.handleClickBack} onClickNext={this.handleClickNext} />
             );
         } else if (currentScreen === SCREENS.utterance) {
             return (
@@ -122,9 +130,9 @@ export default class App extends React.Component {
                     utteranceLimit={utteranceLimit} minIntents={minIntents} minConstraints={minConstraints}
                     intents={intents} constraintIcons={constraintIcons}
                     constraintIntents={constraintIntents} icons={icons}
-                    words={words} contexts={contexts} context={context}
+                    words={words} minWords={minWords} contexts={contexts} context={context}
                     onUtteranceChange={this.handleUtteranceChange}
-                    onClickNext={this.handleClickNext} onClickBack={this.handleClickBack} onClickHelp={this.handleClickHelp} />
+                    onClickBack={this.handleClickBack} onClickHelp={this.handleClickHelp} onClickNext={this.handleClickNext}  />
             );
         } else if (currentScreen === SCREENS.verification) {
             return (
@@ -162,9 +170,7 @@ export default class App extends React.Component {
                 <div className="container">
                     <main>
                         {displayedScreen}
-                        {showHelp &&
-                            <Help show={showHelp} onHide={() => this.setState({ showHelp: false })} />
-                        }
+                        
                     </main>
                 </div>
             </div>

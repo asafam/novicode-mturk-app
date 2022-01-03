@@ -16,10 +16,10 @@ export default class Verification extends React.Component {
             step: step || (selectedIntents && selectedIntents.length > 0 && VERIFICATION_STEPS.contraints) || VERIFICATION_STEPS.intents
         };
 
-        this.handleIntentClick = this.handleIntentClick.bind(this);
-        this.handleConstrainClick = this.handleConstrainClick.bind(this);
         this.handleClickNext = this.handleClickNext.bind(this);
         this.handleClickBack = this.handleClickBack.bind(this);
+        this.handleDecrementCounter = this.handleDecrementCounter.bind(this);
+        this.handleIncrementCounter = this.handleIncrementCounter.bind(this);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -29,43 +29,52 @@ export default class Verification extends React.Component {
         }
     }
 
-    handleIntentClick(event) {
-        const { onSelectIntent } = this.props;
-        const { selectedIntents } = this.state;
-        this.toggleIntent(event, selectedIntents);
-        this.setState({ selectedIntents, errorMessage: null });
-        onSelectIntent && onSelectIntent(selectedIntents);
+    handleDecrementCounter(event) {
+        event.preventDefault();
+        const { onSelectIntent, onSelectConstraint } = this.props;
+        const { step, selectedIntents, selectedConstraints } = this.state;
+        const index = parseInt(event.currentTarget.getAttribute('data-index'));
+        if (step === VERIFICATION_STEPS.intents) {
+            const indexToRemove = selectedIntents.indexOf(index);
+            if (indexToRemove !== -1) {
+                selectedIntents.splice(indexToRemove, 1);
+                onSelectIntent(selectedIntents);
+            }
+        } else {
+            const indexToRemove = selectedConstraints.indexOf(index);
+            if (indexToRemove !== -1) {
+                selectedConstraints.splice(indexToRemove, 1);
+                onSelectConstraint(selectedConstraints);
+            }
+        }
     }
 
-    handleConstrainClick(event) {
-        const { onSelectConstraint } = this.props;
-        const { selectedConstraints } = this.state;
-        this.toggleIntent(event, selectedConstraints);
-        this.setState({ selectedConstraints, errorMessage: null });
-        onSelectConstraint && onSelectConstraint(selectedConstraints);
-    }
-
-    toggleIntent(event, array) {
-        const idx = parseInt(event.currentTarget.getAttribute('data-index'));
-        if (array.indexOf(idx) >= 0) {
-            array.splice(array.indexOf(idx), 1)
-        } else if (!isNaN(idx)) {
-            array.push(idx);
+    handleIncrementCounter(event) {
+        event.preventDefault();
+        const { onSelectIntent, onSelectConstraint } = this.props;
+        const { step, selectedIntents, selectedConstraints } = this.state;
+        const index = parseInt(event.currentTarget.getAttribute('data-index'));
+        if (step === VERIFICATION_STEPS.intents) {
+            selectedIntents.push(index);
+            onSelectIntent(selectedIntents);
+        } else {
+            selectedConstraints.push(index);
+            onSelectConstraint(selectedConstraints);
         }
     }
 
     handleClickNext(event) {
         event.preventDefault();
-        const { minIntents, minConstraints, onClickNext } =this.props; 
-        const { step } = this.state; 
+        const { minIntents, minConstraints, onClickNext } = this.props;
+        const { step } = this.state;
         const valid = this.isValid();
         if (valid && step === VERIFICATION_STEPS.intents) {
             this.setState({ step: VERIFICATION_STEPS.contraints, valid, errorMessage: null })
         } else if (valid) {
             onClickNext();
         } else {
-            const errorMessage = step === VERIFICATION_STEPS.intents ? 
-                `You have to select at least ${minIntents} tasks. Click back if you need to update your utterance` : 
+            const errorMessage = step === VERIFICATION_STEPS.intents ?
+                `You have to select at least ${minIntents} tasks. Click back if you need to update your utterance` :
                 `You have to select at least ${minConstraints} constraints. Click back if you need to update your utterance`;
             this.setState({ valid, errorMessage });
         }
@@ -83,7 +92,7 @@ export default class Verification extends React.Component {
     }
 
     isValid() {
-        const { minIntents, minConstraints } =this.props;
+        const { minIntents, minConstraints } = this.props;
         const { step, selectedIntents, selectedConstraints } = this.state;
         if (step === VERIFICATION_STEPS.intents && selectedIntents && selectedIntents.length >= minIntents) {
             return true;
@@ -99,12 +108,12 @@ export default class Verification extends React.Component {
         const { step } = this.state;
         const text = (step === VERIFICATION_STEPS.intents) ?
             "Please select the virtual assitance's tasks you used in your utterance" :
-            "Please select the virtual assitance's inquiries you used in as constraints your utterance";
+            "Please select the virtual assitance's inquiries you used as constraints in your utterance";
         const minNum = (step === VERIFICATION_STEPS.intents) ? minIntents : minConstraints;
         const instruction = (
             <span>
                 <span className="">{text}</span>
-                <span className=""> (you had to use at least {minNum})</span>
+                <span className=""> (you had to use at least {minNum}, you were allowed to use the same one more than once)</span>
                 <span className="">:</span>
             </span>
         );
@@ -117,7 +126,9 @@ export default class Verification extends React.Component {
         const valid = this.isValid();
         const instruction = this.getInstruction();
         const items = step === VERIFICATION_STEPS.intents ? intents : constraintIntents;
-        const selectedItems = step === VERIFICATION_STEPS.intents ? selectedIntents : selectedConstraints;
+        const intentsCounter = (new Array(intents.length)).fill(0).map((value, index) => selectedIntents.filter(idx => idx === index).length);
+        const constraintsCounter = (new Array(constraintIntents.length)).fill(0).map((value, index) => selectedConstraints.filter(idx => idx === index).length);
+        const itemsCounter = step === VERIFICATION_STEPS.intents ? intentsCounter : constraintsCounter;
         const itemIcons = step === VERIFICATION_STEPS.intents ? icons : constraintIcons;
 
         return (
@@ -134,14 +145,26 @@ export default class Verification extends React.Component {
                                         <div className="bd-callout">
                                             <div className="utterance text-center"><p>{utterance}</p></div>
                                             {items.map((item, i) => (
-                                                <div key={i}>
-                                                    <div className={`form-check pt-1 pb-1 mt-1 mb-1 intent selection ${(selectedItems.indexOf(i) >= 0) ? "selected" : ""}`}
-                                                        data-index={i}
-                                                        onClick={step === VERIFICATION_STEPS.intents ? this.handleIntentClick : this.handleConstrainClick}>
-                                                        <input className="form-check-input" type="checkbox" checked={selectedItems.indexOf(i) >= 0} id={`intent${i}`} data-index={i} onChange={e => {}} />
-                                                        <label className="form-check-label" htmlFor="flexCheckDefault">
-                                                            <h5><span className={`intent-icon bi bi-${itemIcons[i]}`} />{item}</h5>
-                                                        </label>
+                                                <div className={`form-check pt-1 pb-1 mt-1 mb-1 intent selection ${(itemsCounter[i] > 0) ? "selected" : ""}`} key={i} data-index={i} >
+                                                    <div className="counter-form">
+                                                        <div className="input-group">
+                                                            <span className="input-group-btn">
+                                                                <button type="button" className="btn btn-outline-secondary btn-number" disabled={itemsCounter[i] === 0} data-type="minus" data-index={i}
+                                                                    onClick={this.handleDecrementCounter}>
+                                                                    <span className="bi bi-dash"></span>
+                                                                </button>
+                                                            </span>
+                                                            <input type="text" name="quant[1]" className="form-control input-number" value={itemsCounter[i]} min="1" max="10" readOnly={true} />
+                                                            <span className="input-group-btn">
+                                                                <button type="button" className="btn btn-outline-secondary btn-number" data-type="plus" data-index={i}
+                                                                    onClick={this.handleIncrementCounter}>
+                                                                    <span className="bi bi-plus"></span>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="label form-check-label" htmlFor="flexCheckDefault">
+                                                        <h5><span className={`intent-icon bi bi-${itemIcons[i]}`} />{item}</h5>
                                                     </div>
                                                 </div>
                                             ))}

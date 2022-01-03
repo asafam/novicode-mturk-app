@@ -5,12 +5,12 @@ export default class Example extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            goodUtterance1: "If it will rain tomorrow then remind me tonight to bring an umbrella and text John to bring an umbrella",
-            badUtterance1: "If it will rain tomorrow then remind me tonight to bring an umbrella",
+            goodUtterance1: "If it rains tomorrow then remind me tonight to bring an umbrella and text John to bring an umbrella",
+            badUtterance1: "If it rains tomorrow then remind me tonight to bring an umbrella",
             badUtterance2: "Remind me tonight to bring an umbrella. Text John I will meet him at the bar",
             badUtterance3: "Hello, how are you? Remind me to bring an umbrella",
             badUtterance4: "It will rain tomorrow and John want to go to the rally, text him the time to be there",
-            badUtterance5: "If it will rain send a message",
+            badUtterance5: "If it rains send a message",
             intents: ["Delete something on your calendar", "Send a text message to anyone on your contact list", "Create a reminder"],
             selectedIntents: [1, 2],
             minIntents: 1,
@@ -19,7 +19,7 @@ export default class Example extends React.Component {
             selectedConstraints: [1],
             minConstraints: 1,
             constraintIcons: ["map", "sun", "chat"],
-            words: ["if", "provided that", "because"],
+            words: ["if", "provided that", "because", "In case", "Unless"],
             selectedWords: [0],
             context: "office"
         };
