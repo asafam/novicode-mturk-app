@@ -167,7 +167,7 @@ export default class Instructions extends React.Component {
                     <div className="row mb-5">
                         <div className="col-6">
                             <div className="instruction">
-                                <h3>We are not perfect</h3>
+                                <h3>Adapt details if needed</h3>
                                 <p className="instruction body">In some cases the given virtual assistance tasks will not make sense
                                     to be conjoint together. In these cases we encourage you to change the details of one or more of the tasks such that
                                     the new sentence will look and sound right. Do this while preserving the general notion of the original task
