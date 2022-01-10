@@ -7,7 +7,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const getData = (attribute, id='root') => {
-  return document.getElementById(id).getAttribute(attribute);
+  const value = document.getElementById(id).getAttribute(attribute);
+  return value && !value.startsWith("${") ? value : null;
 };
 
 const id = getData('data-id');
