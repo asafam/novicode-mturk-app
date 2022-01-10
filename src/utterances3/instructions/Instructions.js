@@ -66,7 +66,9 @@ export default class Instructions extends React.Component {
                                     The new sentence should <span className="purple">make sense</span> as much as possible.</p>
                                 <p>In the new sentence, the different tasks should be related to one another, it will likely
                                     require you to <span className="purple">change the wording or even some details</span> in
-                                    the original tasks.</p>
+                                    the original tasks. We encourage you to change the details such that the newly rewritten tasks 
+                                    will <span className="purple">share the same details</span> (e.g., location, time, names, etc).
+                                    The new sentence should <span className="purple">make sense</span> as much as possible.</p>
                                 <p>The new sentence is also required to be <span className="purple">panctuated</span> and <span className="purple">
                                     grammatically correct</span> (even if the original tasks showed poor grammar).</p>
                             </div>
@@ -82,7 +84,7 @@ export default class Instructions extends React.Component {
                                             <div className="row">
                                                 <div className="col">
                                                     <div className="intent-textarea">
-                                                        If <span className="highlight">it snows today</span> then <span className="highlight">cancel my alarm</span>, otherwise
+                                                        If <span className="highlight">it snows today</span> then <span className="highlight">cancel my alarm</span>, or else
                                                         <span className="highlight">set a daily reminder at 6am to exercise</span>.
                                                     </div>
                                                 </div>
@@ -114,7 +116,7 @@ export default class Instructions extends React.Component {
                                             <div className="row">
                                                 <div className="col">
                                                     <div className="intent-textarea">
-                                                        If <span className="highlight">it snows today</span> then <span className="highlight">cancel my alarm</span>, otherwise
+                                                        If <span className="highlight">it snows today</span> then <span className="highlight">cancel my alarm</span>,
                                                         if <span className="highlight">it is sunny tomorrow</span>, <span className="highlight">set a daily reminder at 6am to exercise</span>.
                                                     </div>
                                                 </div>

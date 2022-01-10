@@ -22,8 +22,8 @@ export default class App extends React.Component {
         const { intents, constraintIntents } = props;
         this.state = {
             currentScreen: SCREENS.instructions,
-            intentsSelections: new Array(intents.length),
-            constraintsSelections: new Array(constraintIntents.length),
+            intentsSelections: intents && new Array(intents.length),
+            constraintsSelections: constraintIntents && new Array(constraintIntents.length), 
         };
 
         this.handleClickBack = this.handleClickBack.bind(this);

@@ -88,7 +88,7 @@ export default class Verification extends React.Component {
         event.preventDefault();
         const { constraintIntents } = this.props;
         const { step } = this.state;
-        if (step === VERIFICATION_STEPS.contraints || constraintIntents.length > 0) {
+        if (step === VERIFICATION_STEPS.contraints || (constraintIntents && constraintIntents.length > 0)) {
             this.setState({ step: VERIFICATION_STEPS.intents })
         } else {
             const { onClickBack } = this.props;
@@ -140,7 +140,7 @@ export default class Verification extends React.Component {
         const instruction = this.getInstruction();
         const items = step === VERIFICATION_STEPS.intents ? intents : constraintIntents;
         const intentsCounter = (new Array(intents.length)).fill(0).map((value, index) => selectedIntents.filter(idx => idx === index).length);
-        const constraintsCounter = (new Array(constraintIntents.length)).fill(0).map((value, index) => selectedConstraints.filter(idx => idx === index).length);
+        const constraintsCounter = (new Array((constraintIntents || []).length)).fill(0).map((value, index) => selectedConstraints.filter(idx => idx === index).length);
         const itemsCounter = step === VERIFICATION_STEPS.intents ? intentsCounter : constraintsCounter;
         const itemIcons = step === VERIFICATION_STEPS.intents ? icons : constraintIcons;
 

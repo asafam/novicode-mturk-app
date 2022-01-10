@@ -51,7 +51,8 @@ export default class Utterance extends React.Component {
     isUtteranceValid() {
         const { intents, words } = this.props;
         const { utterance } = this.state;
-        const wordsIncluded = (utterance && words && words.length > 0 && words.filter(w => utterance.toLowerCase().indexOf(w.split('(')[0].trim().toLowerCase()) !== -1)) || [];
+        const words2 = words.reduce((prevVal, w) => (prevVal.concat(w['verification'] || [w['display']])), [])
+        const wordsIncluded = (utterance && words2 && words2.length > 0 && words2.filter(w => utterance.toLowerCase().indexOf(w.trim().toLowerCase()) !== -1)) || [];
 
         if (!utterance || utterance.split(" ").length <= 2) {
             // the utterance is too short
@@ -59,7 +60,7 @@ export default class Utterance extends React.Component {
             return false;
         } else if (wordsIncluded.length === 0) {
             // none of the mandaroty words are included
-            this.setState({ valid: false, errorMessage: <span>Please use at least 1 of the following word: <strong>{words.join(", ")}</strong>.</span> })
+            this.setState({ valid: false, errorMessage: <span>Please use at least 1 of the following word: <strong>{words.map(w => w['display']).join(", ")}</strong>.</span> })
             return false;
         } else if ((utterance.indexOf("?") >= 0 && utterance.indexOf("?") < utterance.length * 0.5) || utterance.trim().split("?").filter(s => s.length > 0).length > 1) {
             // the utterance has been phrased as multiple utterances
@@ -136,7 +137,7 @@ export default class Utterance extends React.Component {
                                     </p>
                                     <div className="words pl-1 pr-1">
                                         {words && words.map((word, i) =>
-                                            (<span className="word" key={i}>{word}</span>)
+                                            (<span className="word" key={i}>{word['display']}</span>)
                                         )}
                                     </div>
                                     <div className="info text-center">
@@ -172,6 +173,10 @@ export default class Utterance extends React.Component {
                                     </div>
                                 </div>
                             </div >
+
+                            <div className="info text-center">
+                                <div>Remember: great sentences share some details between the rewritten tasks (e.g., time, place).</div>
+                            </div>
                         </div>
                     </div>
 
