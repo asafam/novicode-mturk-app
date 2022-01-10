@@ -19,8 +19,8 @@ const minIntents = getData('data-min-intents') && parseInt(getData('data-min-int
 const constraintIntents = getData('data-constraints') ? getData('data-constraints').split("|").filter(x => x && x.length > 0).map(intent => intent.trim()) : [];
 const constraintIcons = getData('data-constraint-icons') ? getData('data-constraint-icons').split("|").filter(x => x && x.length > 0).map(icon => icon.trim()) : [];
 const minConstraints = getData('data-min-constraints') && parseInt(getData('data-min-constraints'));
-const linkWords = getData('data-link-words') ? getData('data-link-words').split("|").map(word => ({display: word.trim().split(":")[0], verification: word.trim().split(":")[1].split(",")})) : [];
-const minWords = getData('min-words') && parseInt(getData('min-words'));
+const conjunctionWords = getData('data-conjunction-words') ? getData('data-conjunction-words').split("|").map(word => ({display: word.trim().split(":")[0], verification: word.trim().split(":")[1].split(",")})) : [];
+const minConjunctionWords = getData('min-conjunction-words') && parseInt(getData('min-conjunction-words'));
 const quantifiers = getData('data-quantifiers') ? getData('data-quantifiers').split("|").map(icon => icon.trim()) : [];
 const maxLength = getData('data-max-length') && parseInt(getData('data-max-length'));
 const maxLengthPerIntent = getData('data-max-length-per-intent') && parseInt(getData('data-max-length-per-intent'));
@@ -30,7 +30,7 @@ ReactDOM.render(
     <App id={id} context={context} contexts={contexts}
       intents={intents} icons={icons} minIntents={minIntents}
       constraintIntents={constraintIntents} constraintIcons={constraintIcons} minConstraints={minConstraints}
-      linkWords={linkWords} minWords={minWords} quantifiers={quantifiers} 
+      conjunctionWords={conjunctionWords} minConjunctionWords={minConjunctionWords} quantifiers={quantifiers} 
       maxLength={maxLength} maxLengthPerIntent={maxLengthPerIntent} />
   </React.StrictMode>,
   document.getElementById('root')

@@ -107,9 +107,9 @@ export default class App extends React.Component {
     }
 
     getDisplayedScreen() {
-        const { contexts, maxLength, maxLengthPerIntent, minIntents, minConstraints, intents, constraintIntents, icons, constraintIcons, linkWords } = this.props;
+        const { contexts, maxLength, maxLengthPerIntent, minIntents, minConstraints, intents, constraintIntents, icons, constraintIcons, conjunctionWords } = this.props;
         const { currentScreen, utterance, context, selectedIntents, selectedConstraints, intentsSelections, constraintsSelections, selectionsStep, currentSelectionIndex, verificationStep } = this.state;
-        const words = linkWords;
+        const words = conjunctionWords;
         const utteranceLimit = maxLength || maxLengthPerIntent * intents.length || 250;
 
         if (currentScreen === SCREENS.instructions) {

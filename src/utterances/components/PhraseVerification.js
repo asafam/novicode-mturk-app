@@ -55,7 +55,7 @@ class PhraseVerification extends React.Component {
     }
 
     render() {
-        const { intents, icons, linkWords, strategy, minIntents } = this.props;
+        const { intents, icons, conjunctionWords, strategy, minIntents } = this.props;
         const { selectedIntentIndexes, tasksVerification, linkWordVerification } = this.state;
         const disabled = this.isDisabled();
 
@@ -97,9 +97,9 @@ class PhraseVerification extends React.Component {
                             </div>
                         </div>
                     }
-                    {false && linkWords && linkWords.length > 0 &&
+                    {false && conjunctionWords && conjunctionWords.length > 0 &&
                         <div className="mt-5">
-                            <h5 className="mb-3">Did you link the tasks in your request using the word <span className="pl-1 pr-1" style={{ "fontSize": "2.2rem" }}>{linkWords.join(", ")}</span>?</h5>
+                            <h5 className="mb-3">Did you link the tasks in your request using the word <span className="pl-1 pr-1" style={{ "fontSize": "2.2rem" }}>{conjunctionWords.join(", ")}</span>?</h5>
                             <div className="text-center" onChange={this.handleChangeValue}>
                                 <div className="form-check form-check-inline">
                                     <input className="form-check-input" type="radio" name="linkWordVerification" id="lwvpos" value={linkWordVerification} />

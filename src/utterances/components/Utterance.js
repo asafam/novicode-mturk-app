@@ -31,8 +31,8 @@ class Form extends React.Component {
   }
 
   getWords(props) {
-    const { strategy, index, linkWords, linkWordIdx, quantifiers, quantifierIdx } = props;
-    let words = (strategy === 'batch' || index >= linkWordIdx) ? linkWords : [];
+    const { strategy, index, conjunctionWords, linkWordIdx, quantifiers, quantifierIdx } = props;
+    let words = (strategy === 'batch' || index >= linkWordIdx) ? conjunctionWords : [];
     words = words.concat((strategy === 'batch' || index >= quantifierIdx) ? quantifiers : []);
     words = words.filter(w => w && w.length > 0);
     const wordsIndex = [(strategy === 'batch' || index >= linkWordIdx) && linkWordIdx, (strategy === 'batch' || index >= quantifierIdx) && quantifierIdx].filter(n => n !== false);

@@ -12,7 +12,7 @@ const Home = (props) => {
                     <div className="col-6">
                         <div className="vertical-center-container">
                             <div className="vertical-center jumbotron">
-                                <h1>Rewrite to a single sentence</h1>
+                                <h1>Rewrite in a single sentence</h1>
                                 <p>Your goal in this task is to rewrite a series of distinct virtual assistance tasks in a single sentence</p>
                             </div>
                         </div>

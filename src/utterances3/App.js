@@ -111,9 +111,8 @@ export default class App extends React.Component {
     }
 
     getDisplayedScreen() {
-        const { contexts, maxLength, maxLengthPerIntent, minIntents, minConstraints, intents, constraintIntents, icons, constraintIcons, linkWords, minWords } = this.props;
+        const { contexts, maxLength, maxLengthPerIntent, minIntents, minConstraints, intents, constraintIntents, icons, constraintIcons, conjunctionWords, minConjunctionWords } = this.props;
         const { currentScreen, utterance, context, selectedIntents, selectedConstraints, intentsSelections, constraintsSelections, selectionsStep, currentSelectionIndex, verificationStep } = this.state;
-        const words = linkWords;
         const utteranceLimit = maxLength || maxLengthPerIntent * intents.length || 250;
 
         if (currentScreen === SCREENS.home) {
@@ -130,7 +129,7 @@ export default class App extends React.Component {
                     utteranceLimit={utteranceLimit} minIntents={minIntents} minConstraints={minConstraints}
                     intents={intents} constraintIcons={constraintIcons}
                     constraintIntents={constraintIntents} icons={icons}
-                    words={words} minWords={minWords} contexts={contexts} context={context}
+                    conjunctionWords={conjunctionWords} minConjunctionWords={minConjunctionWords} contexts={contexts} context={context}
                     onUtteranceChange={this.handleUtteranceChange}
                     onClickBack={this.handleClickBack} onClickHelp={this.handleClickHelp} onClickNext={this.handleClickNext}  />
             );

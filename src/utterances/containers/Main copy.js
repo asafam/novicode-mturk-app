@@ -190,7 +190,7 @@ export default class Main extends React.Component {
     }
 
     render() {
-        const { strategy, context, intents, icons, minIntents, maxLength, maxLengthPerIntent, linkWords, linkWordIdx, quantifiers, quantifierIdx } = this.props;
+        const { strategy, context, intents, icons, minIntents, maxLength, maxLengthPerIntent, conjunctionWords, linkWordIdx, quantifiers, quantifierIdx } = this.props;
         const { status, utterance, intentIndex, selectedIntentIndexes, intentsSelections, intentSelectionIndex } = this.state;
         const selectedIntents = selectedIntentIndexes.map(i => intents[i]);
         const [selectionStart, selectionEnd] = intentSelectionIndex >= 0 && intentSelectionIndex < intents.length ? intentsSelections[intentSelectionIndex] : [0, 0];
@@ -208,7 +208,7 @@ export default class Main extends React.Component {
                         </div>
                         <div className="col">
                             {status === STATUS.utterancePhrasing &&
-                                <Form utterance={utterance} context={context} intents={intents} icons={icons} strategy={strategy} minIntents={minIntents} index={intentIndex} linkWords={linkWords} linkWordIdx={linkWordIdx} quantifiers={quantifiers} quantifierIdx={quantifierIdx} utteranceLimit={utteranceLimit} onSubmit={this.handleSubmitUtterance} onBack={this.handleBack} />
+                                <Form utterance={utterance} context={context} intents={intents} icons={icons} strategy={strategy} minIntents={minIntents} index={intentIndex} conjunctionWords={conjunctionWords} linkWordIdx={linkWordIdx} quantifiers={quantifiers} quantifierIdx={quantifierIdx} utteranceLimit={utteranceLimit} onSubmit={this.handleSubmitUtterance} onBack={this.handleBack} />
                             }
                             {status === STATUS.utteranceVerification &&
                                 <PhraseVerification intents={intents} icons={icons} strategy={strategy} minIntents={minIntents} selectedIntentIndexes={selectedIntentIndexes} onSubmit={this.handleUtteranceVerification} onBack={this.handleBack} />

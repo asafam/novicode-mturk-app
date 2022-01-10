@@ -117,7 +117,7 @@ export default class Instructions extends React.Component {
                                                 <div className="col">
                                                     <div className="intent-textarea">
                                                         If <span className="highlight">it snows today</span> then <span className="highlight">cancel my alarm</span>,
-                                                        if <span className="highlight">it is sunny tomorrow</span>, <span className="highlight">set a daily reminder at 6am to exercise</span>.
+                                                        and if <span className="highlight">it is sunny tomorrow</span>, <span className="highlight">set a daily reminder at 6 am to exercise</span>.
                                                     </div>
                                                 </div>
                                             </div>

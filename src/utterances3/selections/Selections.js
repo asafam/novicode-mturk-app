@@ -28,6 +28,7 @@ export default class Selections extends React.Component {
         this.handleClickNext = this.handleClickNext.bind(this);
         this.handleClickBack = this.handleClickBack.bind(this);
         this.handleClickHelp = this.handleClickHelp.bind(this);
+        this.handleReset = this.handleReset.bind(this);
         this.handleMouseUp = this.handleMouseUp.bind(this);
     }
 
@@ -95,6 +96,11 @@ export default class Selections extends React.Component {
         this.setState({ showHelp: true });
     }
 
+    handleReset(event) {
+        event.preventDefault();
+        this.setState({intentsSelections: [], index: 0})
+    }
+
     getSelection() {// If it rains remind me to bring a coat and an umbrella
         const { utterance } = this.props;
         const selection = window.getSelection();
@@ -129,12 +135,12 @@ export default class Selections extends React.Component {
 
     isSelectionValid(selection) {
         let valid = false;
-        const { selectedIntents, selectedConstraints } = this.props;
+        const { selectedIntents, selectedConstraints, allowOverlaps } = this.props;
         const { index, step, intentsSelections, constraintsSelections } = this.state;
         const { selectionStart, selectionEnd } = selection;
         const valid1 = (selectionStart >= 0) && (selectionEnd > selectionStart) && ((selectionEnd - selectionStart) > 1);
-        const valid2 = !selectedIntents || selectedIntents.length === 0 || intentsSelections.reduce((result, value, i) => result && (!value || (step === SELECTIONS_STEPS.intents && index === i) || selectionStart >= value[1] || selectionEnd <= value[0]), true);
-        const valid3 = !selectedConstraints || selectedConstraints.length === 0 || constraintsSelections.reduce((result, value, i) => result && (!value || (step === SELECTIONS_STEPS.constraints && index === i) || selectionStart >= value[1] || selectionEnd <= value[0]), true);
+        const valid2 = allowOverlaps || !selectedIntents || selectedIntents.length === 0 || intentsSelections.reduce((result, value, i) => result && (!value || (step === SELECTIONS_STEPS.intents && index === i) || selectionStart >= value[1] || selectionEnd <= value[0]), true);
+        const valid3 = allowOverlaps || !selectedConstraints || selectedConstraints.length === 0 || constraintsSelections.reduce((result, value, i) => result && (!value || (step === SELECTIONS_STEPS.constraints && index === i) || selectionStart >= value[1] || selectionEnd <= value[0]), true);
         valid = valid || (valid1 && valid2 && valid3);
         return valid;
     }
@@ -153,7 +159,7 @@ export default class Selections extends React.Component {
         const selectedText = valid ? utterance.substring(selectionStart, selectionEnd) : "";
         const selections = intentsSelections.map((v, i) => [v, 'intent', i]).concat(constraintsSelections.map(v => [v, 'constraint']))
             .filter(s => !!s)
-            .sort();
+            .sort((a, b) => a[0][0] - b[0][0]);
 
         if (showHelp) {
             return (
@@ -226,6 +232,7 @@ export default class Selections extends React.Component {
                     <div className="col">
                         <div className="actions mt-4 d-grid gap-2 d-sm-flex justify-content-sm-center">
                             <button type="button" className="btn btn-outline-secondary btn-lg px-4 gap-3" onClick={this.handleClickBack}><i className="bi bi-chevron-left" /></button>
+                            <button type="button" className="btn btn-outline-secondary btn-lg px-4" onClick={this.handleReset}><i className="bi bi-arrow-counterclockwise" />Reset</button>
                             <button type="button" className="btn btn-primary btn-lg px-4" onClick={this.handleClickNext}><i className="bi bi-chevron-right" /></button>
                         </div>
                     </div>

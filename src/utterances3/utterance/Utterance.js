@@ -49,18 +49,18 @@ export default class Utterance extends React.Component {
     }
 
     isUtteranceValid() {
-        const { intents, words } = this.props;
+        const { intents, conjunctionWords } = this.props;
         const { utterance } = this.state;
-        const words2 = words.reduce((prevVal, w) => (prevVal.concat(w['verification'] || [w['display']])), [])
-        const wordsIncluded = (utterance && words2 && words2.length > 0 && words2.filter(w => utterance.toLowerCase().indexOf(w.trim().toLowerCase()) !== -1)) || [];
+        const conjunctionWords2 = conjunctionWords.reduce((prevVal, w) => (prevVal.concat(w['verification'] || [w['display']])), [])
+        const conjunctionWordsIncluded = (utterance && conjunctionWords2 && conjunctionWords2.length > 0 && conjunctionWords2.filter(w => utterance.toLowerCase().indexOf(w.trim().toLowerCase()) !== -1)) || [];
 
         if (!utterance || utterance.split(" ").length <= 2) {
             // the utterance is too short
             this.setState({ valid: false, errorMessage: <span>Please be more creative.</span> })
             return false;
-        } else if (wordsIncluded.length === 0) {
-            // none of the mandaroty words are included
-            this.setState({ valid: false, errorMessage: <span>Please use at least 1 of the following word: <strong>{words.map(w => w['display']).join(", ")}</strong>.</span> })
+        } else if (conjunctionWordsIncluded.length === 0) {
+            // none of the mandaroty conjunctionWords are included
+            this.setState({ valid: false, errorMessage: <span>Please use at least 1 of the following word: <strong>{conjunctionWords.map(w => w['display']).join(", ")}</strong>.</span> })
             return false;
         } else if ((utterance.indexOf("?") >= 0 && utterance.indexOf("?") < utterance.length * 0.5) || utterance.trim().split("?").filter(s => s.length > 0).length > 1) {
             // the utterance has been phrased as multiple utterances
@@ -85,7 +85,7 @@ export default class Utterance extends React.Component {
     }
 
     render() {
-        const { utteranceLimit, minWords, minIntents, minConstraints, intents, constraintIntents, icons, constraintIcons, words, onClickBack, onClickHelp } = this.props;
+        const { utteranceLimit, minConjunctionWords, minIntents, minConstraints, intents, constraintIntents, icons, constraintIcons, conjunctionWords, onClickBack, onClickHelp } = this.props;
         const { utterance, valid, errorMessage, showHelp } = this.state;
         const description = "Write an utterance";
 
@@ -126,17 +126,17 @@ export default class Utterance extends React.Component {
                             </div>
                         </div>
                     </div>
-                    {(words && words.length > 0) &&
+                    {(conjunctionWords && conjunctionWords.length > 0) &&
                         <div className="row mb-3">
                             <div className="col">
                                 <div className="bd-callout bd-callout-yellow2">
                                     <p>
                                         <span className="instruction body">In your rewritten sentence, connect the above tasks
-                                            using <span className="purple">{minWords || 1} or more</span> of the following conjunction
+                                            using <span className="purple">{minConjunctionWords || 1} or more</span> of the following conjunction
                                             words:</span>
                                     </p>
                                     <div className="words pl-1 pr-1">
-                                        {words && words.map((word, i) =>
+                                        {conjunctionWords && conjunctionWords.map((word, i) =>
                                             (<span className="word" key={i}>{word['display']}</span>)
                                         )}
                                     </div>
