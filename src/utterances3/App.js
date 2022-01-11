@@ -29,6 +29,7 @@ export default class App extends React.Component {
         this.handleClickBack = this.handleClickBack.bind(this);
         this.handleClickNext = this.handleClickNext.bind(this);
         this.handleClickHelp = this.handleClickHelp.bind(this);
+        this.handleFeedbackChange = this.handleFeedbackChange.bind(this);
         this.handleUtteranceChange = this.handleUtteranceChange.bind(this);
         this.handleSelectIntent = this.handleSelectIntent.bind(this);
         this.handleSelectConstraint = this.handleSelectConstraint.bind(this);
@@ -37,12 +38,14 @@ export default class App extends React.Component {
 
     submitToMTurk() {
         const { intents, constraintIntents } = this.props;
-        const { utterance, context, selectedIntents, selectedConstraints, intentsSelections, constraintsSelections } = this.state;
+        const { utterance, context, selectedIntents, selectedConstraints, intentsSelections, constraintsSelections, feedback } = this.state;
         const contextValue = context;
         const intentsValue = selectedIntents && selectedIntents.map(index => intents[index]).join(" | ");
         const constraintsValue = selectedConstraints && selectedConstraints.map(index => constraintIntents[index]).join(" | ");
         const intentsAnnotationsValue = selectedIntents && selectedIntents.map((index, i) => utterance.substring(intentsSelections[i][0], intentsSelections[i][1])).join(" | ");
         const constraintsAnnotationsValue = selectedConstraints && selectedConstraints.map((index, i) => utterance.substring(constraintsSelections[i][0], constraintsSelections[i][1])).join(" | ");
+        const feedbackValue = feedback;
+
         document.querySelector('crowd-form').onsubmit = () => {
             if (document.getElementById('utterance')) {
                 document.getElementById('context').value = contextValue;
@@ -51,6 +54,7 @@ export default class App extends React.Component {
                 document.getElementById('constraints').value = constraintsValue;
                 document.getElementById('intents-annotations').value = intentsAnnotationsValue;
                 document.getElementById('constraints-annotations').value = constraintsAnnotationsValue;
+                document.getElementById('worker-feedback').value = feedbackValue;
             }
         };
         document.querySelector('crowd-form').submit();
@@ -94,6 +98,10 @@ export default class App extends React.Component {
         this.setState({ showHelp: true, });
     }
 
+    handleFeedbackChange(feedback) {
+        this.setState({ feedback });
+    }
+
     handleUtteranceChange(utterance, context) {
         this.setState({ utterance, context, intentsSelections: [], constraintsSelections: [] });
     }
@@ -111,7 +119,7 @@ export default class App extends React.Component {
     }
 
     getDisplayedScreen() {
-        const { contexts, maxLength, maxLengthPerIntent, minIntents, minConstraints, intents, constraintIntents, icons, constraintIcons, conjunctionWords, minConjunctionWords } = this.props;
+        const { contexts, maxLength, maxLengthPerIntent, minIntents, minConstraints, intents, constraintIntents, intentIcons, constraintIcons, conjunctionWords, minConjunctionWords } = this.props;
         const { currentScreen, utterance, context, selectedIntents, selectedConstraints, intentsSelections, constraintsSelections, selectionsStep, currentSelectionIndex, verificationStep } = this.state;
         const utteranceLimit = maxLength || maxLengthPerIntent * intents.length || 250;
 
@@ -128,17 +136,17 @@ export default class App extends React.Component {
                 <Utterance utterance={utterance}
                     utteranceLimit={utteranceLimit} minIntents={minIntents} minConstraints={minConstraints}
                     intents={intents} constraintIcons={constraintIcons}
-                    constraintIntents={constraintIntents} icons={icons}
+                    constraintIntents={constraintIntents} intentIcons={intentIcons}
                     conjunctionWords={conjunctionWords} minConjunctionWords={minConjunctionWords} contexts={contexts} context={context}
-                    onUtteranceChange={this.handleUtteranceChange}
-                    onClickBack={this.handleClickBack} onClickHelp={this.handleClickHelp} onClickNext={this.handleClickNext}  />
+                    onUtteranceChange={this.handleUtteranceChange} onClickBack={this.handleClickBack} 
+                    onClickHelp={this.handleClickHelp} onClickNext={this.handleClickNext}  />
             );
         } else if (currentScreen === SCREENS.verification) {
             return (
                 <Verification utterance={utterance} step={verificationStep}
                     minIntents={minIntents} minConstraints={minConstraints}
                     intents={intents} constraintIntents={constraintIntents}
-                    icons={icons} constraintIcons={constraintIcons}
+                    intentIcons={intentIcons} constraintIcons={constraintIcons}
                     selectedIntents={selectedIntents} selectedConstraints={selectedConstraints}
                     onSelectIntent={this.handleSelectIntent} onSelectConstraint={this.handleSelectConstraint}
                     onClickNext={this.handleClickNext} onClickBack={this.handleClickBack} onClickHelp={this.handleClickHelp} />
@@ -147,29 +155,28 @@ export default class App extends React.Component {
             return (
                 <Selections utterance={utterance}
                     intents={intents} constraintIntents={constraintIntents}
-                    icons={icons} constraintIcons={constraintIcons}
+                    intentIcons={intentIcons} constraintIcons={constraintIcons}
                     selectedIntents={selectedIntents} selectedConstraints={selectedConstraints}
                     intentsSelections={intentsSelections} constraintsSelections={constraintsSelections}
                     step={selectionsStep} index={currentSelectionIndex}
-                    onSelection={this.handleSelection}
-                    onClickNext={this.handleClickNext} onClickBack={this.handleClickBack} onClickHelp={this.handleClickHelp} />
+                    onSelection={this.handleSelection} onClickNext={this.handleClickNext} 
+                    onClickBack={this.handleClickBack} onClickHelp={this.handleClickHelp} />
             );
         } else if (currentScreen === SCREENS.end) {
             return (
-                <ThankYou onSubmit={this.handleClickNext} onClickBack={this.handleClickBack} />
+                <ThankYou onFeedbackChange={this.handleFeedbackChange} 
+                    onSubmit={this.handleClickNext} onClickBack={this.handleClickBack} />
             );
         }
     }
 
     render() {
-        const { showHelp } = this.state;
         const displayedScreen = this.getDisplayedScreen();
         return (
             <div className="utterances">
                 <div className="container">
                     <main>
                         {displayedScreen}
-                        
                     </main>
                 </div>
             </div>

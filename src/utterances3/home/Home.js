@@ -28,7 +28,7 @@ const Home = (props) => {
                                     </li>
                                     <li className="intent">
                                         <span className="intent-icon bi bi-cloud-sun" />
-                                        <span>Will it rain tomorrow</span>
+                                        <span>Will it rain tomorrow?</span>
                                     </li>
                                 </div>
                             </div>

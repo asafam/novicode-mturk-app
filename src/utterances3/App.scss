@@ -207,6 +207,28 @@ h6 {
     }
 }
 
+.thank-you {
+    .card {
+        width: 600px;
+
+        .card-header {
+            .bi {
+                margin-right: 10px;
+            }
+        }
+
+        .feedback-textarea {
+            border: none !important;
+            font-size: 1.3rem;
+            line-height: 2rem;
+        }
+
+        .feedback-textarea:focus {
+            border: none !important;
+        }
+    }
+}
+
 .text-blue {
     color: #1976d2 !important;
 }

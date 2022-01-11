@@ -146,12 +146,12 @@ export default class Selections extends React.Component {
     }
 
     render() {
-        let { utterance, intents, constraintIntents, selectedIntents, selectedConstraints, icons, constraintIcons, onClickHelp } = this.props;
+        let { utterance, intents, constraintIntents, selectedIntents, selectedConstraints, intentIcons, constraintIcons, onClickHelp } = this.props;
         const { index, step, intentsSelections, constraintsSelections, errorMessage, showHelp } = this.state;
         selectedConstraints = selectedConstraints || [];
         const total = step === SELECTIONS_STEPS.intents ? selectedIntents.length : selectedConstraints.length;
         const intent = step === SELECTIONS_STEPS.intents ? intents[selectedIntents[index]] : constraintIntents[selectedConstraints[index]];
-        const icon = index < icons.length ? icons[selectedIntents[index]] : constraintIcons[selectedConstraints[index]];
+        const icon = index < intentIcons.length ? intentIcons[selectedIntents[index]] : constraintIcons[selectedConstraints[index]];
         const [selectionStart, selectionEnd] = step === SELECTIONS_STEPS.intents ?
             (intentsSelections[index] ? intentsSelections[index] : [null, null]) :
             (constraintsSelections[index] ? constraintsSelections[index] : [null, null]);
@@ -198,7 +198,7 @@ export default class Selections extends React.Component {
                                                         {(i === 0) &&
                                                             <span>{utterance.substring(0, selection[0])}</span>
                                                         }
-                                                        <span className={`highlight ${type} ${index === idx && "current"}`}>{utterance.substring(selection[0], selection[1])}</span>
+                                                        <span className={`highlight ${type} ${index === idx ? "current" : ""}`}>{utterance.substring(selection[0], selection[1])}</span>
                                                         <span>{utterance.substring(selection[1], (i + 1) < selections.length ? selections[i + 1][0][0] : utterance.length)}</span>
                                                     </span>
                                                 )) : utterance}

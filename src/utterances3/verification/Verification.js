@@ -102,11 +102,11 @@ export default class Verification extends React.Component {
     }
 
     isValid() {
-        const { intents, minIntents, minConstraints } = this.props;
+        const { intents, minIntents, minConstraints, softIntentRequirement } = this.props;
         const { step, selectedIntents, selectedConstraints } = this.state;
         if (step === VERIFICATION_STEPS.intents) {
             let valid = selectedIntents && selectedIntents.length >= minIntents;
-            valid = valid && intents.every((intent, i) => selectedIntents.indexOf(i) >= 0);
+            valid = valid && (!softIntentRequirement ? (intents.every((intent, i) => selectedIntents.indexOf(i) >= 0)) : (selectedIntents.length >= minIntents));
             return valid;
         } else if (step === VERIFICATION_STEPS.contraints) {
             let valid = selectedConstraints && selectedConstraints.length >= minConstraints;
@@ -134,7 +134,7 @@ export default class Verification extends React.Component {
     }
 
     render() {
-        const { intents, icons, constraintIntents, constraintIcons, onClickHelp } = this.props;
+        const { intents, intentIcons, constraintIntents, constraintIcons, onClickHelp } = this.props;
         const { utterance, errorMessage, selectedIntents, selectedConstraints, step, showHelp } = this.state;
         const valid = this.isValid();
         const instruction = this.getInstruction();
@@ -142,7 +142,7 @@ export default class Verification extends React.Component {
         const intentsCounter = (new Array(intents.length)).fill(0).map((value, index) => selectedIntents.filter(idx => idx === index).length);
         const constraintsCounter = (new Array((constraintIntents || []).length)).fill(0).map((value, index) => selectedConstraints.filter(idx => idx === index).length);
         const itemsCounter = step === VERIFICATION_STEPS.intents ? intentsCounter : constraintsCounter;
-        const itemIcons = step === VERIFICATION_STEPS.intents ? icons : constraintIcons;
+        const itemIcons = step === VERIFICATION_STEPS.intents ? intentIcons : constraintIcons;
 
         if (showHelp) {
             return (

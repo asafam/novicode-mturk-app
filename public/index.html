@@ -41,13 +41,14 @@
     <input name="constraints" id="constraints" type="hidden">
     <input name="intents-annotations" id="intents-annotations" type="hidden">
     <input name="constraints-annotations" id="constraints-annotations" type="hidden">
+    <input name="worker-feedback" id="worker-feedback" type="hidden">
 
     <!-- Prevent crowd-form from creating its own button -->
     <crowd-button form-action="submit" style="display: none;"></crowd-button>
   </crowd-form>
 
   <div id="root" data-id="123"
-    data-intents="Set an alarm every two minutes over the next half hour | What does Traffic look like near DIA? | set an alarm for the next hour" data-intent-icons="alarm | truck | alarm" data-min-intents="2"
+    data-intents="Set an alarm every two minutes over the next half hour | What does Traffic look like near DIA? | set an alarm for the next hour" data-intent-icons="alarm | truck | alarm" data-min-intents="3"
     data-instructions="Do somthing" data-conjunction-words="if:if | as / so long as:as long as,so long as | providing / provided (that):provided,provided that"  min-conjunction-words="1"
     data-max-length-per-intent="60" data-strategy="batch"></div>
   <!--

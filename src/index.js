@@ -15,7 +15,7 @@ const id = getData('data-id');
 const context = getData('data-context');
 const contexts = getData('data-contexts') ? getData('data-contexts').split("|").map(context => context.trim()) : [];
 const intents = getData('data-intents') ? getData('data-intents').split("|").filter(x => x && x.length > 0).map(intent => intent.trim()) : [];
-const icons = getData('data-intent-icons') ? getData('data-intent-icons').split("|").filter(x => x && x.length > 0).map(icon => icon.trim()) : [];
+const intentIcons = getData('data-intent-icons') ? getData('data-intent-icons').split("|").filter(x => x && x.length > 0).map(icon => icon.trim()) : [];
 const minIntents = getData('data-min-intents') && parseInt(getData('data-min-intents'));
 const constraintIntents = getData('data-constraints') ? getData('data-constraints').split("|").filter(x => x && x.length > 0).map(intent => intent.trim()) : [];
 const constraintIcons = getData('data-constraint-icons') ? getData('data-constraint-icons').split("|").filter(x => x && x.length > 0).map(icon => icon.trim()) : [];
@@ -29,7 +29,7 @@ const maxLengthPerIntent = getData('data-max-length-per-intent') && parseInt(get
 ReactDOM.render(
   <React.StrictMode>
     <App id={id} context={context} contexts={contexts}
-      intents={intents} icons={icons} minIntents={minIntents}
+      intents={intents} intentIcons={intentIcons} minIntents={minIntents}
       constraintIntents={constraintIntents} constraintIcons={constraintIcons} minConstraints={minConstraints}
       conjunctionWords={conjunctionWords} minConjunctionWords={minConjunctionWords} quantifiers={quantifiers} 
       maxLength={maxLength} maxLengthPerIntent={maxLengthPerIntent} />

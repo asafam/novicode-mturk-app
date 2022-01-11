@@ -49,8 +49,8 @@ export default class Instructions extends React.Component {
                             <div className="vertical-center-container">
                                 <div className="vertical-center">
                                     <div className="words">
-                                        <span className="word">if</span>
-                                        <span className="word">unless</span>
+                                        <span className="word">if</span>, 
+                                        <span className="word">unless</span>, 
                                         <span className="word">in the event</span>
                                     </div>
                                 </div>
@@ -62,14 +62,11 @@ export default class Instructions extends React.Component {
                         <div className="col-6">
                             <div className="instruction">
                                 <h3>Rewrite the tasks to a single coherent sentence</h3>
-                                <p>Please use <span className="purple">every listed task at least once</span>.
-                                    The new sentence should <span className="purple">make sense</span> as much as possible.</p>
-                                <p>In the new sentence, the different tasks should be related to one another, it will likely
-                                    require you to <span className="purple">change the wording or even some details</span> in
-                                    the original tasks. We encourage you to change the details such that the newly rewritten tasks 
-                                    will <span className="purple">share the same details</span> (e.g., location, time, names, etc).
-                                    The new sentence should <span className="purple">make sense</span> as much as possible.</p>
-                                <p>The new sentence is also required to be <span className="purple">panctuated</span> and <span className="purple">
+                                <p>Please use <span className="purple">every listed task at least once</span>.</p>
+                                <p>It will likely require you to <span className="purple">change the wording or even some details</span> (e.g., 
+                                    location, time, names, etc) in the original tasks such that the newly rewritten tasks 
+                                    will have <span className="purple">a shared theme</span>.</p>
+                                <p>The new sentence is also required to be <span className="purple">punctuated</span> and <span className="purple">
                                     grammatically correct</span> (even if the original tasks showed poor grammar).</p>
                             </div>
                         </div>

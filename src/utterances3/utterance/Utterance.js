@@ -85,7 +85,7 @@ export default class Utterance extends React.Component {
     }
 
     render() {
-        const { utteranceLimit, minConjunctionWords, minIntents, minConstraints, intents, constraintIntents, icons, constraintIcons, conjunctionWords, onClickBack, onClickHelp } = this.props;
+        const { utteranceLimit, minConjunctionWords, minIntents, minConstraints, intents, constraintIntents, intentIcons, constraintIcons, conjunctionWords, onClickBack, onClickHelp } = this.props;
         const { utterance, valid, errorMessage, showHelp } = this.state;
         const description = "Write an utterance";
 
@@ -109,13 +109,13 @@ export default class Utterance extends React.Component {
                         <div className="col">
                             <div className="bd-callout intents-container">
                                 <p>
-                                    <span className="instruction body">Rewrite all the following tasks in a single sentence. You can change the original wording and details of the tasks
-                                        to express a clear and coherent writing that makes sense.</span>
+                                    <span className="instruction body">Rewrite <span className="purple">{intents.length === minIntents ? "all" : `at least ${minIntents}`}</span> of the following tasks in a single sentence. 
+                                        You can change the original wording and details of the tasks around a specific theme.</span>
                                 </p>
                                 <ol className="intents">
                                     {intents.map((intent, i) => (
                                         <li key={i} className="intent" data-idx={i}>
-                                            <span className={`intent-icon bi bi-${icons[i]}`} />
+                                            <span className={`intent-icon bi bi-${intentIcons[i]}`} />
                                             <span>{intent}</span>
                                         </li>
                                     ))}
@@ -131,13 +131,11 @@ export default class Utterance extends React.Component {
                             <div className="col">
                                 <div className="bd-callout bd-callout-yellow2">
                                     <p>
-                                        <span className="instruction body">In your rewritten sentence, connect the above tasks
-                                            using <span className="purple">{minConjunctionWords || 1} or more</span> of the following conjunction
-                                            words:</span>
+                                        <span className="instruction body">Use <span className="purple">{minConjunctionWords || 1} or more</span> of the words below to connect your tasks to a single sentence:</span>
                                     </p>
                                     <div className="words pl-1 pr-1">
                                         {conjunctionWords && conjunctionWords.map((word, i) =>
-                                            (<span className="word" key={i}>{word['display']}</span>)
+                                            (<span key={i}><span className="word">{word['display']}</span>{i < conjunctionWords.length - 1 ? ", " : ""}</span>)
                                         )}
                                     </div>
                                     <div className="info text-center">
