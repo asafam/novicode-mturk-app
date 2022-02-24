@@ -1,0 +1,101 @@
+.instructions {
+    margin-top: 50px;
+    font-size: 1.3rem;
+    line-height: 1.8rem;
+
+    .instruction {
+        margin-bottom: 50px;
+
+        p,
+        ul {
+            // font-size: 1.4rem;
+            // line-height: 2.2rem;
+        }
+    }
+
+    .card.bad-example {
+        border-color: #a4161a;
+    }
+
+    .card.bad-example .card-header {
+        background-color: #a4161a;
+    }
+
+    .card.good-example {
+        border-color: #2b9348;
+    }
+
+    .card.good-example .card-header {
+        background-color: #2b9348;
+    }
+
+    .card.neutral-example {
+        border-color: #0466c8;
+    }
+
+    .card.neutral-example .card-header {
+        background-color: #0466c8;
+    }
+
+    .instruction-example {
+        height: 330px;
+        padding: 20px 80px;
+
+        .example-title {
+            font-size: 1.3rem;
+            line-height: 1.8rem;
+        }
+
+        .example-caption {
+            padding-top: 16px;
+            font-size: 1rem;
+            line-height: 1.5rem;
+        }
+    }
+
+    // .examples {
+    //     .instruction-example {
+    //         height: 330px;
+    //         padding: 20px 80px;
+    //         // background: #dee2e6;
+    //         // border: 1px solid;
+    //         // border-radius: 8px;
+    //         // border-color: #6c757d;
+    //         // box-shadow: inset rgb(0 0 0 / 11%) 0 0 0 1px;
+
+    //         .example-title {
+    //             font-size: 1.3rem;
+    //             line-height: 1.8rem;
+    //         }
+
+    //         .example-caption {
+    //             padding-top: 16px;
+    //             font-size: 1rem;
+    //             line-height: 1.5rem;
+    //         }
+    //     }
+
+    //     .bi {
+    //         font-size: 2rem;
+    //     }
+    // }
+
+    .domains {
+        padding: 20px 80px;
+
+        .domain-example {
+            float: left;
+        }
+
+        .bi {
+            margin-left: 12px;
+            margin-right: 8px;
+        }
+    }
+
+    .ambiguity {
+        .instruction-example {
+            height: 270px;
+        }
+    }
+}

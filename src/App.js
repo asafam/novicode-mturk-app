@@ -1,12 +1,11 @@
-import Main from './utterances3/App';
+import Main from './utterances4/App';
 import './App.css';
 
-const App = ({ id, context, contexts, intents, intentIcons, minIntents, constraintIntents, constraintIcons, minConstraints, conjunctionWords, linkWordIdx, minConjunctionWords, quantifiers, quantifierIdx, maxLength, maxLengthPerIntent }) => {
+const App = ({ id, maxUtterances, context, contexts, intents, minIntents, constraints, minConstraints, conjunctionWords, linkWordIdx, minConjunctionWords, quantifiers, quantifierIdx, maxLength, maxLengthPerIntent }) => {
   return (
     <div className="App">
-      <Main id={id} context={context} contexts={contexts} 
-            intents={intents} intentIcons={intentIcons} minIntents={minIntents}
-            constraintIntents={constraintIntents} constraintIcons={constraintIcons} minConstraints={minConstraints}
+      <Main id={id} context={context} contexts={contexts} maxUtterances={maxUtterances}
+            intents={intents} minIntents={minIntents} constraints={constraints} minConstraints={minConstraints}
             conjunctionWords={conjunctionWords} minConjunctionWords={minConjunctionWords} linkWordIdx={linkWordIdx} 
             quantifiers={quantifiers} quantifierIdx={quantifierIdx}
             maxLength={maxLength} maxLengthPerIntent={maxLengthPerIntent} />

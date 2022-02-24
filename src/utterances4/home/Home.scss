@@ -1,0 +1,59 @@
+.home {
+    height: 70vh;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+
+    .header {
+        margin-bottom: 20px;
+
+        p {
+            font-size: 1.75rem;
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    .card {
+        width: 50%;
+    }
+
+    .example {
+        height: 180px;
+    }
+
+    .intents {
+        margin-left: 20px;
+    }
+
+    .intent {
+        font-family: "Times New Roman", Times, serif;
+        font-style: italic;
+        font-size: 1.8rem;
+        line-height: 2.8rem;
+    }
+
+    .intent-icon {
+        padding-right: 15px;
+    }
+
+    .example-text {
+        margin: 30px;
+        font-size: 1.8rem;
+        line-height: 2.5rem;
+        color: #8338ec;
+        font-weight: 500;
+
+        .bi {
+            padding-right: 12px;
+        }
+    }
+
+    .intent-textarea {
+        font-family: "Times New Roman", Times, serif;
+        font-style: italic;
+        font-size: 1.8rem;
+        line-height: 2.5rem;
+        padding: 30px;
+    }
+}

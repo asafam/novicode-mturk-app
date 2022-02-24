@@ -1,0 +1,84 @@
+.verification {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: 1.4rem;
+    line-height: 2.2rem;
+
+    .user-utterance {
+        font-family: "Times New Roman", Times, serif;
+        font-style: italic;
+        font-size: 2rem;
+        line-height: 3rem;
+        padding: 3px 6px;
+        border-radius: 8px;
+        margin: 30px;
+    }
+
+    .counter-form {
+        float: left;
+        margin: 12px;
+
+        .btn {
+            padding: 0;
+        }
+
+        .input-group {
+            width: 150px;
+
+            input {
+                font-family: "Poppins", sans-serif;
+                background: none;
+                border: none;
+                width: 22px;
+                text-align: center;
+                margin: 0;
+            }
+        }
+    }
+
+    .label {
+        float: left;
+        font-family: "Times New Roman", Times, serif;
+        font-style: italic;
+        font-size: 1.8rem;
+        line-height: 2.8rem;
+        background: none;
+        border: none;
+        width: 22px;
+        margin-top: 9px;
+        margin-left: 12px;
+        width: calc(100% - 240px);
+    }
+
+    .intent-icon {
+        padding-right: 10px;
+    }
+
+    .selection {
+        width: 100%;
+        min-height: 50px;
+        overflow: hidden;
+    }
+
+    .intent.selection {
+        border-radius: 8px;
+    }
+
+    .intent.selection.selected {
+        color: #8338ec;
+        border: 1px solid #8338ec;
+    }
+}
+
+.help {
+    width: inherit;
+
+    .intent {
+        .counter {
+            margin-left: 10px;
+        }
+    }
+}
