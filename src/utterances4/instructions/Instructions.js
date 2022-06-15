@@ -161,7 +161,7 @@ export default class Instructions extends React.Component {
                             <div className="vertical-center-container">
                                 <div className="vertical-center">
                                     <div className="instruction-example">
-                                        <div className="example-title utterance-text"><span className="example-icon bi bi-close" />Get me the phone number of the most popular nanny
+                                        <div className="example-title utterance-text"><span className="example-icon bi bi-close" /><span className="text-red bi bi-x" />Get me the phone number of the most popular nanny
                                             in my area that is available tonight</div>
                                         <div className="example-caption text-red">This instruction cannot be done as the data required to complete it is not available - one may
                                             argue that there is no reliable source of the most popular nannies. Even if there was a reliable source, it is not easily

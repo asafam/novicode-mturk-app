@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;700&family=Montserrat:wght@100;300;700&family=Roboto:wght@100;300;700&display=swap");
+
+.text {
+    font-family: "Times New Roman", Times, serif;
+    font-style: italic;
+}
+
+.instructions {
+    font-size: 1.4rem;
+    padding-top: 50px;
+}
+
+.original-text {
+    .text {
+        font-size: 1.6rem;
+    }
+}
+
+.paraphrase-text {
+    textarea {
+        font-size: 1.4rem;
+    }
+}

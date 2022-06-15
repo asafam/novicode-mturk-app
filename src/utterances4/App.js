@@ -190,7 +190,7 @@ export default class App extends React.Component {
     render() {
         const displayedScreen = this.getDisplayedScreen();
         return (
-            <div className="utterances">
+            <div className="app">
                 <div className="container">
                     <main>
                         {displayedScreen}
