@@ -8,8 +8,8 @@ const getData = (attribute, id = 'root') => {
 };
 
 const id = getData('data-id');
-const utterance = getData('data-utterance');
-const blacklist = getData('data-blacklist') ? getData('data-blacklist').split(',').map(word => word.trim()) : ["<any word is valid>"]
+const utterance = getData('data-utterance').replace('__COMMA__', ',');
+const blacklist = getData('data-blacklist') ? getData('data-blacklist').split(':').map(word => word.trim()) : ["<any word is valid>"]
 const maxLength = (getData('data-max-length') && parseInt(getData('data-max-length'))) || 180;
 const minLength = (getData('data-min-length') && parseInt(getData('data-max-length'))) || 10;
 
