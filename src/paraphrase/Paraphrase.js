@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.scss';
+import './Paraphrase.scss';
 
 export default class App extends React.Component {
     constructor(props) {
