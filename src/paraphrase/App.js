@@ -55,6 +55,7 @@ export default class App extends React.Component {
         const { id, utterance } = this.props;
         const { newUtterance, feedback } = this.state;
         const workerResponses = [{
+            id,
             utterance,
             newUtterance,
         }];
