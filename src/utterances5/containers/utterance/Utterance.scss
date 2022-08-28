@@ -1,0 +1,129 @@
+.utterance {
+    // max-width: 800px;
+    // margin-left: auto;
+    // margin-right: auto;
+    // margin-bottom: 50px;
+    // font-size: 1.3rem;
+    // line-height: 1.8rem;
+
+    .title-small {
+        font-size: 1.5rem;
+        margin-right: 10px;
+    }
+
+    .header {
+        margin-bottom: 20px;
+
+        p {
+            font-size: 1.75rem;
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    // .info {
+    //     margin-top: 18px;
+
+    //     .bi {
+    //         float: left;
+    //         padding-right: 10px;
+    //     }
+
+    //     div {
+    //         float: left;
+    //         font-size: 1rem;
+    //         font-weight: 700;
+    //         width: 100%;
+    //     }
+    // }
+
+    // .domains {
+    //     overflow: hidden;
+
+    //     table {
+    //         float: left;
+    //         margin: 0 24px;
+    //     }
+    // }
+
+    // .final-instructions {
+    //     clear: both;
+    //     margin-top: 30px;
+
+    //     .comment {
+    //         font-size: 1rem;
+    //         color: #6c757d;
+    //     }
+    // }
+
+    // .intents {
+    //     margin-left: 20px;
+    // }
+
+    // .intent {
+    //     font-family: "Times New Roman", Times, serif;
+    //     font-style: italic;
+    //     font-size: 1.8rem;
+    //     line-height: 2.8rem;
+    // }
+
+    .intent-icon {
+        padding-right: 15px;
+    }
+
+    // .words {
+    //     margin-left: 20px;
+
+    //     .word {
+    //         font-family: "Times New Roman", Times, serif;
+    //         font-style: italic;
+    //         font-size: 1.8rem;
+    //         line-height: 2.8rem;
+    //         padding: 3px 10px;
+    //         margin: 0 4px;
+    //         border-radius: 8px;
+    //         border: 1px solid #8338ec;
+    //         color: #8338ec;
+    //     }
+    // }
+
+    // #word-instruction-2 {
+    //     margin-top: 16px;
+    //     margin-left: 4px;
+    //     font-size: 1.1rem;
+    //     line-height: 1.5rem;
+    // }
+
+    // #word-instruction-2 .bi {
+    //     padding-right: 8px;
+    //     font-size: 1.5rem;
+    //     color: #8338ec;
+    // }
+
+    // .word.selected {
+    //     color: #fff;
+    //     background: #8338ec;
+    // }
+
+    // .note {
+    //     i {
+    //         float: left;
+    //         padding-right: 10px;
+    //     }
+    // }
+
+    .utterance .card {
+        width: 680px;
+    }
+
+    .input-textarea {
+        border: none !important;
+        font-size: 1.6rem;
+        line-height: 2.4rem;
+    }
+
+    .input-textarea:focus {
+        border: none !important;
+    }
+}
