@@ -1,0 +1,32 @@
+<HTMLQuestion xmlns="http://mechanicalturk.amazonaws.com/AWSMechanicalTurkDataSchemas/2011-11-11/HTMLQuestion.xsd">
+  <HTMLContent><![CDATA[
+    <!DOCTYPE html>
+        <html lang="en">
+
+        <head>
+            <meta charset="utf-8" />
+            <link rel="icon" href="/favicon.ico" />
+            <meta name="viewport" content="width=device-width,initial-scale=1" />
+            <meta name="theme-color" content="#000000" />
+            <meta name="description" content="Web site created using create-react-app" />
+            <link rel="apple-touch-icon" href="/logo192.png" />
+            <link rel="manifest" href="/manifest.json" />
+            <title>React App</title>
+            <script src="https://assets.crowd.aws/crowd-html-elements.js"></script>
+            <script defer="defer" src="https://cdn.jsdelivr.net/gh/asafam/mturk-utterances/dist/utterance5/static/js/main.b34c0c58.js"></script>
+            <link href="https://cdn.jsdelivr.net/gh/asafam/mturk-utterances/dist/utterance5/static/css/main.19082c8c.css" rel="stylesheet">
+        </head>
+
+        <body><noscript>You need to enable JavaScript to run this app.</noscript>
+            <crowd-form>
+                <input name="worker-responses" id="worker-responses" type="hidden">
+                <input name="worker-feedback" id="worker-feedback" type="hidden">
+                <crowd-button form-action="submit" style="display:none"></crowd-button>
+            </crowd-form>
+            <div id="root" data-id="20220801" data-max-length="250" ></div>
+        </body>
+
+        </html>
+  ]]></HTMLContent>
+  <FrameHeight>0</FrameHeight>
+</HTMLQuestion>
