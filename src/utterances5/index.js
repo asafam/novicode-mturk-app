@@ -31,6 +31,7 @@ const intents = [
 const constraints = [];
 const linkWordIdx = null;
 const quantifierIdx = null;
+const testVariation = getData('data-test-variation')
 
 const Root = () => {
   return (
@@ -39,7 +40,7 @@ const Root = () => {
         intents={intents} minIntents={minIntents} constraints={constraints} minConstraints={minConstraints}
         conjunctionWords={conjunctionWords} minConjunctionWords={minConjunctionWords} linkWordIdx={linkWordIdx}
         quantifiers={quantifiers} quantifierIdx={quantifierIdx}
-        maxLength={maxLength} maxLengthPerIntent={maxLengthPerIntent} />
+        maxLength={maxLength} maxLengthPerIntent={maxLengthPerIntent} testVariation={testVariation} />
     </div>
   );
 }

@@ -17,6 +17,7 @@ export default class Home extends React.Component {
 
     render() {
         const { title, description, examples } = this.props;
+        const hasExamples = Boolean(examples) && examples.lenght > 0;
         const apps = this.getApps();
 
         return (
@@ -33,6 +34,7 @@ export default class Home extends React.Component {
                     <div className="col">
                         <Device apps={apps} />
                     </div>
+                    {hasExamples &&
                     <div className="col align-self-center">
                         <div className="card card-block">
                             <Carousel variant="dark" interval="10000">
@@ -51,6 +53,7 @@ export default class Home extends React.Component {
                             </Carousel>
                         </div>
                     </div>
+                    }
                 </div>
             </div>
         );

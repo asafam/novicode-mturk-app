@@ -2,6 +2,14 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Build
+
+Run `REACT_APP_BUILD_TARGET=UTTERANCE5 BUILD_PATH='./dist/utterance' yarn build`
+
+## Start
+
+Run `REACT_APP_BUILD_TARGET=UTTERANCE5 yarn start`
+
 ## Available Scripts
 
 In the project directory, you can run:

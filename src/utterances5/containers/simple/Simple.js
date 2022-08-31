@@ -27,10 +27,10 @@ export default class Simple extends React.Component {
     }
 
     render() {
-        const { onClickNext, onClickBack } = this.props;
+        const { showExamples, onClickNext, onClickBack } = this.props;
         const title = this.getTitle();
         const description = this.getDescription();
-        const examples = this.getExamples();
+        const examples = showExamples ? this.getExamples() : null;
 
         return (
             <div className="simple">

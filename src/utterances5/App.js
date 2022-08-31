@@ -125,10 +125,12 @@ export default class App extends React.Component {
     }
 
     getDisplayedScreen() {
-        const { maxUtterances, contexts, maxLength, maxLengthPerIntent, minIntents, minConstraints, intents, constraints, conjunctionWords, minConjunctionWords } = this.props;
+        const { maxUtterances, contexts, maxLength, maxLengthPerIntent, minIntents, minConstraints, intents, constraints, conjunctionWords, minConjunctionWords, testVariation } = this.props;
         const { currentScreen, index, workerResponses } = this.state;
         const { utterance, context } = workerResponses.length > index ? workerResponses[index] : {};
         const utteranceLimit = maxLength || maxLengthPerIntent * intents.length || 250;
+        const minimalDescription = testVariation === 'B';
+        const showExamples = testVariation === 'A' || testVariation === 'B';
 
         if (currentScreen === SCREENS.home) {
             return (
@@ -136,11 +138,11 @@ export default class App extends React.Component {
             );
         } else if (currentScreen === SCREENS.simple) {
             return (
-                <Simple onClickBack={this.handleClickBack} onClickNext={this.handleClickNext} />
+                <Simple showExamples={showExamples} onClickBack={this.handleClickBack} onClickNext={this.handleClickNext} />
             );
         } else if (currentScreen === SCREENS.complex) {
             return (
-                <Complex onClickBack={this.handleClickBack} onClickNext={this.handleClickNext} />
+                <Complex minimalDescription={minimalDescription} showExamples={showExamples} onClickBack={this.handleClickBack} onClickNext={this.handleClickNext} />
             );
         } else if (currentScreen === SCREENS.instructions) {
             return (

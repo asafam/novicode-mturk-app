@@ -9,29 +9,29 @@ export default class Complex extends React.Component {
         return "Complex instructions";
     }
 
-    getDescription() {
+    getDescription(minimalDescription=false) {
         return (
             <p>A <span className="bold">Complex Instruction</span> allows you
-                to request multiple simple instructions in a single command from
-                your virtual assistant. Instructions can be expressed in repetition,
-                sequence and conditions.</p>
+                to request multiple simple instructions in a <u>single</u> command from
+                your virtual assistant. {!minimalDescription && <span>Instructions can be expressed in repetition,
+                sequence and conditions.</span>}</p>
         );
     }
 
     getExamples() {
         return [
-            { title: "Text coach Nick that I will be late and ask Lauren if I left my keys in her car" },
-            { title: "Is there a Coldplay concert in the park in July, August or September?" },
-            { title: "Check my mail and my messages for any unread message from Dad from today" },
-            { title: "Show me directions to the nearest pharmacy that is open now" },
+            { title: "Text coach Nick that I will be late and ask Lauren if I left my keys in her car", caption: "Sequence" },
+            { title: "Is there a Coldplay concert in the park in July, August or September?", caption: "Repitition" },
+            { title: "In case it will be hot tomorrow morning, text my sister that I will need to use my car at that time", caption: "Condition" },
+            { title: "As I leave now to Shakespeare in the Park let everyone on my invite if I will be late and block my calendar at that time", caption: "Condition, Repitition & Sequence" },
         ]
     }
 
     render() {
-        const { onClickNext, onClickBack } = this.props;
+        const { minimalDescription, showExamples, onClickNext, onClickBack } = this.props;
         const title = this.getTitle();
-        const description = this.getDescription();
-        const examples = this.getExamples();
+        const description = this.getDescription(minimalDescription);
+        const examples = showExamples ? this.getExamples() : [];
 
         return (
             <div className="simple">
