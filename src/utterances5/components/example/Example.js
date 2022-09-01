@@ -43,6 +43,7 @@ export default class Home extends React.Component {
                     </div>
                     {hasExamples &&
                         <div className="col align-self-center">
+                            <h5 className='examples-header'>Examples:</h5>
                             <div className="card card-block">
                                 <Carousel variant="dark" interval="10000">
                                     {examples.map((example, i) => (
