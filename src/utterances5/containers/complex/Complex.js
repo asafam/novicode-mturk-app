@@ -23,7 +23,7 @@ export default class Complex extends React.Component {
             { title: "Text coach Nick that I will be late and ask Lauren if I left my keys in her car", caption: "Sequence" },
             { title: "Is there a Coldplay concert in the park in July, August or September?", caption: "Repitition" },
             { title: "In case it will be hot tomorrow morning, text my sister that I will need to use my car at that time", caption: "Condition" },
-            { title: "As I leave now to Shakespeare in the Park let everyone on my invite if I will be late and block my calendar at that time", caption: "Condition, Repitition & Sequence" },
+            { title: "As I leave now to Shakespeare in the Park let everyone on my friends list know if I will be late and block my calendar at that time", caption: "Condition, Repitition & Sequence" },
         ]
     }
 

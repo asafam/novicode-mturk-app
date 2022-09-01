@@ -15,6 +15,13 @@ export default class Home extends React.Component {
         ];
     }
 
+    getIcon(caption) {
+        const apps = this.getApps();
+        const app = apps.find(a => a['name'] === caption);
+        const icon = app && app['icon'];
+        return icon;
+    }
+
     render() {
         const { title, description, examples } = this.props;
         const hasExamples = Boolean(examples) && examples.length > 0;
@@ -44,7 +51,7 @@ export default class Home extends React.Component {
                                                 <div className="vertical-center">
                                                     <div className="example-title utterance-text text-center">{example['title']}</div>
                                                     {example['caption'] &&
-                                                        <div className="example-caption utterance-text text-center">{apps.find(a => a['name'] === example['caption'])['icon'] && <span className={`bi bi-${apps.find(a => a['name'] === example['caption'])['icon']}`} />}{example['caption']}<span /></div>
+                                                        <div className="example-caption utterance-text text-center">{this.getIcon(example['caption']) && <span className={`bi bi-${this.getIcon(example['caption'])}`} />}{example['caption']}<span /></div>
                                                     }
                                                 </div>
                                             </div>

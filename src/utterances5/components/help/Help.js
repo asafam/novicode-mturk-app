@@ -37,8 +37,8 @@ export default class Instructions extends React.Component {
                 <div className="row">
                     <div className="col">
                         <div className="header text-center">
-                            <h1 className='text-center'><span className="title-small">Your task:</span>Write Complex instructions</h1>
-                            <p>Now, you think of something you can ask your
+                            <h1 className='text-center'><span className="title-small">Your task:</span>Write a Complex Command</h1>
+                            <p>Now, you think of a complex command you can ask your
                                 virtual assistant that involves multiple apps
                                 (or the same app multiple times).</p>
                         </div>
