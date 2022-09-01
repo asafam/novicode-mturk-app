@@ -12,7 +12,7 @@ export default class Instructions extends React.Component {
             },
             {
                 title: "Can be done by a virtual assistant",
-                desc: "Think of instructions that are possible for a virtual assistant to perform. As a rule of thumb, if a virtual assistant (like Siri or Alexa) can do each of the simple instructions that make the complex instruction, then it is valid."
+                desc: "Think of instructions that are possible for a virtual assistant to perform. As a rule of thumb, if a virtual assistant (like Siri or Alexa) can do each of the simple commands that make the complex command, then it is valid."
             },
             {
                 title: "Useful",
