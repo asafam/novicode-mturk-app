@@ -17,7 +17,7 @@ export default class Home extends React.Component {
 
     render() {
         const { title, description, examples } = this.props;
-        const hasExamples = Boolean(examples) && examples.lenght > 0;
+        const hasExamples = Boolean(examples) && examples.length > 0;
         const apps = this.getApps();
 
         return (
@@ -35,24 +35,24 @@ export default class Home extends React.Component {
                         <Device apps={apps} />
                     </div>
                     {hasExamples &&
-                    <div className="col align-self-center">
-                        <div className="card card-block">
-                            <Carousel variant="dark" interval="10000">
-                                {examples.map((example, i) => (
-                                    <Carousel.Item className="instruction-example positive-example" key={i}>
-                                        <div className="vertical-center-container">
-                                            <div className="vertical-center">
-                                                <div className="example-title utterance-text text-center">{example['title']}</div>
-                                                {example['caption'] &&
-                                                    <div className="example-caption utterance-text text-center"><span className={`bi bi-${apps.find(a => a['name'] === example['caption'])['icon']}`} />{example['caption']}<span /></div>
-                                                }
+                        <div className="col align-self-center">
+                            <div className="card card-block">
+                                <Carousel variant="dark" interval="10000">
+                                    {examples.map((example, i) => (
+                                        <Carousel.Item className="instruction-example positive-example" key={i}>
+                                            <div className="vertical-center-container">
+                                                <div className="vertical-center">
+                                                    <div className="example-title utterance-text text-center">{example['title']}</div>
+                                                    {example['caption'] &&
+                                                        <div className="example-caption utterance-text text-center">{apps.find(a => a['name'] === example['caption'])['icon'] && <span className={`bi bi-${apps.find(a => a['name'] === example['caption'])['icon']}`} />}{example['caption']}<span /></div>
+                                                    }
+                                                </div>
                                             </div>
-                                        </div>
-                                    </Carousel.Item>
-                                ))}
-                            </Carousel>
+                                        </Carousel.Item>
+                                    ))}
+                                </Carousel>
+                            </div>
                         </div>
-                    </div>
                     }
                 </div>
             </div>
