@@ -15,7 +15,7 @@ export default class Home extends React.Component {
                                 <h1>Virtual Assistant++</h1>
                                 <h3><span className="bi bi-robot" /></h3>
                                 <p>Your goal in this task is to write Complex
-                                    Instructions to the perfect virtual assistant
+                                    Commands to the perfect virtual assistant
                                     (better than Google assistant, Alexa or Siri)</p>
                             </div>
                         </div>

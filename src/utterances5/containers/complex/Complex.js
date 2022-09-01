@@ -6,14 +6,14 @@ import './Complex.scss';
 export default class Complex extends React.Component {
 
     getTitle() {
-        return "Complex instructions";
+        return "Complex commands";
     }
 
     getDescription(minimalDescription=false) {
         return (
-            <p>A <span className="bold">Complex Instruction</span> allows you
-                to request multiple simple instructions in a <u>single</u> command from
-                your virtual assistant. {!minimalDescription && <span>Instructions can be expressed in repetition,
+            <p>A <span className="bold">Complex command</span> allows you
+                to request multiple simple commands in a <u>single</u> command from
+                your virtual assistant. {!minimalDescription && <span>Commands can be expressed in repetition,
                 sequence and conditions.</span>}</p>
         );
     }

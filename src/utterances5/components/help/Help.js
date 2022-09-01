@@ -8,7 +8,7 @@ export default class Instructions extends React.Component {
         return [
             {
                 title: "Relevant",
-                desc: "The different parts in your complex request should be related to one another. "
+                desc: "The different parts in your complex command should be related to one another. "
             },
             {
                 title: "Can be done by a virtual assistant",
@@ -20,7 +20,7 @@ export default class Instructions extends React.Component {
             },
             {
                 title: "Diverse",
-                desc: "Don’t repeat yourself. Think of instructions in different apps. "
+                desc: "Don’t repeat yourself. Think of commands in different apps or different commands in the same app. "
             },
             {
                 title: "Unambiguous",

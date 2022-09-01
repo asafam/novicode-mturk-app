@@ -121,9 +121,9 @@ export default class Utterance extends React.Component {
                     <div className="row">
                         <div className="col">
                             <div className="header text-center">
-                                <h1 className='text-center'><span className="title-small">Your task:</span>Write Complex instructions</h1>
+                                <h1 className='text-center'><span className="title-small">Your task:</span>Write a Complex Command</h1>
                                 <p>Follow the requirements and write a complex
-                                    instruction to your virtual assistant. Use the
+                                    command to your virtual assistant. Use the
                                     following apps in your request.</p>
                             </div>
                         </div>
@@ -143,10 +143,10 @@ export default class Utterance extends React.Component {
                                         <div className="col">
                                             <form className="g-3 needs-validation pt-1" onSubmit={this.handleSubmit} noValidate>
                                                 <div className="has-validation">
-                                                    <label className="form-label" style={{ "display": "none" }}>Write a complex utterance</label>
+                                                    <label className="form-label" style={{ "display": "none" }}>Write a complex command</label>
                                                     <textarea className={`input-textarea utterance-text form-control mb-3 ${(valid === true && "is-valid") || (valid === false && "is-invalid")}`}
                                                         rows="5" value={utterance} type="text" id="utterance" aria-describedby="help"
-                                                        onChange={this.handleTextAreaChange} placeholder="Type your complex utterance here..." required>
+                                                        onChange={this.handleTextAreaChange} placeholder="Type your complex command here..." required>
                                                     </textarea>
                                                     <div className="p-1 m-1">
                                                         <span className={(utterance || "").length > utteranceLimit ? 'text-danger' : ''}>{(utterance || "").length}</span> / {utteranceLimit}

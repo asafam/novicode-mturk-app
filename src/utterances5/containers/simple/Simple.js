@@ -6,14 +6,14 @@ import './Simple.scss';
 export default class Simple extends React.Component {
 
     getTitle() {
-        return "Simple instructions";
+        return "Simple commands";
     }
 
     getDescription() {
         return (
             <p>You are given a mobile device with the following apps. You can
                 ask your virtual assistant to perform <span className="bold">Simple
-                    Instructions</span> using these apps.</p>
+                    commands</span> using these apps.</p>
         );
     }
 

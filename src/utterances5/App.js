@@ -130,7 +130,7 @@ export default class App extends React.Component {
         const { utterance, context } = workerResponses.length > index ? workerResponses[index] : {};
         const utteranceLimit = maxLength || maxLengthPerIntent * intents.length || 250;
         const minimalDescription = testVariation === 'B';
-        const showExamples = testVariation === 'A' || testVariation === 'B';
+        const showExamples = !(testVariation === 'A' || testVariation === 'B');
 
         if (currentScreen === SCREENS.home) {
             return (
