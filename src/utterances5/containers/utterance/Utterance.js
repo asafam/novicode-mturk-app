@@ -111,7 +111,7 @@ export default class Utterance extends React.Component {
     }
 
     render() {
-        const { utteranceLimit, onClickBack } = this.props;
+        const { utteranceLimit, disableClickApps, onClickBack } = this.props;
         const { utterance, valid, errorMessage, showHelp } = this.state;
         const apps = this.getApps();
 
@@ -139,7 +139,7 @@ export default class Utterance extends React.Component {
 
                     <div className="row mt-3 mb-3">
                         <div className="col">
-                            <Device apps={apps} />
+                            <Device disableClickApps={disableClickApps} apps={apps} />
                         </div>
                         <div className="col align-self-center">
                             <div className="card mt-4">

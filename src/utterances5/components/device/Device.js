@@ -18,13 +18,19 @@ export default class Device extends React.Component {
 
     handleClickApp(e) {
         e.preventDefault();
+        const { disableClickApps } = this.props;
+        if (disableClickApps) {
+            this.setState({ selectAppIndex: null });
+            return;
+        }
+
         const index = parseInt(e.currentTarget.getAttribute('data-app-index'))
-        this.setState({ selectAppIndex: index })
+        this.setState({ selectAppIndex: index });
     }
 
     handleCloseApp(e) {
         e.preventDefault();
-        this.setState({ selectAppIndex: null })
+        this.setState({ selectAppIndex: null });
     }
 
     renderAppsGrid(appsInRow = 3) {

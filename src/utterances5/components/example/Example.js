@@ -31,7 +31,7 @@ export default class Home extends React.Component {
     }
 
     render() {
-        const { title, description, examples } = this.props;
+        const { title, description, examples, disableClickApps } = this.props;
         const hasExamples = Boolean(examples) && examples.length > 0;
         const apps = this.getApps();
 
@@ -47,7 +47,7 @@ export default class Home extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col">
-                        <Device apps={apps} />
+                        <Device disableClickApps={disableClickApps} apps={apps} />
                     </div>
                     {hasExamples &&
                         <div className="col align-self-center">

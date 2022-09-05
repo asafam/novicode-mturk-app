@@ -9,12 +9,12 @@ export default class Complex extends React.Component {
         return "Complex commands";
     }
 
-    getDescription(minimalDescription=false) {
+    getDescription(minimalDescription = false) {
         return (
             <p>A <span className="bold">Complex command</span> allows you
                 to request multiple simple commands in a <u>single</u> command from
                 your virtual assistant. {!minimalDescription && <span>Commands can be expressed in repetition,
-                sequence and conditions.</span>}</p>
+                    sequence and conditions.</span>}</p>
         );
     }
 
@@ -28,7 +28,7 @@ export default class Complex extends React.Component {
     }
 
     render() {
-        const { minimalDescription, showExamples, onClickNext, onClickBack } = this.props;
+        const { minimalDescription, showExamples, disableClickApps, onClickNext, onClickBack } = this.props;
         const title = this.getTitle();
         const description = this.getDescription(minimalDescription);
         const examples = showExamples ? this.getExamples() : [];
@@ -36,7 +36,7 @@ export default class Complex extends React.Component {
         return (
             <div className="simple">
                 <div className="container">
-                    <Example title={title} description={description} examples={examples} onClickNext={onClickNext} onClickBack={onClickBack} />
+                    <Example title={title} description={description} examples={examples} disableClickApps={disableClickApps} onClickNext={onClickNext} onClickBack={onClickBack} />
 
                     <div className="row mb-3">
                         <div className="col">
