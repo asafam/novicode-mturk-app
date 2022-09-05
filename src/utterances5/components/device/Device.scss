@@ -41,6 +41,7 @@
         width: 360px;
         height: 520px;
         background: white;
+        position: relative;
 
         .apps {
             padding-top: 14px;
@@ -57,5 +58,43 @@
                 }
             }
         }
+
+        .app-help {
+            position: absolute;
+            bottom: 3px;
+            left: 3px;
+            width: calc(100% - 6px);
+            margin-left: auto;
+            margin-right: auto;
+            height: 200px;
+            background: rgba(51, 51, 51, 0.7); // #0dab76;
+            color: #f3f3f3;
+            border-radius: 8px;
+
+            .app-help-content {
+                padding: 16px 8px;
+                position: relative;
+                font-size: 1.2rem;
+                font-weight: 500;
+
+                .close-icon {
+                    position: absolute;
+                    right: 8px;
+                    top: 8px;
+                }
+
+                h3 {
+                    .bi {
+                        padding-right: 8px;
+                    }
+                }
+            }
+        }
     }
+}
+
+.device-help {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-top: 12px;
 }
