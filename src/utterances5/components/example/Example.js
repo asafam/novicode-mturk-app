@@ -13,7 +13,7 @@ export default class Home extends React.Component {
             { name: 'Calendar', icon: 'calendar-date', about: 'Information on calendar meetings and availability, and related actions (e.g., create, update and delete a calendar entry).' },
             { name: 'Reminders', icon: 'bookmark', about: 'Information on reminders and related actions (e.g., create, update, and delete reminders).' },
             { name: 'Messages', icon: 'chat', about: 'Information about messages and related actions (e.g., compose and reply to messages).' },
-            { name: 'Music', icon: 'music-note-beamed', about: 'Songs, playlist, podcasts, and related actions (e.g., start, stop, play, pause, restart, etc)..' },
+            { name: 'Music', icon: 'music-note-beamed', about: 'Songs, playlist, podcasts, and related actions (e.g., start, stop, play, pause, restart, etc).' },
             { name: 'Timer', icon: 'alarm', about: 'Information about alarms and timers, and related actions (e.g., create, update, delete, snooze, etc).' },
             { name: 'Mail', icon: 'envelope', about: 'Information on emails, mail boxes, and related actions (e.g. compose, reply and forward).' },
             { name: 'Smart Home', icon: 'house', about: 'Information on smart home devices and related actions (e.g., control the a/c, the boiler, unlock the door, etc).' },
