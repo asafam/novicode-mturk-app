@@ -105,7 +105,7 @@ export default class Device extends React.Component {
                         }
                     </div>
                 </div>
-                {disableClickApps &&
+                {!disableClickApps &&
                     <div className='device-help text-center'>Click any of the apps for more information</div>
                 }
             </div>
