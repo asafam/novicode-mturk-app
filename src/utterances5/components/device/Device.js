@@ -86,6 +86,7 @@ export default class Device extends React.Component {
     }
 
     render() {
+        const { disableClickApps } = this.props;
         const { selectAppIndex } = this.state;
 
         return (
@@ -104,7 +105,9 @@ export default class Device extends React.Component {
                         }
                     </div>
                 </div>
-                <div className='device-help text-center'>Click any of the apps for more information</div>
+                {disableClickApps &&
+                    <div className='device-help text-center'>Click any of the apps for more information</div>
+                }
             </div>
         );
     }
