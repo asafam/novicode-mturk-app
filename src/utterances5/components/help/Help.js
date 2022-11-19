@@ -1,32 +1,34 @@
-import React from 'react';
-import './Help.scss';
-
+import React from "react";
+import "./Help.scss";
 
 export default class Instructions extends React.Component {
-
     getRequirments() {
         return [
             {
                 title: "Relevant",
-                desc: "The different parts in your complex command should be related to one another. "
+                desc: "The different parts in your complex command should be related to one another. ",
             },
             {
                 title: "Can be done by a virtual assistant",
-                desc: "Think of instructions that are possible for a virtual assistant to perform. As a rule of thumb, if a virtual assistant (like Siri or Alexa) can do each of the simple commands that make the complex command, then it is valid."
+                desc: "Think of instructions that are possible for a virtual assistant to perform. As a rule of thumb, if a virtual assistant (like Siri or Alexa) can do each of the simple commands that make the complex command, then it is valid.",
             },
             {
                 title: "Useful",
-                desc: "Think about real-life scenarios where you could use this ideal virtual assistance in your favor."
+                desc: "Think about real-life scenarios where you could use this ideal virtual assistance in your favor.",
             },
             {
                 title: "Diverse",
-                desc: "Don’t repeat yourself. Think of commands in different apps or different commands in the same app. "
+                desc: "Don’t repeat yourself. Think of commands in different apps or different commands in the same app. ",
+            },
+            {
+                title: "DRY (Don't Repreat Yourself)",
+                desc: 'If you use multiple equal expressions in your command: for example, a time (5 pm) or a name of a person (Bill), use different nouns to describe these expressions (for exmaple, "at that time" or "he" accordingly).',
             },
             {
                 title: "Unambiguous",
-                desc: "A person can clearly understand the intents within your instruction."
+                desc: "A person can clearly understand the intents within your instruction.",
             },
-        ]
+        ];
     }
 
     render() {
@@ -37,10 +39,15 @@ export default class Instructions extends React.Component {
                 <div className="row">
                     <div className="col">
                         <div className="header text-center">
-                            <h1 className='text-center'><span className="title-small">Your task:</span>Write a Complex Command</h1>
-                            <p>Now, you think of a complex command you can ask your
-                                virtual assistant that involves multiple apps
-                                (or the same app multiple times).</p>
+                            <h1 className="text-center">
+                                <span className="title-small">Your task:</span>
+                                Write a Complex Command
+                            </h1>
+                            <p>
+                                Now, you think of a complex command you can ask
+                                your virtual assistant that involves multiple
+                                apps (or the same app multiple times).
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -50,8 +57,12 @@ export default class Instructions extends React.Component {
                         <ol className="requirements">
                             {requirements.map((requirement, i) => (
                                 <li className="requirement" key={i}>
-                                    <div className="requirement-title bold">{requirement['title']}</div>
-                                    <div className="requirement-desc">{requirement['desc']}</div>
+                                    <div className="requirement-title bold">
+                                        {requirement["title"]}
+                                    </div>
+                                    <div className="requirement-desc">
+                                        {requirement["desc"]}
+                                    </div>
                                 </li>
                             ))}
                         </ol>
