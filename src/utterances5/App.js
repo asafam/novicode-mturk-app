@@ -134,13 +134,11 @@ export default class App extends React.Component {
      * @returns 
      */
     getDisplayedScreen() {
-        const { maxUtterances, contexts, maxLength, maxLengthPerIntent, minIntents, minConstraints, intents, constraints, conjunctionWords, minConjunctionWords, testVariation } = this.props;
+        const { maxUtterances, maxLength, minIntents, minConstraints, conjunctionWords, minConjunctionWords, excludedTerms, requiredFlowsInUtterance, showExamples, showAppHelp } = this.props;
         const { currentScreen, index, workerResponses } = this.state;
         const { utterance, context } = workerResponses.length > index ? workerResponses[index] : {};
-        const utteranceLimit = maxLength || maxLengthPerIntent * intents.length || 250;
-        const minimalDescription = testVariation === 'B' || testVariation === 'D';
-        const showExamples = testVariation === 'control' || testVariation === 'C'
-        const disableClickApps = testVariation === 'control' || testVariation === 'A'  || testVariation === 'B'
+        const utteranceLimit = maxLength || 250;
+        const minimalDescription = false; //testVariation === 'B' || testVariation === 'D';
 
         if (currentScreen === SCREENS.home) {
             return (
@@ -148,11 +146,11 @@ export default class App extends React.Component {
             );
         } else if (currentScreen === SCREENS.simple) {
             return (
-                <Simple showExamples={showExamples} disableClickApps={disableClickApps} onClickBack={this.handleClickBack} onClickNext={this.handleClickNext} />
+                <Simple showExamples={showExamples} showAppHelp={showAppHelp} onClickBack={this.handleClickBack} onClickNext={this.handleClickNext} />
             );
         } else if (currentScreen === SCREENS.complex) {
             return (
-                <Complex minimalDescription={minimalDescription} showExamples={showExamples} disableClickApps={disableClickApps} onClickBack={this.handleClickBack} onClickNext={this.handleClickNext} />
+                <Complex minimalDescription={minimalDescription} showExamples={showExamples} showAppHelp={showAppHelp} onClickBack={this.handleClickBack} onClickNext={this.handleClickNext} />
             );
         } else if (currentScreen === SCREENS.instructions) {
             return (
@@ -162,8 +160,8 @@ export default class App extends React.Component {
             return (
                 <Utterance index={index} maxUtterances={maxUtterances} utterance={utterance}
                     utteranceLimit={utteranceLimit} minIntents={minIntents} minConstraints={minConstraints}
-                    intents={intents} constraints={constraints} disableClickApps={disableClickApps}
-                    conjunctionWords={conjunctionWords} minConjunctionWords={minConjunctionWords} contexts={contexts} context={context}
+                    showAppHelp={showAppHelp} excludedTerms={excludedTerms} requiredFlowsInUtterance={requiredFlowsInUtterance}
+                    conjunctionWords={conjunctionWords} minConjunctionWords={minConjunctionWords} context={context}
                     onUtteranceChange={this.handleUtteranceChange} onClickBack={this.handleClickBack}
                     onClickHelp={this.handleClickHelp} onClickNext={this.handleClickNext} />
             );

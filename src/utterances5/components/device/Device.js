@@ -18,8 +18,8 @@ export default class Device extends React.Component {
 
     handleClickApp(e) {
         e.preventDefault();
-        const { disableClickApps } = this.props;
-        if (disableClickApps) {
+        const { showAppHelp } = this.props;
+        if (!showAppHelp) {
             this.setState({ selectAppIndex: null });
             return;
         }
@@ -90,7 +90,7 @@ export default class Device extends React.Component {
         const { selectAppIndex } = this.state;
 
         return (
-            <div>
+            <div className="device">
                 <div className="smartphone">
                     <div className="content">
                         <div className="apps">

@@ -126,4 +126,37 @@
     .input-textarea:focus {
         border: none !important;
     }
+
+    .required-flows-in-utterance {
+        font-size: 1.3rem;
+        line-height: 1.6rem;
+        margin-bottom: 20px;
+
+        .required-flow-in-utterance {
+            font-size: 1rem;
+            line-height: 1.2rem;
+            text-transform: uppercase;
+            margin: 4px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            color: #f1faee;
+            background-color: #1d3557;
+        }
+    }
+
+    .excluded-terms {
+        font-size: 1.3rem;
+        line-height: 1.6rem;
+        margin-bottom: 40px;
+
+        .excluded-term {
+            font-size: 1rem;
+            line-height: 1.2rem;
+            margin: 4px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            color: #f1faee;
+            background-color: #e63946;
+        }
+    }
 }

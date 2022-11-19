@@ -1,39 +1,31 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import Device from '../device/Device';
+import { getApps } from '../../data/data.js';
 import './Example.scss';
 
 
 export default class Home extends React.Component {
 
-    getApps() {
-        return [
-            { name: 'Navigation', icon: 'car-front', about: 'Directions, traffic conditions, time to travel, estimate time of arrival, estimate time of departure, and distance.' },
-            { name: 'Weather', icon: 'cloud-sun', about: 'Information on weather, weather conditions, and temperature.' },
-            { name: 'Calendar', icon: 'calendar-date', about: 'Information on calendar meetings and availability, and related actions (e.g., create, update and delete a calendar entry).' },
-            { name: 'Reminders', icon: 'bookmark', about: 'Information on reminders and related actions (e.g., create, update, and delete reminders).' },
-            { name: 'Messages', icon: 'chat', about: 'Information about messages and related actions (e.g., compose and reply to messages).' },
-            { name: 'Music', icon: 'music-note-beamed', about: 'Songs, playlist, podcasts, and related actions (e.g., start, stop, play, pause, restart, etc).' },
-            { name: 'Timer', icon: 'alarm', about: 'Information about alarms and timers, and related actions (e.g., create, update, delete, snooze, etc).' },
-            { name: 'Mail', icon: 'envelope', about: 'Information on emails, mail boxes, and related actions (e.g. compose, reply and forward).' },
-            { name: 'Smart Home', icon: 'house', about: 'Information on smart home devices and related actions (e.g., control the a/c, the boiler, unlock the door, etc).' },
-            { name: 'Events & Tickets', icon: 'ticket-perforated', about: 'Information about public events, and purchasing tickets to some event types.' },
-            { name: 'Shopping', icon: 'cart', about: 'Information on products and related actions (e.g., check the availability of products, and purchasing products).' },
-            { name: 'Map & Places', icon: 'pin-map', about: 'Information about public and private locations (e.g., start date and time, addresses, proximity, etc).' },
-        ];
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            apps: getApps(true)
+        };
     }
 
     getIcon(caption) {
-        const apps = this.getApps();
+        const { apps } = this.state;
         const app = apps.find(a => a['name'] === caption);
         const icon = app && app['icon'];
         return icon;
     }
 
     render() {
-        const { title, description, examples, disableClickApps } = this.props;
+        const { title, description, examples, showAppHelp } = this.props;
+        const { apps } = this.state;
         const hasExamples = Boolean(examples) && examples.length > 0;
-        const apps = this.getApps();
 
         return (
             <div className="example">
@@ -47,7 +39,7 @@ export default class Home extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col">
-                        <Device disableClickApps={disableClickApps} apps={apps} />
+                        <Device showAppHelp={showAppHelp} apps={apps} />
                     </div>
                     {hasExamples &&
                         <div className="col align-self-center">

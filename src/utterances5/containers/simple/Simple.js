@@ -27,7 +27,7 @@ export default class Simple extends React.Component {
     }
 
     render() {
-        const { showExamples, disableClickApps, onClickNext, onClickBack } = this.props;
+        const { showExamples, showAppHelp, onClickNext, onClickBack } = this.props;
         const title = this.getTitle();
         const description = this.getDescription();
         const examples = showExamples ? this.getExamples() : null;
@@ -35,7 +35,7 @@ export default class Simple extends React.Component {
         return (
             <div className="simple">
                 <div className="container">
-                    <Example title={title} description={description} examples={examples} disableClickApps={disableClickApps} onClickNext={onClickNext} onClickBack={onClickBack} />
+                    <Example title={title} description={description} examples={examples} showAppHelp={showAppHelp} onClickNext={onClickNext} onClickBack={onClickBack} />
 
                     <div className="row mb-3">
                         <div className="col">

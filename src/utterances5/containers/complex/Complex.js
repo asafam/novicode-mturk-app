@@ -28,7 +28,7 @@ export default class Complex extends React.Component {
     }
 
     render() {
-        const { minimalDescription, showExamples, disableClickApps, onClickNext, onClickBack } = this.props;
+        const { minimalDescription, showExamples, showAppHelp, onClickNext, onClickBack } = this.props;
         const title = this.getTitle();
         const description = this.getDescription(minimalDescription);
         const examples = showExamples ? this.getExamples() : [];
@@ -36,7 +36,7 @@ export default class Complex extends React.Component {
         return (
             <div className="simple">
                 <div className="container">
-                    <Example title={title} description={description} examples={examples} disableClickApps={disableClickApps} onClickNext={onClickNext} onClickBack={onClickBack} />
+                    <Example title={title} description={description} examples={examples} showAppHelp={showAppHelp} onClickNext={onClickNext} onClickBack={onClickBack} />
 
                     <div className="row mb-3">
                         <div className="col">

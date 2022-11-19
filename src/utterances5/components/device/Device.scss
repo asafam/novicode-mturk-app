@@ -1,100 +1,103 @@
-.smartphone {
-    position: relative;
-    width: 392px;
-    height: 640px;
-    margin: auto;
-    border: 16px black solid;
-    border-top-width: 60px;
-    border-bottom-width: 60px;
-    border-radius: 36px;
-
-    /* The horizontal line on the top of the device */
-    &:before {
-        content: "";
-        display: block;
-        width: 60px;
-        height: 5px;
-        position: absolute;
-        top: -30px;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: #333;
-        border-radius: 10px;
-    }
-
-    /* The circle on the bottom of the device */
-    &:after {
-        content: "";
-        display: block;
-        width: 35px;
-        height: 35px;
-        position: absolute;
-        left: 50%;
-        bottom: -65px;
-        transform: translate(-50%, -50%);
-        background: #333;
-        border-radius: 50%;
-    }
-
-    /* The screen (or content) of the device */
-    .content {
-        width: 360px;
-        height: 520px;
-        background: white;
+.device {
+    .smartphone {
         position: relative;
+        width: 392px;
+        height: 640px;
+        margin: auto;
+        border: 16px black solid;
+        border-top-width: 60px;
+        border-bottom-width: 60px;
+        border-radius: 36px;
 
-        .apps {
-            padding-top: 14px;
-
-            .app {
-                font-size: 1rem;
-                height: 110px;
-                overflow: hidden;
-
-                .app-icon {
-                    font-size: 2rem;
-                    background: lightskyblue;
-                    border-radius: 8px;
-                }
-            }
+        /* The horizontal line on the top of the device */
+        &:before {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 5px;
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #333;
+            border-radius: 10px;
         }
 
-        .app-help {
+        /* The circle on the bottom of the device */
+        &:after {
+            content: "";
+            display: block;
+            width: 35px;
+            height: 35px;
             position: absolute;
-            bottom: 3px;
-            left: 3px;
-            width: calc(100% - 6px);
-            margin-left: auto;
-            margin-right: auto;
-            height: 200px;
-            background: rgba(51, 51, 51, 0.7); // #0dab76;
-            color: #f3f3f3;
-            border-radius: 8px;
+            left: 50%;
+            bottom: -65px;
+            transform: translate(-50%, -50%);
+            background: #333;
+            border-radius: 50%;
+        }
 
-            .app-help-content {
-                padding: 16px 8px;
-                position: relative;
-                font-size: 1.2rem;
-                font-weight: 500;
+        /* The screen (or content) of the device */
+        .content {
+            width: 360px;
+            height: 520px;
+            background: white;
+            position: relative;
 
-                .close-icon {
-                    position: absolute;
-                    right: 8px;
-                    top: 8px;
+            .apps {
+                padding-top: 14px;
+
+                .app {
+                    font-size: 1rem;
+                    height: 110px;
+                    overflow: hidden;
+
+                    .app-icon {
+                        font-size: 2rem;
+                        background: lightskyblue;
+                        border-radius: 8px;
+                    }
                 }
+            }
 
-                h3 {
-                    .bi {
-                        padding-right: 8px;
+            .app-help {
+                position: absolute;
+                bottom: 3px;
+                left: 3px;
+                width: calc(100% - 6px);
+                margin-left: auto;
+                margin-right: auto;
+                height: 400px;
+                background: rgba(51, 51, 51, 0.7); // #0dab76;
+                color: #f3f3f3;
+                border-radius: 8px;
+
+                .app-help-content {
+                    padding: 16px 8px;
+                    position: relative;
+                    font-size: 1.2rem;
+                    font-weight: 500;
+
+                    .close-icon {
+                        position: absolute;
+                        right: 8px;
+                        top: 8px;
+                    }
+
+                    h3 {
+                        .bi {
+                            padding-right: 8px;
+                        }
                     }
                 }
             }
         }
     }
-}
 
-.device-help {
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-top: 12px;
+    .device-help {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
 }
