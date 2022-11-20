@@ -2,6 +2,7 @@ import React from "react";
 import AppModal from "../Modal";
 import Device from "../../components/device/Device";
 import Help from "../../components/help/Help";
+import HelpFlows from "../../components/help/HelpFlows";
 import { getApps } from "../../data/data.js";
 import "./Utterance.scss";
 
@@ -17,6 +18,7 @@ export default class Utterance extends React.Component {
 
         this.handleClickNext = this.handleClickNext.bind(this);
         this.handleClickHelp = this.handleClickHelp.bind(this);
+        this.handleClickHelpFlows = this.handleClickHelpFlows.bind(this);
         this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
     }
 
@@ -153,6 +155,12 @@ export default class Utterance extends React.Component {
         this.setState({ showHelp: true });
     }
 
+    handleClickHelpFlows(event) {
+        event.preventDefault();
+        const selectedFlow = event.target.getAttribute("data-id");
+        this.setState({ showHelpFlows: true, selectedFlow });
+    }
+
     render() {
         const {
             utteranceLimit,
@@ -161,7 +169,15 @@ export default class Utterance extends React.Component {
             showAppHelp,
             onClickBack,
         } = this.props;
-        const { utterance, valid, errorMessage, showHelp, apps } = this.state;
+        const {
+            utterance,
+            valid,
+            errorMessage,
+            showHelp,
+            showHelpFlows,
+            selectedFlow,
+            apps,
+        } = this.state;
 
         if (showHelp) {
             return (
@@ -170,6 +186,17 @@ export default class Utterance extends React.Component {
                     onHide={() => this.setState({ showHelp: false })}
                 >
                     <Help />
+                </AppModal>
+            );
+        }
+
+        if (showHelpFlows) {
+            return (
+                <AppModal
+                    show={showHelpFlows}
+                    onHide={() => this.setState({ showHelpFlows: false })}
+                >
+                    <HelpFlows flow={selectedFlow} />
                 </AppModal>
             );
         }
@@ -205,7 +232,8 @@ export default class Utterance extends React.Component {
                                     <div className="row required-flows-in-utterance">
                                         <p>
                                             Your complex command should express
-                                            at least one of the following:
+                                            at least one of the following (click
+                                            for help):
                                         </p>
                                         <div>
                                             {requiredFlowsInUtterance.map(
@@ -216,6 +244,13 @@ export default class Utterance extends React.Component {
                                                     <span
                                                         className="required-flow-in-utterance"
                                                         key={i}
+                                                        data-id={
+                                                            requiredFlowInUtterance
+                                                        }
+                                                        onClick={
+                                                            this
+                                                                .handleClickHelpFlows
+                                                        }
                                                     >
                                                         {
                                                             requiredFlowInUtterance
