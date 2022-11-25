@@ -29,7 +29,7 @@ const quantifiers = getData("data-quantifiers")
           .map((icon) => icon.trim())
     : [];
 const excludedTerms = getData("data-excluded-terms", "").split("|");
-const flows = getData("data-flows", "").split("|");
+const flows = getData("data-flows").split("|");
 const excludedApps = getData("data-excluded-apps", "").split("|");
 const maxLength =
     getData("data-max-length") && parseInt(getData("data-max-length"));
