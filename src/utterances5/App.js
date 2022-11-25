@@ -39,13 +39,8 @@ export default class App extends React.Component {
     }
 
     submitToMTurk() {
-        const {
-            intents,
-            constraints,
-            excludedApps,
-            excludedTerms,
-            requiredFlowsInUtterance,
-        } = this.props;
+        const { intents, constraints, excludedApps, excludedTerms, flows } =
+            this.props;
         const { workerResponses, feedback } = this.state;
         const workerResponsesValues = [];
         for (const i in workerResponses) {
@@ -91,7 +86,7 @@ export default class App extends React.Component {
                 context,
                 excludedTerms,
                 excludedApps,
-                requiredFlowsInUtterance,
+                flows,
                 intents: intentsValue,
                 constraints: constraintsValue,
                 intentsAnnotations: intentsAnnotationsValue,
@@ -211,7 +206,7 @@ export default class App extends React.Component {
             minConjunctionWords,
             excludedTerms,
             excludedApps,
-            requiredFlowsInUtterance,
+            flows,
             showExamples,
             showAppHelp,
         } = this.props;
@@ -267,7 +262,7 @@ export default class App extends React.Component {
                     minConstraints={minConstraints}
                     showAppHelp={showAppHelp}
                     excludedTerms={excludedTerms}
-                    requiredFlowsInUtterance={requiredFlowsInUtterance}
+                    flows={flows}
                     conjunctionWords={conjunctionWords}
                     minConjunctionWords={minConjunctionWords}
                     context={context}

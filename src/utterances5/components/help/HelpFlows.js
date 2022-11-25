@@ -4,19 +4,19 @@ import "./HelpFlows.scss";
 
 export default class HelpFlows extends React.Component {
     getExamples(flow) {
-        if (flow.toLowerCase() === "repetition") {
+        if (flow.toLowerCase() === "multiplicity") {
             return [
                 {
                     title: "Wake me up every 30 minutes between 1 and 2 am",
-                    caption: "Repetition",
+                    caption: "Multiplicity",
                 },
                 {
                     title: "Is there a Coldplay concert in the park in July, August or September?",
-                    caption: "Repetition",
+                    caption: "Multiplicity",
                 },
                 {
                     title: "Which drugstores that is open right now will I arrive at in 15 minutes if I leave now?",
-                    caption: "Repetition",
+                    caption: "Multiplicity",
                 },
             ];
         } else if (flow.toLowerCase() === "condition") {
@@ -24,6 +24,13 @@ export default class HelpFlows extends React.Component {
                 {
                     title: "In case it will be hot tomorrow morning, text my sister that I will need to use my car at that time",
                     caption: "Condition",
+                },
+            ];
+        } else if (flow.toLowerCase() === "sequence") {
+            return [
+                {
+                    title: "Text coach Nick that I will be late and ask Lauren if I left my keys in her car",
+                    caption: "Sequence",
                 },
             ];
         }
@@ -39,23 +46,37 @@ export default class HelpFlows extends React.Component {
                     <div className="col">
                         <div className="header text-center">
                             <h1 className="text-center title">{flow}</h1>
-                            {flow.toLowerCase() === "repetition" && (
-                                <p>
-                                    Complex commands with repetition express an
-                                    efficient way to repeat a simple command
-                                    multiple times, possibly with slight
-                                    changes. Without the repetition, one should
-                                    had requested the simple command multiple
-                                    times.
-                                </p>
+                            {flow.toLowerCase() === "multiplicity" && (
+                                <div>
+                                    <p>
+                                        Complex commands with with multiplicity
+                                        express an efficient way to repeat a
+                                        simple command multiple times, possibly
+                                        with slight changes. Without that, one
+                                        should had requested the simple command
+                                        multiple times.
+                                    </p>
+                                </div>
                             )}
                             {flow.toLowerCase() === "condition" && (
-                                <p>
-                                    Complex commands with condition allows one
-                                    to condition the excution of a simple or
-                                    complex command in the validity of another
-                                    simple or complex command.
-                                </p>
+                                <div>
+                                    <p>
+                                        Complex commands with condition allows
+                                        one to condition the excution of a
+                                        simple or complex command in the
+                                        validity of another simple or complex
+                                        command.
+                                    </p>
+                                </div>
+                            )}
+                            {flow.toLowerCase() === "sequence" && (
+                                <div>
+                                    <p>
+                                        Complex commands with sequences allows
+                                        one to request multiple commands in an
+                                        order.
+                                    </p>
+                                </div>
                             )}
                         </div>
                     </div>

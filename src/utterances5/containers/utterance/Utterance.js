@@ -165,7 +165,7 @@ export default class Utterance extends React.Component {
         const {
             utteranceLimit,
             excludedTerms,
-            requiredFlowsInUtterance,
+            flows,
             showAppHelp,
             onClickBack,
         } = this.props;
@@ -227,40 +227,29 @@ export default class Utterance extends React.Component {
                             <Device showAppHelp={showAppHelp} apps={apps} />
                         </div>
                         <div className="col align-self-center">
-                            {requiredFlowsInUtterance &&
-                                requiredFlowsInUtterance.length > 0 && (
-                                    <div className="row required-flows-in-utterance">
-                                        <p>
-                                            Your complex command should express
-                                            at least one of the following (click
-                                            for help):
-                                        </p>
-                                        <div>
-                                            {requiredFlowsInUtterance.map(
-                                                (
-                                                    requiredFlowInUtterance,
-                                                    i
-                                                ) => (
-                                                    <span
-                                                        className="required-flow-in-utterance"
-                                                        key={i}
-                                                        data-id={
-                                                            requiredFlowInUtterance
-                                                        }
-                                                        onClick={
-                                                            this
-                                                                .handleClickHelpFlows
-                                                        }
-                                                    >
-                                                        {
-                                                            requiredFlowInUtterance
-                                                        }
-                                                    </span>
-                                                )
-                                            )}
-                                        </div>
+                            {flows && flows.length > 0 && (
+                                <div className="row flows">
+                                    <p>
+                                        Your complex command should express at
+                                        least one of the following (click for
+                                        help):
+                                    </p>
+                                    <div>
+                                        {flows.map((flow, i) => (
+                                            <span
+                                                className="flow"
+                                                key={i}
+                                                data-id={flow}
+                                                onClick={
+                                                    this.handleClickHelpFlows
+                                                }
+                                            >
+                                                {flow}
+                                            </span>
+                                        ))}
                                     </div>
-                                )}
+                                </div>
+                            )}
 
                             {excludedTerms && excludedTerms.length > 0 && (
                                 <div className="row excluded-terms">
@@ -272,7 +261,7 @@ export default class Utterance extends React.Component {
                                         {excludedTerms.map(
                                             (excludedTerm, i) => (
                                                 <span
-                                                    className="excluded-term"
+                                                    className="excluded-term utterance-text"
                                                     key={i}
                                                 >
                                                     {excludedTerm}

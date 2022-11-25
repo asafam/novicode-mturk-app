@@ -127,12 +127,12 @@
         border: none !important;
     }
 
-    .required-flows-in-utterance {
+    .flows {
         font-size: 1.3rem;
         line-height: 1.6rem;
         margin-bottom: 20px;
 
-        .required-flow-in-utterance {
+        .flow {
             font-size: 1rem;
             line-height: 1.2rem;
             text-transform: uppercase;
@@ -141,6 +141,7 @@
             border-radius: 8px;
             color: #f1faee;
             background-color: #1d3557;
+            cursor: pointer;
         }
     }
 
@@ -150,8 +151,8 @@
         margin-bottom: 40px;
 
         .excluded-term {
-            font-size: 1rem;
-            line-height: 1.2rem;
+            font-size: 1.3rem;
+            line-height: 1.5rem;
             margin: 4px;
             padding: 6px 12px;
             border-radius: 8px;

@@ -21,12 +21,12 @@ export default class Instructions extends React.Component {
                 desc: "Don’t repeat yourself. Think of commands in different apps or different commands in the same app. ",
             },
             {
-                title: "DRY (Don't Repreat Yourself)",
-                desc: 'If you use multiple equal expressions in your command: for example, a time (5 pm) or a name of a person (Bill), use different nouns to describe these expressions (for exmaple, "at that time" or "he" accordingly).',
-            },
-            {
                 title: "Unambiguous",
                 desc: "A person can clearly understand the intents within your instruction.",
+            },
+            {
+                title: "Referential",
+                desc: "Instead of repeating a mention (for example, to a name, a place or a time) use a pronoun or other referring expression.",
             },
         ];
     }

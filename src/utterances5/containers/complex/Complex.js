@@ -1,8 +1,19 @@
 import React from "react";
+import AppModal from "../Modal";
 import Example from "../../components/example/Example";
+import HelpFlows from "../../components/help/HelpFlows";
 import "./Complex.scss";
 
 export default class Complex extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showHelpFlows: false,
+        };
+
+        this.handleClickHelpFlows = this.handleClickHelpFlows.bind(this);
+    }
+
     getTitle() {
         return "Complex commands";
     }
@@ -15,8 +26,31 @@ export default class Complex extends React.Component {
                 your virtual assistant.{" "}
                 {!minimalDescription && (
                     <span>
-                        Commands can be expressed in repetition, sequence and
-                        conditions.
+                        Commands can be expressed in{" "}
+                        <span
+                            className="flow"
+                            onClick={this.handleClickHelpFlows}
+                            data-id="multiplicity"
+                        >
+                            multiplicity
+                        </span>
+                        ,{" "}
+                        <span
+                            className="flow"
+                            onClick={this.handleClickHelpFlows}
+                            data-id="sequence"
+                        >
+                            sequence
+                        </span>{" "}
+                        and
+                        <span
+                            className="flow"
+                            onClick={this.handleClickHelpFlows}
+                            data-id="condition"
+                        >
+                            conditions
+                        </span>
+                        .
                     </span>
                 )}
             </p>
@@ -31,7 +65,7 @@ export default class Complex extends React.Component {
             },
             {
                 title: "Is there a Coldplay concert in the park in July, August or September?",
-                caption: "Repetition",
+                caption: "Multiplicity",
             },
             {
                 title: "In case it will be hot tomorrow morning, text my sister that I will need to use my car at that time",
@@ -39,9 +73,15 @@ export default class Complex extends React.Component {
             },
             {
                 title: "As I leave now to Shakespeare in the Park let everyone on my friends list know if I will be late and block my calendar at that time",
-                caption: "Condition, Repetition & Sequence",
+                caption: "Condition, Multiplicity & Sequence",
             },
         ];
+    }
+
+    handleClickHelpFlows(event) {
+        event.preventDefault();
+        const selectedFlow = event.target.getAttribute("data-id");
+        this.setState({ showHelpFlows: true, selectedFlow });
     }
 
     render() {
@@ -53,12 +93,24 @@ export default class Complex extends React.Component {
             onClickNext,
             onClickBack,
         } = this.props;
+        const { showHelpFlows, selectedFlow } = this.state;
         const title = this.getTitle();
         const description = this.getDescription(minimalDescription);
         const examples = showExamples ? this.getExamples() : [];
 
+        if (showHelpFlows) {
+            return (
+                <AppModal
+                    show={showHelpFlows}
+                    onHide={() => this.setState({ showHelpFlows: false })}
+                >
+                    <HelpFlows flow={selectedFlow} />
+                </AppModal>
+            );
+        }
+
         return (
-            <div className="simple">
+            <div className="complex">
                 <div className="container">
                     <Example
                         title={title}

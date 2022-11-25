@@ -29,10 +29,7 @@ const quantifiers = getData("data-quantifiers")
           .map((icon) => icon.trim())
     : [];
 const excludedTerms = getData("data-excluded-terms", "").split("|");
-const requiredFlowsInUtterance = getData(
-    "data-required-flows-in-utterance",
-    ""
-).split("|");
+const flows = getData("data-flows", "").split("|");
 const excludedApps = getData("data-excluded-apps", "").split("|");
 const maxLength =
     getData("data-max-length") && parseInt(getData("data-max-length"));
@@ -55,7 +52,7 @@ const Root = () => {
                 maxLength={maxLength}
                 showExamples={showExamples}
                 showAppHelp={showAppHelp}
-                requiredFlowsInUtterance={requiredFlowsInUtterance}
+                flows={flows}
                 excludedTerms={excludedTerms}
             />
         </div>
