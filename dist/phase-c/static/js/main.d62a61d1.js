@@ -9397,7 +9397,7 @@
                 Object.defineProperty(e, '__esModule', { value: !0 });
         }),
         (n.p =
-            'https://cdn.jsdelivr.net/gh/asafbiu/thesis-mturk-console/dist/phase-c-v1.1/'),
+            'https://cdn.jsdelivr.net/gh/asafbiu/thesis-mturk-app/dist/phase-c/'),
         (function () {
             if ('undefined' !== typeof document) {
                 var e = function (e) {
