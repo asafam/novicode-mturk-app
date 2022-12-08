@@ -8315,7 +8315,7 @@
         Object.defineProperty(e, "__esModule", { value: !0 });
     }),
     (n.p =
-      "https://cdn.jsdelivr.net/gh/asafbiu/thesis-mturk-console/dist/phase-c/"),
+      "https://cdn.jsdelivr.net/gh/asafbiu/thesis-mturk-console/dist/phase-c-v1/"),
     (function () {
       if ("undefined" !== typeof document) {
         var e = function (e) {
