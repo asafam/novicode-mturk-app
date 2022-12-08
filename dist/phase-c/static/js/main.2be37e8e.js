@@ -8314,7 +8314,8 @@
         Object.defineProperty(e, Symbol.toStringTag, { value: "Module" }),
         Object.defineProperty(e, "__esModule", { value: !0 });
     }),
-    (n.p = "https://cdn.jsdelivr.net/gh/asafbiu/thesis-mturk-console/dist/"),
+    (n.p =
+      "https://cdn.jsdelivr.net/gh/asafbiu/thesis-mturk-console/dist/phase-c/"),
     (function () {
       if ("undefined" !== typeof document) {
         var e = function (e) {
