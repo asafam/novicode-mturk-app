@@ -1,0 +1,112 @@
+.utterance {
+    // max-width: 800px;
+    // margin-left: auto;
+    // margin-right: auto;
+    // margin-bottom: 50px;
+    // font-size: 1.3rem;
+    // line-height: 1.8rem;
+
+    .title-small {
+        font-size: 1.5rem;
+        margin-right: 10px;
+    }
+
+    .header {
+        margin-bottom: 20px;
+
+        p {
+            font-size: 1.75rem;
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    .intent-icon {
+        padding-right: 15px;
+    }
+
+    .utterance .card {
+        width: 680px;
+    }
+
+    .input-textarea {
+        border: none !important;
+        font-size: 1.6rem;
+        line-height: 2.4rem;
+    }
+
+    .input-textarea:focus {
+        border: none !important;
+    }
+
+    .flows {
+        margin-bottom: 20px;
+
+        .flow {
+            font-size: 1rem;
+            line-height: 1.2rem;
+            text-transform: uppercase;
+            margin: 4px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            color: #f1faee;
+            background-color: #1d3557;
+            cursor: pointer;
+        }
+    }
+
+    .excluded-terms {
+        font-size: 1.3rem;
+        line-height: 1.6rem;
+        margin-bottom: 40px;
+
+        .excluded-term {
+            font-size: 1.3rem;
+            line-height: 2.6rem;
+            margin: 4px;
+            padding: 4px 8px;
+            border-radius: 8px;
+            color: #f1faee;
+            background-color: #e63946;
+        }
+    }
+
+    .rephrase-utterances {
+        margin-bottom: 30px;
+
+        &.instruction-examples {
+            .instruction-example {
+                background: #ffbe0b;
+                border-radius: 8px;
+            }
+        }
+
+        .rephrase-utterance {
+            font-size: 1.3rem;
+            line-height: 1.6rem;
+            margin: 4px;
+            padding: 4px 8px;
+            border-radius: 8px;
+            color: #f1faee;
+            background-color: #457b9d;
+            cursor: pointer;
+        }
+
+        .carousel {
+            margin-bottom: 10px;
+        }
+    }
+
+    .flows {
+        margin-bottom: 20px;
+    }
+
+    .utterance-input {
+        margin-bottom: 20px;
+
+        .card {
+            margin-bottom: 16px;
+        }
+    }
+}

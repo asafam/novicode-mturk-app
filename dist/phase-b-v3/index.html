@@ -105,17 +105,17 @@
                               (o[e] = new Promise(function (t, r) {
                                   for (
                                       var n =
-                                              "static/css/" +
+                                              'static/css/' +
                                               ({}[e] || e) +
-                                              "." +
-                                              { 2: "31d6cfe0", 3: "69b6d126" }[
+                                              '.' +
+                                              { 2: '31d6cfe0', 3: '69b6d126' }[
                                                   e
                                               ] +
-                                              ".chunk.css",
+                                              '.chunk.css',
                                           a = i.p + n,
                                           u =
                                               document.getElementsByTagName(
-                                                  "link"
+                                                  'link'
                                               ),
                                           c = 0;
                                       c < u.length;
@@ -123,29 +123,29 @@
                                   ) {
                                       var l =
                                           (f = u[c]).getAttribute(
-                                              "data-href"
-                                          ) || f.getAttribute("href");
+                                              'data-href'
+                                          ) || f.getAttribute('href');
                                       if (
-                                          "stylesheet" === f.rel &&
+                                          'stylesheet' === f.rel &&
                                           (l === n || l === a)
                                       )
                                           return t();
                                   }
                                   var s =
-                                      document.getElementsByTagName("style");
+                                      document.getElementsByTagName('style');
                                   for (c = 0; c < s.length; c++) {
                                       var f;
                                       if (
                                           (l = (f = s[c]).getAttribute(
-                                              "data-href"
+                                              'data-href'
                                           )) === n ||
                                           l === a
                                       )
                                           return t();
                                   }
-                                  var p = document.createElement("link");
-                                  (p.rel = "stylesheet"),
-                                      (p.type = "text/css"),
+                                  var p = document.createElement('link');
+                                  (p.rel = 'stylesheet'),
+                                      (p.type = 'text/css'),
                                       (p.onload = t),
                                       (p.onerror = function (t) {
                                           var n =
@@ -154,13 +154,13 @@
                                                       t.target.src) ||
                                                   a,
                                               u = new Error(
-                                                  "Loading CSS chunk " +
+                                                  'Loading CSS chunk ' +
                                                       e +
-                                                      " failed.\n(" +
+                                                      ' failed.\n(' +
                                                       n +
-                                                      ")"
+                                                      ')'
                                               );
-                                          (u.code = "CSS_CHUNK_LOAD_FAILED"),
+                                          (u.code = 'CSS_CHUNK_LOAD_FAILED'),
                                               (u.request = n),
                                               delete o[e],
                                               p.parentNode.removeChild(p),
@@ -168,7 +168,7 @@
                                       }),
                                       (p.href = a),
                                       document
-                                          .getElementsByTagName("head")[0]
+                                          .getElementsByTagName('head')[0]
                                           .appendChild(p);
                               }).then(function () {
                                   o[e] = 0;
@@ -183,18 +183,18 @@
                             });
                             t.push((r[2] = n));
                             var u,
-                                c = document.createElement("script");
-                            (c.charset = "utf-8"),
+                                c = document.createElement('script');
+                            (c.charset = 'utf-8'),
                                 (c.timeout = 120),
-                                i.nc && c.setAttribute("nonce", i.nc),
+                                i.nc && c.setAttribute('nonce', i.nc),
                                 (c.src = (function (e) {
                                     return (
                                         i.p +
-                                        "static/js/" +
+                                        'static/js/' +
                                         ({}[e] || e) +
-                                        "." +
-                                        { 2: "34c2728a", 3: "d579376f" }[e] +
-                                        ".chunk.js"
+                                        '.' +
+                                        { 2: '34c2728a', 3: 'd579376f' }[e] +
+                                        '.chunk.js'
                                     );
                                 })(e));
                             var l = new Error();
@@ -205,19 +205,19 @@
                                     if (r) {
                                         var n =
                                                 t &&
-                                                ("load" === t.type
-                                                    ? "missing"
+                                                ('load' === t.type
+                                                    ? 'missing'
                                                     : t.type),
                                             o = t && t.target && t.target.src;
                                         (l.message =
-                                            "Loading chunk " +
+                                            'Loading chunk ' +
                                             e +
-                                            " failed.\n(" +
+                                            ' failed.\n(' +
                                             n +
-                                            ": " +
+                                            ': ' +
                                             o +
-                                            ")"),
-                                            (l.name = "ChunkLoadError"),
+                                            ')'),
+                                            (l.name = 'ChunkLoadError'),
                                             (l.type = n),
                                             (l.request = o),
                                             r[1](l);
@@ -226,7 +226,7 @@
                                 }
                             };
                             var s = setTimeout(function () {
-                                u({ type: "timeout", target: c });
+                                u({ type: 'timeout', target: c });
                             }, 12e4);
                             (c.onerror = c.onload = u),
                                 document.head.appendChild(c);
@@ -239,31 +239,31 @@
                         i.o(e, t) ||
                             Object.defineProperty(e, t, {
                                 enumerable: !0,
-                                get: r,
+                                get: r
                             });
                     }),
                     (i.r = function (e) {
-                        "undefined" != typeof Symbol &&
+                        'undefined' != typeof Symbol &&
                             Symbol.toStringTag &&
                             Object.defineProperty(e, Symbol.toStringTag, {
-                                value: "Module",
+                                value: 'Module'
                             }),
-                            Object.defineProperty(e, "__esModule", {
-                                value: !0,
+                            Object.defineProperty(e, '__esModule', {
+                                value: !0
                             });
                     }),
                     (i.t = function (e, t) {
                         if ((1 & t && (e = i(e)), 8 & t)) return e;
-                        if (4 & t && "object" == typeof e && e && e.__esModule)
+                        if (4 & t && 'object' == typeof e && e && e.__esModule)
                             return e;
                         var r = Object.create(null);
                         if (
                             (i.r(r),
-                            Object.defineProperty(r, "default", {
+                            Object.defineProperty(r, 'default', {
                                 enumerable: !0,
-                                value: e,
+                                value: e
                             }),
-                            2 & t && "string" != typeof e)
+                            2 & t && 'string' != typeof e)
                         )
                             for (var n in e)
                                 i.d(
@@ -284,13 +284,13 @@
                                 : function () {
                                       return e;
                                   };
-                        return i.d(t, "a", t), t;
+                        return i.d(t, 'a', t), t;
                     }),
                     (i.o = function (e, t) {
                         return Object.prototype.hasOwnProperty.call(e, t);
                     }),
                     (i.p =
-                        "https://cdn.jsdelivr.net/gh/asafam/mturk-utterances/dist/phase-b-v3/"),
+                        'https://cdn.jsdelivr.net/gh/asafam/mturk-utterances@main/dist/phase-b-v3/'),
                     (i.oe = function (e) {
                         throw (console.error(e), e);
                     });

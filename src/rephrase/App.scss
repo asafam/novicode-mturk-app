@@ -1,0 +1,368 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;700&family=Montserrat:wght@100;300;700&family=Roboto:wght@100;300;700&display=swap');
+
+body {
+    background: #f6f6f6;
+    font-family: 'Poppins', sans-serif;
+}
+
+form {
+    font-family: 'Poppins', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+h7 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
+.card {
+    box-shadow: 1px 1px 5px #ddd;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card-header {
+    background: #404040;
+    color: white;
+}
+
+.card-header h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    padding-top: 0.5rem !important;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.text-purple {
+    color: #8338ec;
+}
+
+.text-red {
+    color: #ff006e;
+}
+
+.btn {
+    font-weight: 700;
+    font-size: 1.2rem;
+
+    .bi {
+        font-size: 1.6rem;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+.btn-primary {
+    border-color: #8338ec;
+    background-color: #8338ec;
+}
+
+.btn-primary:hover {
+    border-color: #ffbe0b;
+    background-color: #8338ec;
+    color: #ffbe0b;
+}
+
+.btn-outline-secondary:hover {
+    color: #8338ec;
+    background-color: #ffbe0b;
+}
+
+.btn-green {
+    background-color: #38b000;
+}
+
+.btn-green:hover {
+    background-color: #008000;
+}
+
+.btn-outline-default {
+    border-color: #ff006e;
+    color: #ff006e;
+}
+
+.btn-outline-default:hover {
+    border-color: #ff006e;
+    color: white;
+    background: #ff006e;
+}
+
+.btn-default {
+    border-color: #ff006e;
+    color: white;
+    background: #ff006e;
+}
+
+.btn-default:hover {
+    color: #ffbe0b;
+}
+
+.utterance-text {
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
+}
+
+.selections .utterance {
+    font-size: 1.5rem;
+}
+
+.selections .intent .counter {
+    margin-left: 8px;
+    font-size: 1rem;
+}
+
+.selections .selection {
+    padding-left: 16px;
+}
+
+.selections .selection .selection-head {
+    background: #fff;
+    color: #8338ec;
+}
+
+.selections .selection .selection-text {
+    background: #8338ec;
+    color: #fff;
+    font-weight: 500;
+    font-size: 1.1rem;
+    border: 1px #8338ec;
+    border-radius: 8px;
+    padding: 4px 8px;
+    margin-left: 8px;
+}
+
+.selections .utterance {
+    line-height: 2rem;
+}
+
+.selections .utterance .highlight {
+    border: 1px solid;
+    padding: 4px 6px;
+    border-radius: 8px;
+}
+
+.selections .utterance .highlight.intent {
+    background: #ffd166;
+}
+
+.selections .utterance .highlight.constraint {
+    background: #06d6a0;
+}
+
+.example .help {
+    background: #f6f6f6;
+    font-size: 1.3rem;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid;
+    border-radius: 8px;
+    border-color: #6c757d;
+    box-shadow: inset rgb(0 0 0 / 11%) 0 0 0 1px;
+}
+
+.example .help .hint {
+    font-size: 1rem;
+}
+
+.example .selection {
+    padding: 4px 16px;
+}
+
+.vertical-center-container {
+    position: relative;
+    height: 100%;
+
+    .vertical-center {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        width: 100%;
+    }
+}
+
+.actions {
+    margin-bottom: 20px;
+
+    &.float {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+    }
+
+    .btn {
+        font-weight: 700;
+        font-size: 1.6rem;
+
+        .bi {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
+}
+
+.thank-you {
+    .card {
+        width: 600px;
+
+        .card-header {
+            .bi {
+                margin-right: 10px;
+            }
+        }
+
+        .feedback-textarea {
+            border: none !important;
+            font-size: 1.3rem;
+            line-height: 2rem;
+        }
+
+        .feedback-textarea:focus {
+            border: none !important;
+        }
+    }
+}
+
+.text-blue {
+    color: #1976d2 !important;
+}
+
+.text-green {
+    color: #008000 !important;
+}
+
+.text-red {
+    color: #d90429 !important;
+}
+
+.text-purple {
+    color: #8338ec !important;
+}
+
+.help {
+    .intents {
+        margin-left: 75px;
+        margin-bottom: 50px;
+    }
+
+    .intents,
+    .intent-textarea {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-family: 'Times New Roman', Times, serif;
+        font-style: italic;
+        font-size: 1.8rem;
+        line-height: 2.8rem;
+
+        .highlight {
+            padding: 3px 10px;
+            margin: 0 4px;
+            border-radius: 8px;
+            border: 1px solid #8338ec;
+            color: #8338ec;
+            background-color: #ffbe0b;
+        }
+    }
+
+    .card {
+        // width: 500px;
+        border-radius: 8px;
+        // border-color: #404040;
+        // border: 1px solid;
+    }
+
+    .words {
+        width: 320px;
+        margin-left: auto;
+        margin-right: auto;
+
+        .word {
+            font-family: 'Times New Roman', Times, serif;
+            font-style: italic;
+            font-size: 1.8rem;
+            line-height: 2.8rem;
+            padding: 3px 10px;
+            margin: 0 4px;
+            border-radius: 8px;
+            border: 1px solid #8338ec;
+            color: #8338ec;
+        }
+    }
+}
+
+.page {
+    .header {
+        margin-bottom: 20px;
+
+        h1 {
+            width: 75%;
+            margin-left: auto;
+            margin-right: auto;
+
+            .title-small {
+                font-size: 1.5rem;
+                margin-right: 10px;
+            }
+        }
+
+        p {
+            font-size: 1.75rem;
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    .body {
+        p {
+            font-size: 1.3rem;
+            line-height: 2rem;
+        }
+
+        .note {
+            font-size: 1rem;
+            line-height: 1.3rem;
+        }
+    }
+}
+
+.instruction-examples {
+    .instruction-example {
+        height: 330px;
+        padding: 20px 80px;
+
+        .example-title {
+            font-size: 2rem;
+            line-height: 2.3rem;
+        }
+
+        .example-caption {
+            padding-top: 16px;
+            font-size: 1rem;
+            line-height: 1.5rem;
+        }
+
+        .label {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-style: normal;
+            font-weight: 700;
+            border-radius: 8px;
+            padding-right: 16px;
+        }
+    }
+}
