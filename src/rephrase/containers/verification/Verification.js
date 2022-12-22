@@ -6,6 +6,7 @@ export default class Complex extends React.Component {
         super(props);
         const { selectedFlows } = props;
         this.state = {
+            errorMessage: '',
             flows: ['Sequence', 'Condition', 'Multiplicity'],
             selectedFlows: selectedFlows || []
         };
@@ -25,7 +26,8 @@ export default class Complex extends React.Component {
         } else {
             selectedFlows.push(selectedFlow);
         }
-        this.setState({ selectedFlows });
+
+        this.setState({ selectedFlows, errorMessage: '' });
         onClickFlow(index, selectedFlows);
     }
 
@@ -39,13 +41,14 @@ export default class Complex extends React.Component {
             });
             return;
         } else {
+            this.setState({ errorMessage: '' });
             this.props.onClickNext();
         }
     }
 
     render() {
-        const { utterance, onClickNext, onClickBack } = this.props;
-        const { flows, selectedFlows } = this.state;
+        const { utterance, onClickBack } = this.props;
+        const { flows, selectedFlows, errorMessage } = this.state;
 
         return (
             <div className="verification page">
@@ -101,6 +104,9 @@ export default class Complex extends React.Component {
                                     </div>
                                 ))}
                             </div>
+                            <div className="text-danger mt-3">
+                                {errorMessage}
+                            </div>
                         </div>
                     </div>
                     <div className="row mb-3">
@@ -116,7 +122,7 @@ export default class Complex extends React.Component {
                                 <button
                                     type="button"
                                     className="btn btn-primary btn-lg px-4"
-                                    onClick={onClickNext}
+                                    onClick={this.handleClickNext}
                                 >
                                     <i className="bi bi-chevron-right" />
                                 </button>
