@@ -2,14 +2,15 @@
  * https://www.w3schools.com/howto/howto_css_devices.asp
  */
 
-import React from "react";
-import "./Device.scss";
+import React from 'react';
+import AppBox from './AppBox';
+import './Device.scss';
 
 export default class Device extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectAppIndex: null,
+            selectAppIndex: null
         };
         this.handleClickApp = this.handleClickApp.bind(this);
         this.handleCloseApp = this.handleCloseApp.bind(this);
@@ -23,7 +24,7 @@ export default class Device extends React.Component {
             return;
         }
 
-        const index = parseInt(e.currentTarget.getAttribute("data-app-index"));
+        const index = parseInt(e.currentTarget.getAttribute('data-app-index'));
         this.setState({ selectAppIndex: index });
     }
 
@@ -40,47 +41,37 @@ export default class Device extends React.Component {
             html.push(
                 <div className="row" key={i}>
                     <div
-                        className="col-sm-4 app"
+                        className="col-sm-4 app-container"
                         data-app-index={i}
                         onClick={this.handleClickApp}
                     >
-                        <div className="app-icon text-center">
-                            <span className={`bi bi-${apps[i]["icon"]}`} />
-                        </div>
-                        <div className="app-name text-center">
-                            {apps[i]["name"]}
-                        </div>
+                        <AppBox
+                            appName={apps[i]['name']}
+                            appIcon={apps[i]['icon']}
+                        />
                     </div>
                     {i + 1 < apps.length && (
                         <div
-                            className="col-sm-4 app"
+                            className="col-sm-4 app-container"
                             data-app-index={i + 1}
                             onClick={this.handleClickApp}
                         >
-                            <div className="app-icon text-center">
-                                <span
-                                    className={`bi bi-${apps[i + 1]["icon"]}`}
-                                />
-                            </div>
-                            <div className="app-name text-center">
-                                {apps[i + 1]["name"]}
-                            </div>
+                            <AppBox
+                                appName={apps[i + 1]['name']}
+                                appIcon={apps[i + 1]['icon']}
+                            />
                         </div>
                     )}
                     {i + 2 < apps.length && (
                         <div
-                            className="col-sm-4 app"
+                            className="col-sm-4 app-container"
                             data-app-index={i + 2}
                             onClick={this.handleClickApp}
                         >
-                            <div className="app-icon text-center">
-                                <span
-                                    className={`bi bi-${apps[i + 2]["icon"]}`}
-                                />
-                            </div>
-                            <div className="app-name text-center">
-                                {apps[i + 2]["name"]}
-                            </div>
+                            <AppBox
+                                appName={apps[i + 2]['name']}
+                                appIcon={apps[i + 2]['icon']}
+                            />
                         </div>
                     )}
                 </div>
@@ -105,10 +96,10 @@ export default class Device extends React.Component {
                                 <span className="bi bi-x-circle" />
                             </div>
                             <h3>
-                                <span className={`bi bi-${app["icon"]}`} />
-                                {app["name"]}
+                                <span className={`bi bi-${app['icon']}`} />
+                                {app['name']}
                             </h3>
-                            <p>{app["about"]}</p>
+                            <p>{app['about']}</p>
                         </div>
                     </div>
                 </div>

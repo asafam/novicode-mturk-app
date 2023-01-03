@@ -1,0 +1,15 @@
+.app-box {
+    font-size: 1rem;
+    height: 110px;
+    width: 95px;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+
+    .app-icon {
+        height: 50%;
+        font-size: 2rem;
+        background: lightskyblue;
+        border-radius: 8px;
+    }
+}

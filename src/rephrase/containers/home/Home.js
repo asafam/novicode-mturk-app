@@ -6,7 +6,7 @@ export default class Home extends React.Component {
         const { onClickSkip } = this.props;
 
         return (
-            <div className="home">
+            <div className="home page">
                 <div className="container">
                     <div className="row">
                         <div className="col">

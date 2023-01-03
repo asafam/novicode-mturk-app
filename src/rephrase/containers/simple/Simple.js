@@ -48,7 +48,7 @@ export default class Simple extends React.Component {
         const examples = showExamples ? this.getExamples() : null;
 
         return (
-            <div className="simple">
+            <div className="simple page">
                 <div className="container">
                     <Command
                         title={title}

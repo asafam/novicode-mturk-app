@@ -35,12 +35,12 @@ export default class Command extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="row body">
+                <div className="row">
                     <div className="col">
                         <Device showAppHelp={showAppHelp} apps={apps} />
                     </div>
                     {hasExamples && (
-                        <div className="col">
+                        <div className="col examples-container">
                             <Examples examples={examples} apps={apps} />
                         </div>
                     )}

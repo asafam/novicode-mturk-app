@@ -1,21 +1,21 @@
-import React from "react";
-import AppModal from "../Modal";
-import Command from "../../components/command/Command";
-import HelpFlows from "../../components/help/HelpFlows";
-import "./Complex.scss";
+import React from 'react';
+import AppModal from '../Modal';
+import Command from '../../components/command/Command';
+import HelpFlows from '../../components/help/HelpFlows';
+import './Complex.scss';
 
 export default class Complex extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showHelpFlows: false,
+            showHelpFlows: false
         };
 
         this.handleClickHelpFlows = this.handleClickHelpFlows.bind(this);
     }
 
     getTitle() {
-        return "Complex commands";
+        return 'Complex commands';
     }
 
     getDescription(minimalDescription = false) {
@@ -23,10 +23,10 @@ export default class Complex extends React.Component {
             <p>
                 A <span className="bold">Complex command</span> allows you to
                 request multiple simple commands in a <u>single</u> command from
-                your virtual assistant.{" "}
+                your virtual assistant.{' '}
                 {!minimalDescription && (
                     <span>
-                        Commands can be expressed in{" "}
+                        Commands can be expressed in{' '}
                         <span
                             className="flow"
                             onClick={this.handleClickHelpFlows}
@@ -34,14 +34,14 @@ export default class Complex extends React.Component {
                         >
                             multiplicity
                         </span>
-                        ,{" "}
+                        ,{' '}
                         <span
                             className="flow"
                             onClick={this.handleClickHelpFlows}
                             data-id="sequence"
                         >
                             sequence
-                        </span>{" "}
+                        </span>{' '}
                         and
                         <span
                             className="flow"
@@ -60,27 +60,27 @@ export default class Complex extends React.Component {
     getExamples() {
         return [
             {
-                title: "Text coach Nick that I will be late and ask Lauren if I left my keys in her car",
-                caption: "Sequence",
+                title: 'Text coach Nick that I will be late and ask Lauren if I left my keys in her car',
+                caption: 'Sequence'
             },
             {
-                title: "Is there a Coldplay concert in the park in July, August or September?",
-                caption: "Multiplicity",
+                title: 'Is there a Coldplay concert in the park in July, August or September?',
+                caption: 'Multiplicity'
             },
             {
-                title: "In case it will be hot tomorrow morning, text my sister that I will need to use my car at that time",
-                caption: "Condition",
+                title: 'In case it will be hot tomorrow morning, text my sister that I will need to use my car at that time',
+                caption: 'Condition'
             },
             {
-                title: "As I leave now to Shakespeare in the Park let everyone on my friends list know if I will be late and block my calendar at that time",
-                caption: "Condition, Multiplicity & Sequence",
-            },
+                title: 'As I leave now to Shakespeare in the Park let everyone on my friends list know if I will be late and block my calendar at that time',
+                caption: 'Condition, Multiplicity & Sequence'
+            }
         ];
     }
 
     handleClickHelpFlows(event) {
         event.preventDefault();
-        const selectedFlow = event.target.getAttribute("data-id");
+        const selectedFlow = event.target.getAttribute('data-id');
         this.setState({ showHelpFlows: true, selectedFlow });
     }
 
@@ -91,7 +91,7 @@ export default class Complex extends React.Component {
             showAppHelp,
             excludedApps,
             onClickNext,
-            onClickBack,
+            onClickBack
         } = this.props;
         const { showHelpFlows, selectedFlow } = this.state;
         const title = this.getTitle();
@@ -110,7 +110,7 @@ export default class Complex extends React.Component {
         }
 
         return (
-            <div className="complex">
+            <div className="complex page">
                 <div className="container">
                     <Command
                         title={title}

@@ -7,6 +7,7 @@ import { getApps } from '../../data/apps.js';
 import { getInstructions } from '../../data/instructions';
 import RephraseUtterances from './RephraseUtterances';
 import RequestedFlows from './RequestedFlows';
+import ExcludedApps from './ExcludedApps';
 import ExcludedTerms from './ExcludedTerms';
 import UtteranceInput from './UtteranceInput';
 import './Utterance.scss';
@@ -14,11 +15,11 @@ import './Utterance.scss';
 export default class Utterance extends React.Component {
     constructor(props) {
         super(props);
-        const { utterance, context } = props;
+        const { utterance, context, excludedApps } = props;
         this.state = {
             utterance,
             context: context,
-            apps: getApps(true, props.excludedApps)
+            apps: getApps(true, excludedApps)
         };
 
         this.handleClickNext = this.handleClickNext.bind(this);
@@ -218,6 +219,7 @@ export default class Utterance extends React.Component {
             rephraseUtterances,
             utteranceLimit,
             excludedTerms,
+            excludedApps,
             flows,
             showAppHelp,
             mode,
@@ -294,6 +296,10 @@ export default class Utterance extends React.Component {
 
                             {excludedTerms && excludedTerms.length > 0 && (
                                 <ExcludedTerms excludedTerms={excludedTerms} />
+                            )}
+
+                            {excludedApps && excludedApps.length > 0 && (
+                                <ExcludedApps apps={getApps().filter(app => excludedApps.indexOf(app['id']) !== -1)} />
                             )}
 
                             <UtteranceInput
