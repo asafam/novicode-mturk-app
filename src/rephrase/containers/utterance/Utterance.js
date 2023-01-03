@@ -4,7 +4,7 @@ import Device from '../../components/device/Device';
 import Help from '../../components/help/Help';
 import HelpFlows from '../../components/help/HelpFlows';
 import { getApps } from '../../data/apps.js';
-import { getInstructions } from '../../data/instructions';
+import { getTaskDescription } from '../../data/tasks';
 import RephraseUtterances from './RephraseUtterances';
 import RequestedFlows from './RequestedFlows';
 import ExcludedApps from './ExcludedApps';
@@ -234,7 +234,7 @@ export default class Utterance extends React.Component {
             selectedFlow,
             apps
         } = this.state;
-        const instruction = getInstructions(mode);
+        const taskDescription = getTaskDescription(mode);
 
         if (showHelp) {
             return (
@@ -270,7 +270,7 @@ export default class Utterance extends React.Component {
                                     </span>
                                     Write a Complex Command
                                 </h1>
-                                <div>{instruction}</div>
+                                <div>{taskDescription}</div>
                             </div>
                         </div>
                     </div>
@@ -299,7 +299,13 @@ export default class Utterance extends React.Component {
                             )}
 
                             {excludedApps && excludedApps.length > 0 && (
-                                <ExcludedApps apps={getApps().filter(app => excludedApps.indexOf(app['id']) !== -1)} />
+                                <ExcludedApps
+                                    apps={getApps().filter(
+                                        (app) =>
+                                            excludedApps.indexOf(app['id']) !==
+                                            -1
+                                    )}
+                                />
                             )}
 
                             <UtteranceInput

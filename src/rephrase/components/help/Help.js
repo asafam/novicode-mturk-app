@@ -1,14 +1,15 @@
 import React from 'react';
-import { getInstructions } from '../../data/instructions';
+import { getTaskDescription } from '../../data/tasks';
 import Examples from '../examples/Examples';
+import { getExamples } from '../../data/examples';
 import './Help.scss';
 
 export default class Instructions extends React.Component {
     getTitle(mode) {
         if (mode === 'rewrite-simple-complex') {
             return <span>Rewrite a Simple Command as a Complex Command</span>;
-        } else if (mode === 'rephrase') {
-            return <span>Rephrase a Complex Command</span>;
+        } else if (mode === 'rewrite-complex-different-apps') {
+            return <span>Rewrite a Complex Command in Different Apps</span>;
         } else {
             return <span>Write a Complex Command</span>;
         }
@@ -44,66 +45,46 @@ export default class Instructions extends React.Component {
     }
 
     getExamples(mode) {
-        if (mode === 'rewrite-simple-complex') {
-            return [
-                {
+        const examples = getExamples(mode);
+        switch (mode) {
+            case 'rewrite-complex-different-apps':
+                return examples.map((example) => ({
+                    title: (
+                        <div>
+                            <p>
+                                <span className="label text-blue">
+                                    Original:
+                                </span>
+                                {example['complexOrig']}
+                            </p>
+                            <p>
+                                <span className="label text-purple">New:</span>
+                                {example['complexNew']}
+                            </p>
+                        </div>
+                    ),
+                    caption: example['caption']
+                }));
+            case 'rewrite-simple-complex':
+                return examples.map((example) => ({
                     title: (
                         <div>
                             <p>
                                 <span className="label text-blue">Simple:</span>
-                                Will it rain tomorrow?
+                                {example['simple']}
                             </p>
                             <p>
                                 <span className="label text-purple">
                                     Complex:
                                 </span>
-                                Remind me to bring an umbrella if it rains
-                                tomorrow in Manhattan.
+                                {example['complex']}
                             </p>
                         </div>
                     ),
-                    caption: 'Turn to a Condition'
-                },
-                {
-                    title: (
-                        <div>
-                            <p>
-                                <span className="label text-blue">Simple:</span>
-                                Route to the mall?
-                            </p>
-                            <p>
-                                <span className="label text-purple">
-                                    Complex:
-                                </span>
-                                Route to the mall and from the mall to the
-                                doctor's office.
-                            </p>
-                        </div>
-                    ),
-                    caption: 'Turn to a Sequence'
-                },
-                {
-                    title: (
-                        <div>
-                            <p>
-                                <span className="label text-blue">Simple:</span>
-                                Remove reminder to pick up my sister.
-                            </p>
-                            <p>
-                                <span className="label text-purple">
-                                    Complex:
-                                </span>
-                                Remove all reminders for this week to pick up my
-                                sister.
-                            </p>
-                        </div>
-                    ),
-                    caption: 'Turn to a Repitition'
-                }
-            ];
-        } else if (mode === 'rephrase') {
-        } else {
-            return null;
+                    caption: example['caption']
+                }));
+            default:
+                return [];
         }
     }
 
@@ -111,7 +92,7 @@ export default class Instructions extends React.Component {
         const { mode } = this.props;
         const title = this.getTitle(mode);
         const requirements = this.getRequirments();
-        const instruction = getInstructions(mode);
+        const taskDescription = getTaskDescription(mode);
         const examples = this.getExamples(mode);
 
         return (
@@ -123,13 +104,13 @@ export default class Instructions extends React.Component {
                                 <span className="title-small">Your task:</span>
                                 {title}
                             </h1>
-                            <div>{instruction}</div>
+                            <div>{taskDescription}</div>
                         </div>
                     </div>
                 </div>
                 {examples && (
                     <div className="row examples">
-                        <Examples examples={examples} />
+                        <Examples examples={examples} interval={10000} />
                     </div>
                 )}
                 <div className="row">

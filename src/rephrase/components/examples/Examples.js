@@ -13,14 +13,14 @@ export default class Examples extends React.Component {
     }
 
     render() {
-        const { examples } = this.props;
+        const { examples, interval } = this.props;
 
         return (
             <div className="example">
                 <div className="col align-self-center">
                     <h5 className="examples-header">Examples:</h5>
                     <div className="card card-block instruction-examples">
-                        <Carousel variant="dark" interval="10000">
+                        <Carousel variant="dark" interval={interval || "1000"}>
                             {examples.map((example, i) => (
                                 <Carousel.Item
                                     className="instruction-example positive-example"

@@ -1,13 +1,24 @@
-export const getInstructions = (mode) => {
+export const getTaskDescription = (mode) => {
     switch (mode) {
         case 'paraphrase':
             return (
                 <p>
                     You will be given an example of a Complex command. You are
-                    requested to write a complex command that is similar to the
+                    requested to write a Complex command that is similar to the
                     example, but different in some way. You can change the app,
-                    the action, the object, or the context.The overall structure
-                    of the complex command should remain the same.
+                    the action, the object, or the context. The overall
+                    structure of the complex command should remain the same.
+                </p>
+            );
+        case 'rewrite-complex-different-apps':
+            return (
+                <p>
+                    You will be given a valid{' '}
+                    <span className="bold">Complex command</span> that
+                    incorporates one or more Simple app commands in a Sequence,
+                    Condition, or Multiplicity. Modify the Complex command to
+                    use different apps, while keeping the same format. You can
+                    change the apps used, the details, or the context.
                 </p>
             );
         case 'rewrite-simple-complex':
