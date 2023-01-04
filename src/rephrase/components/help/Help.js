@@ -1,20 +1,10 @@
 import React from 'react';
-import { getTaskDescription } from '../../data/tasks';
+import { getTaskTitle, getTaskDescription } from '../../data/tasks';
 import Examples from '../examples/Examples';
 import { getExamples } from '../../data/examples';
 import './Help.scss';
 
 export default class Instructions extends React.Component {
-    getTitle(mode) {
-        if (mode === 'rewrite-simple-complex') {
-            return <span>Rewrite a Simple Command as a Complex Command</span>;
-        } else if (mode === 'rewrite-complex-different-apps') {
-            return <span>Rewrite a Complex Command in Different Apps</span>;
-        } else {
-            return <span>Write a Complex Command</span>;
-        }
-    }
-
     getRequirments() {
         return [
             {
@@ -90,10 +80,10 @@ export default class Instructions extends React.Component {
 
     render() {
         const { mode } = this.props;
-        const title = this.getTitle(mode);
-        const requirements = this.getRequirments();
+        const title = getTaskTitle(mode);
         const taskDescription = getTaskDescription(mode);
         const examples = this.getExamples(mode);
+        const requirements = this.getRequirments();
 
         return (
             <div className="help page">
