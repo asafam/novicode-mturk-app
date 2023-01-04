@@ -1,3 +1,14 @@
+export const getTaskTitle = (mode) => {
+    switch (mode) {
+        case 'rewrite-complex-different-apps':
+            return 'Modify a Complex Command';
+        case 'rewrite-simple-complex':
+            return 'Rewrite as a Complex Command';
+        default:
+            return 'Write a Complex Command';
+    }
+};
+
 export const getTaskDescription = (mode) => {
     switch (mode) {
         case 'paraphrase':

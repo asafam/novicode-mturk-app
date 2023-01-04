@@ -4,7 +4,7 @@ import Device from '../../components/device/Device';
 import Help from '../../components/help/Help';
 import HelpFlows from '../../components/help/HelpFlows';
 import { getApps } from '../../data/apps.js';
-import { getTaskDescription } from '../../data/tasks';
+import { getTaskTitle, getTaskDescription } from '../../data/tasks';
 import RephraseUtterances from './RephraseUtterances';
 import RequestedFlows from './RequestedFlows';
 import ExcludedApps from './ExcludedApps';
@@ -234,6 +234,7 @@ export default class Utterance extends React.Component {
             selectedFlow,
             apps
         } = this.state;
+        const taskTitle = getTaskTitle(mode);
         const taskDescription = getTaskDescription(mode);
 
         if (showHelp) {
@@ -268,7 +269,7 @@ export default class Utterance extends React.Component {
                                     <span className="title-small">
                                         Your task:
                                     </span>
-                                    Write a Complex Command
+                                    {taskTitle}
                                 </h1>
                                 <div>{taskDescription}</div>
                             </div>
