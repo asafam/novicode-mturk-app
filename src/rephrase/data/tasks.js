@@ -17,8 +17,11 @@ export const getTaskDescription = (mode) => {
                     <span className="bold">Complex command</span> that
                     incorporates one or more Simple app commands in a Sequence,
                     Condition, or Multiplicity. Modify the Complex command to
-                    use different apps, while keeping the same format. You can
-                    change the apps used, the details, or the context.
+                    use different apps,{' '}
+                    <span className="bold text-red">
+                        while keeping the same format
+                    </span>
+                    . You can change the apps used, the details, or the context.
                 </p>
             );
         case 'rewrite-simple-complex':

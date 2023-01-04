@@ -8,9 +8,8 @@ const getInstruction = (mode, numOfRephrasedUtterances = 1) => {
                 <p>
                     {numOfRephrasedUtterances > 1 ? (
                         <span>
-                            Select
-                            <span className="bold">any</span> of the following{' '}
-                            <span>Complex commands</span>
+                            Select <span className="bold">any</span> of the
+                            following <span>Complex commands</span>
                         </span>
                     ) : (
                         <span>
@@ -26,9 +25,8 @@ const getInstruction = (mode, numOfRephrasedUtterances = 1) => {
                 <p>
                     {numOfRephrasedUtterances > 1 ? (
                         <span>
-                            Select
-                            <span className="bold">any</span> of the following{' '}
-                            <span>Simple commands</span>
+                            Select <span className="bold">any</span> of the
+                            following <span>Simple commands</span>
                         </span>
                     ) : (
                         <span>
